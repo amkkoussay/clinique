@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}Sign In - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block public_content %}
+<div class="auth-page">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <a href="{{ url_for('main.index') }}" class="logo">
+                    <i class="fas fa-heart-pulse"></i>
+                    <span>{{ config.CLINIC_NAME }}</span>
+                </a>
+                <h1>Welcome Back</h1>
+                <p>Sign in to access your dashboard</p>
+            </div>
+            
+            <form method="POST" action="{{ url_for('auth.login') }}" class="auth-form">
+                {{ form.hidden_tag() }}
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-group">
+                        <span class="input-icon">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                        {{ form.email(class="form-control", placeholder="Enter your email") }}
+                    </div>
+                    {% if form.email.errors %}
+                        <span class="error-message">{{ form.email.errors[0] }}</span>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-group">
+                        <span class="input-icon">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                        {{ form.password(class="form-control", placeholder="Enter your password") }}
+                        <button type="button" class="password-toggle" onclick="togglePassword(this)">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    {% if form.password.errors %}
+                        <span class="error-message">{{ form.password.errors[0] }}</span>
+                    {% endif %}
+                </div>
+                
+                <div class="form-options">
+                    <label class="checkbox-label">
+                        {{ form.remember_me }}
+                        <span>Remember me</span>
+                    </label>
+                    <a href="{{ url_for('auth.reset_password_request') }}" class="forgot-link">
+                        Forgot password?
+                    </a>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Sign In
+                </button>
+            </form>
+            
+            <div class="auth-footer">
+                <p>Don't have an account? 
+                    <a href="{{ url_for('auth.register') }}">Sign up</a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="auth-features">
+            <div class="feature-item">
+                <i class="fas fa-shield-alt"></i>
+                <div>
+                    <h4>Secure & Private</h4>
+                    <p>Your data is protected with enterprise-grade security</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-bolt"></i>
+                <div>
+                    <h4>Fast & Reliable</h4>
+                    <p>Access your practice data from anywhere, anytime</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-headset"></i>
+                <div>
+                    <h4>24/7 Support</h4>
+                    <p>Our team is here to help you succeed</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function togglePassword(btn) {
+    const input = btn.parentElement.querySelector('input');
+    const icon = btn.querySelector('i');
+    
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+    } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+    }
+}
+</script>
+{% endblock %}

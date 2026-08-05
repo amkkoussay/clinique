@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <h2>Medical Services</h2>
+    <table class="table">
+        <thead><tr><th>Service</th><th>Price</th></tr></thead>
+        <tbody>{% for service in services %}<tr><td>{{ service.name }}</td><td>{{ service.price }}</td></tr>{% endfor %}</tbody>
+    </table>
+</div>
+{% endblock %}

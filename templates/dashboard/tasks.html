@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <h2>Tasks</h2>
+    <ul>{% for t in tasks %}<li>{{ t.title }} - {{ t.status }}</li>{% endfor %}</ul>
+</div>
+{% endblock %}

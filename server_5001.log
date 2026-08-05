@@ -1,0 +1,817 @@
+2026-08-05 20:37:23,227 - app - INFO - Blueprints registered successfully
+2026-08-05 20:37:23,227 - app - INFO - Template filters registered successfully
+2026-08-05 20:37:23,227 - app - INFO - Error handlers registered successfully
+2026-08-05 20:37:23,227 - app - INFO - Request handlers registered successfully
+2026-08-05 20:37:23,228 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-08-05 20:37:23,228 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-08-05 20:37:23,228 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("users")
+2026-08-05 20:37:23,228 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2026-08-05 20:37:23,228 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-05 20:37:23,228 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-08-05 20:37:23,229 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("patients")
+2026-08-05 20:37:23,229 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("patients")
+2026-08-05 20:37:23,230 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-05 20:37:23,230 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-08-05 20:37:23,230 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("appointments")
+2026-08-05 20:37:23,230 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("appointments")
+2026-08-05 20:37:23,230 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-05 20:37:23,230 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-08-05 20:37:23,230 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("medical_records")
+2026-08-05 20:37:23,230 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("medical_records")
+2026-08-05 20:37:23,230 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-05 20:37:23,230 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-08-05 20:37:23,230 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("prescriptions")
+2026-08-05 20:37:23,230 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("prescriptions")
+2026-08-05 20:37:23,230 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-05 20:37:23,230 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-08-05 20:37:23,230 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("prescription_items")
+2026-08-05 20:37:23,230 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("prescription_items")
+2026-08-05 20:37:23,231 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-05 20:37:23,231 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-08-05 20:37:23,231 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("lab_tests")
+2026-08-05 20:37:23,231 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("lab_tests")
+2026-08-05 20:37:23,231 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-05 20:37:23,231 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-08-05 20:37:23,231 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("vital_signs")
+2026-08-05 20:37:23,231 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("vital_signs")
+2026-08-05 20:37:23,231 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-05 20:37:23,231 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-08-05 20:37:23,231 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("patient_documents")
+2026-08-05 20:37:23,231 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("patient_documents")
+2026-08-05 20:37:23,231 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-05 20:37:23,231 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-08-05 20:37:23,231 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("invoices")
+2026-08-05 20:37:23,231 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("invoices")
+2026-08-05 20:37:23,231 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-05 20:37:23,231 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-08-05 20:37:23,231 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("invoice_items")
+2026-08-05 20:37:23,231 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("invoice_items")
+2026-08-05 20:37:23,232 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-05 20:37:23,232 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-08-05 20:37:23,232 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("payments")
+2026-08-05 20:37:23,232 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("payments")
+2026-08-05 20:37:23,232 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-05 20:37:23,232 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-08-05 20:37:23,232 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("services")
+2026-08-05 20:37:23,232 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("services")
+2026-08-05 20:37:23,232 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-05 20:37:23,232 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-08-05 20:37:23,232 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("audit_logs")
+2026-08-05 20:37:23,232 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("audit_logs")
+2026-08-05 20:37:23,232 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-05 20:37:23,232 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-08-05 20:37:23,232 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("chatbot_conversations")
+2026-08-05 20:37:23,232 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("chatbot_conversations")
+2026-08-05 20:37:23,232 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-05 20:37:23,232 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-08-05 20:37:23,232 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("medicines")
+2026-08-05 20:37:23,232 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("medicines")
+2026-08-05 20:37:23,232 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-05 20:37:23,232 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-08-05 20:37:23,233 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("notifications")
+2026-08-05 20:37:23,233 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("notifications")
+2026-08-05 20:37:23,233 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-05 20:37:23,233 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-08-05 20:37:23,233 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("tasks")
+2026-08-05 20:37:23,233 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("tasks")
+2026-08-05 20:37:23,233 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-05 20:37:23,233 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-08-05 20:37:23,233 INFO sqlalchemy.engine.Engine COMMIT
+2026-08-05 20:37:23,233 - sqlalchemy.engine.Engine - INFO - COMMIT
+2026-08-05 20:37:23,233 - app - INFO - Database tables created successfully
+ * Debug mode: off
+2026-08-05 20:37:23,235 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5001
+2026-08-05 20:37:23,235 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-08-05 20:37:23,477 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:37:23] "GET / HTTP/1.1" 200 -
+2026-08-05 20:37:23,514 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:37:23] "GET /static/css/style.css HTTP/1.1" 200 -
+2026-08-05 20:37:23,515 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:37:23] "GET /static/js/main.js HTTP/1.1" 200 -
+2026-08-05 20:37:24,440 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:37:24] "[32mGET /api/notifications/unread-count HTTP/1.1[0m" 302 -
+2026-08-05 20:37:24,461 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:37:24] "GET /auth/login?next=/api/notifications/unread-count HTTP/1.1" 200 -
+2026-08-05 20:37:24,817 - app - WARNING - Page not found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2026-08-05 20:37:24,820 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:37:24] "[33mGET /static/img/favicon.svg HTTP/1.1[0m" 404 -
+2026-08-05 20:37:41,597 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:37:41] "GET / HTTP/1.1" 200 -
+2026-08-05 20:37:41,624 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:37:41] "GET /static/js/main.js HTTP/1.1" 200 -
+2026-08-05 20:37:41,625 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:37:41] "GET /static/css/style.css HTTP/1.1" 200 -
+2026-08-05 20:37:42,114 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:37:42] "[32mGET /api/notifications/unread-count HTTP/1.1[0m" 302 -
+2026-08-05 20:37:42,119 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:37:42] "GET /auth/login?next=/api/notifications/unread-count HTTP/1.1" 200 -
+2026-08-05 20:37:42,474 - app - WARNING - Page not found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2026-08-05 20:37:42,475 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:37:42] "[33mGET /static/img/favicon.svg HTTP/1.1[0m" 404 -
+2026-08-05 20:37:43,166 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:37:43] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-08-05 20:37:53,205 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:37:53] "GET /auth/login HTTP/1.1" 200 -
+2026-08-05 20:37:53,230 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:37:53] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-08-05 20:37:53,231 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:37:53] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-08-05 20:37:53,263 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:37:53] "[32mGET /api/notifications/unread-count HTTP/1.1[0m" 302 -
+2026-08-05 20:37:53,267 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:37:53] "GET /auth/login?next=/api/notifications/unread-count HTTP/1.1" 200 -
+2026-08-05 20:37:54,013 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:37:54] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-08-05 20:38:05,307 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-08-05 20:38:05,307 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-08-05 20:38:05,311 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.uuid AS users_uuid, users.email AS users_email, users.password_hash AS users_password_hash, users.first_name AS users_first_name, users.last_name AS users_last_name, users.phone AS users_phone, users.role AS users_role, users.specialization AS users_specialization, users.license_number AS users_license_number, users.is_active AS users_is_active, users.last_login AS users_last_login, users.created_at AS users_created_at, users.updated_at AS users_updated_at 
+FROM users 
+WHERE users.email = ?
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:05,311 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.uuid AS users_uuid, users.email AS users_email, users.password_hash AS users_password_hash, users.first_name AS users_first_name, users.last_name AS users_last_name, users.phone AS users_phone, users.role AS users_role, users.specialization AS users_specialization, users.license_number AS users_license_number, users.is_active AS users_is_active, users.last_login AS users_last_login, users.created_at AS users_created_at, users.updated_at AS users_updated_at 
+FROM users 
+WHERE users.email = ?
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:05,311 INFO sqlalchemy.engine.Engine [generated in 0.00025s] ('admin@clinic.com', 1, 0)
+2026-08-05 20:38:05,311 - sqlalchemy.engine.Engine - INFO - [generated in 0.00025s] ('admin@clinic.com', 1, 0)
+2026-08-05 20:38:05,749 INFO sqlalchemy.engine.Engine UPDATE users SET last_login=?, updated_at=? WHERE users.id = ?
+2026-08-05 20:38:05,749 - sqlalchemy.engine.Engine - INFO - UPDATE users SET last_login=?, updated_at=? WHERE users.id = ?
+2026-08-05 20:38:05,749 INFO sqlalchemy.engine.Engine [generated in 0.00032s] ('2026-08-05 20:38:05.746623', '2026-08-05 20:38:05.749088', 1)
+2026-08-05 20:38:05,749 - sqlalchemy.engine.Engine - INFO - [generated in 0.00032s] ('2026-08-05 20:38:05.746623', '2026-08-05 20:38:05.749088', 1)
+2026-08-05 20:38:05,749 INFO sqlalchemy.engine.Engine COMMIT
+2026-08-05 20:38:05,749 - sqlalchemy.engine.Engine - INFO - COMMIT
+2026-08-05 20:38:05,751 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-08-05 20:38:05,751 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-08-05 20:38:05,752 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.uuid AS users_uuid, users.email AS users_email, users.password_hash AS users_password_hash, users.first_name AS users_first_name, users.last_name AS users_last_name, users.phone AS users_phone, users.role AS users_role, users.specialization AS users_specialization, users.license_number AS users_license_number, users.is_active AS users_is_active, users.last_login AS users_last_login, users.created_at AS users_created_at, users.updated_at AS users_updated_at 
+FROM users 
+WHERE users.id = ?
+2026-08-05 20:38:05,752 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.uuid AS users_uuid, users.email AS users_email, users.password_hash AS users_password_hash, users.first_name AS users_first_name, users.last_name AS users_last_name, users.phone AS users_phone, users.role AS users_role, users.specialization AS users_specialization, users.license_number AS users_license_number, users.is_active AS users_is_active, users.last_login AS users_last_login, users.created_at AS users_created_at, users.updated_at AS users_updated_at 
+FROM users 
+WHERE users.id = ?
+2026-08-05 20:38:05,752 INFO sqlalchemy.engine.Engine [generated in 0.00021s] (1,)
+2026-08-05 20:38:05,752 - sqlalchemy.engine.Engine - INFO - [generated in 0.00021s] (1,)
+2026-08-05 20:38:05,755 INFO sqlalchemy.engine.Engine INSERT INTO audit_logs (user_id, user_email, action, entity_type, entity_id, description, ip_address, user_agent, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-08-05 20:38:05,755 - sqlalchemy.engine.Engine - INFO - INSERT INTO audit_logs (user_id, user_email, action, entity_type, entity_id, description, ip_address, user_agent, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-08-05 20:38:05,755 INFO sqlalchemy.engine.Engine [generated in 0.00020s] (1, 'admin@clinic.com', 'login', None, None, 'User admin@clinic.com logged in', '127.0.0.1', None, '2026-08-05 20:38:05.755016')
+2026-08-05 20:38:05,755 - sqlalchemy.engine.Engine - INFO - [generated in 0.00020s] (1, 'admin@clinic.com', 'login', None, None, 'User admin@clinic.com logged in', '127.0.0.1', None, '2026-08-05 20:38:05.755016')
+2026-08-05 20:38:05,755 INFO sqlalchemy.engine.Engine COMMIT
+2026-08-05 20:38:05,755 - sqlalchemy.engine.Engine - INFO - COMMIT
+2026-08-05 20:38:05,756 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-08-05 20:38:05,756 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-08-05 20:38:05,757 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.uuid AS users_uuid, users.email AS users_email, users.password_hash AS users_password_hash, users.first_name AS users_first_name, users.last_name AS users_last_name, users.phone AS users_phone, users.role AS users_role, users.specialization AS users_specialization, users.license_number AS users_license_number, users.is_active AS users_is_active, users.last_login AS users_last_login, users.created_at AS users_created_at, users.updated_at AS users_updated_at 
+FROM users 
+WHERE users.id = ?
+2026-08-05 20:38:05,757 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.uuid AS users_uuid, users.email AS users_email, users.password_hash AS users_password_hash, users.first_name AS users_first_name, users.last_name AS users_last_name, users.phone AS users_phone, users.role AS users_role, users.specialization AS users_specialization, users.license_number AS users_license_number, users.is_active AS users_is_active, users.last_login AS users_last_login, users.created_at AS users_created_at, users.updated_at AS users_updated_at 
+FROM users 
+WHERE users.id = ?
+2026-08-05 20:38:05,757 INFO sqlalchemy.engine.Engine [cached since 0.004484s ago] (1,)
+2026-08-05 20:38:05,757 - sqlalchemy.engine.Engine - INFO - [cached since 0.004484s ago] (1,)
+2026-08-05 20:38:05,758 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-08-05 20:38:05,758 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2026-08-05 20:38:05,758 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:38:05] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2026-08-05 20:38:05,764 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-08-05 20:38:05,764 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-08-05 20:38:05,765 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.uuid AS users_uuid, users.email AS users_email, users.password_hash AS users_password_hash, users.first_name AS users_first_name, users.last_name AS users_last_name, users.phone AS users_phone, users.role AS users_role, users.specialization AS users_specialization, users.license_number AS users_license_number, users.is_active AS users_is_active, users.last_login AS users_last_login, users.created_at AS users_created_at, users.updated_at AS users_updated_at 
+FROM users 
+WHERE users.id = ?
+2026-08-05 20:38:05,765 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.uuid AS users_uuid, users.email AS users_email, users.password_hash AS users_password_hash, users.first_name AS users_first_name, users.last_name AS users_last_name, users.phone AS users_phone, users.role AS users_role, users.specialization AS users_specialization, users.license_number AS users_license_number, users.is_active AS users_is_active, users.last_login AS users_last_login, users.created_at AS users_created_at, users.updated_at AS users_updated_at 
+FROM users 
+WHERE users.id = ?
+2026-08-05 20:38:05,765 INFO sqlalchemy.engine.Engine [generated in 0.00018s] (1,)
+2026-08-05 20:38:05,765 - sqlalchemy.engine.Engine - INFO - [generated in 0.00018s] (1,)
+2026-08-05 20:38:05,771 INFO sqlalchemy.engine.Engine SELECT count(*) AS count_1 
+FROM (SELECT patients.id AS patients_id, patients.uuid AS patients_uuid, patients.patient_id AS patients_patient_id, patients.first_name AS patients_first_name, patients.last_name AS patients_last_name, patients.date_of_birth AS patients_date_of_birth, patients.gender AS patients_gender, patients.blood_type AS patients_blood_type, patients.marital_status AS patients_marital_status, patients.occupation AS patients_occupation, patients.phone AS patients_phone, patients.email AS patients_email, patients.address AS patients_address, patients.emergency_contact_name AS patients_emergency_contact_name, patients.emergency_contact_phone AS patients_emergency_contact_phone, patients.insurance_provider AS patients_insurance_provider, patients.insurance_policy_number AS patients_insurance_policy_number, patients.insurance_group_number AS patients_insurance_group_number, patients.allergies AS patients_allergies, patients.chronic_conditions AS patients_chronic_conditions, patients.current_medications AS patients_current_medications, patients.family_history AS patients_family_history, patients.surgical_history AS patients_surgical_history, patients.is_active AS patients_is_active, patients.created_at AS patients_created_at, patients.updated_at AS patients_updated_at 
+FROM patients 
+WHERE patients.is_active = 1) AS anon_1
+2026-08-05 20:38:05,771 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT patients.id AS patients_id, patients.uuid AS patients_uuid, patients.patient_id AS patients_patient_id, patients.first_name AS patients_first_name, patients.last_name AS patients_last_name, patients.date_of_birth AS patients_date_of_birth, patients.gender AS patients_gender, patients.blood_type AS patients_blood_type, patients.marital_status AS patients_marital_status, patients.occupation AS patients_occupation, patients.phone AS patients_phone, patients.email AS patients_email, patients.address AS patients_address, patients.emergency_contact_name AS patients_emergency_contact_name, patients.emergency_contact_phone AS patients_emergency_contact_phone, patients.insurance_provider AS patients_insurance_provider, patients.insurance_policy_number AS patients_insurance_policy_number, patients.insurance_group_number AS patients_insurance_group_number, patients.allergies AS patients_allergies, patients.chronic_conditions AS patients_chronic_conditions, patients.current_medications AS patients_current_medications, patients.family_history AS patients_family_history, patients.surgical_history AS patients_surgical_history, patients.is_active AS patients_is_active, patients.created_at AS patients_created_at, patients.updated_at AS patients_updated_at 
+FROM patients 
+WHERE patients.is_active = 1) AS anon_1
+2026-08-05 20:38:05,771 INFO sqlalchemy.engine.Engine [generated in 0.00017s] ()
+2026-08-05 20:38:05,771 - sqlalchemy.engine.Engine - INFO - [generated in 0.00017s] ()
+2026-08-05 20:38:05,775 INFO sqlalchemy.engine.Engine SELECT count(*) AS count_1 
+FROM (SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE appointments.appointment_date = ?) AS anon_1
+2026-08-05 20:38:05,775 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE appointments.appointment_date = ?) AS anon_1
+2026-08-05 20:38:05,775 INFO sqlalchemy.engine.Engine [generated in 0.00017s] ('2026-08-05',)
+2026-08-05 20:38:05,775 - sqlalchemy.engine.Engine - INFO - [generated in 0.00017s] ('2026-08-05',)
+2026-08-05 20:38:05,780 INFO sqlalchemy.engine.Engine SELECT count(*) AS count_1 
+FROM (SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE appointments.appointment_date >= ? AND appointments.status IN (?, ?)) AS anon_1
+2026-08-05 20:38:05,780 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE appointments.appointment_date >= ? AND appointments.status IN (?, ?)) AS anon_1
+2026-08-05 20:38:05,780 INFO sqlalchemy.engine.Engine [generated in 0.00024s] ('2026-08-05', 'scheduled', 'confirmed')
+2026-08-05 20:38:05,780 - sqlalchemy.engine.Engine - INFO - [generated in 0.00024s] ('2026-08-05', 'scheduled', 'confirmed')
+2026-08-05 20:38:05,782 INFO sqlalchemy.engine.Engine SELECT sum(invoices.paid_amount) AS sum_1 
+FROM invoices 
+WHERE strftime(?, invoices.invoice_date) = ?
+2026-08-05 20:38:05,782 - sqlalchemy.engine.Engine - INFO - SELECT sum(invoices.paid_amount) AS sum_1 
+FROM invoices 
+WHERE strftime(?, invoices.invoice_date) = ?
+2026-08-05 20:38:05,782 INFO sqlalchemy.engine.Engine [generated in 0.00014s] ('%Y-%m', '2026-08')
+2026-08-05 20:38:05,782 - sqlalchemy.engine.Engine - INFO - [generated in 0.00014s] ('%Y-%m', '2026-08')
+2026-08-05 20:38:05,785 INFO sqlalchemy.engine.Engine SELECT count(*) AS count_1 
+FROM (SELECT tasks.id AS tasks_id, tasks.assigned_to AS tasks_assigned_to, tasks.assigned_by AS tasks_assigned_by, tasks.title AS tasks_title, tasks.description AS tasks_description, tasks.priority AS tasks_priority, tasks.status AS tasks_status, tasks.due_date AS tasks_due_date, tasks.completed_at AS tasks_completed_at, tasks.related_to_type AS tasks_related_to_type, tasks.related_to_id AS tasks_related_to_id, tasks.created_at AS tasks_created_at, tasks.updated_at AS tasks_updated_at 
+FROM tasks 
+WHERE tasks.status IN (?, ?)) AS anon_1
+2026-08-05 20:38:05,785 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT tasks.id AS tasks_id, tasks.assigned_to AS tasks_assigned_to, tasks.assigned_by AS tasks_assigned_by, tasks.title AS tasks_title, tasks.description AS tasks_description, tasks.priority AS tasks_priority, tasks.status AS tasks_status, tasks.due_date AS tasks_due_date, tasks.completed_at AS tasks_completed_at, tasks.related_to_type AS tasks_related_to_type, tasks.related_to_id AS tasks_related_to_id, tasks.created_at AS tasks_created_at, tasks.updated_at AS tasks_updated_at 
+FROM tasks 
+WHERE tasks.status IN (?, ?)) AS anon_1
+2026-08-05 20:38:05,785 INFO sqlalchemy.engine.Engine [generated in 0.00020s] ('pending', 'in_progress')
+2026-08-05 20:38:05,785 - sqlalchemy.engine.Engine - INFO - [generated in 0.00020s] ('pending', 'in_progress')
+2026-08-05 20:38:05,786 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE appointments.appointment_date = ? ORDER BY appointments.start_time
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:05,786 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE appointments.appointment_date = ? ORDER BY appointments.start_time
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:05,786 INFO sqlalchemy.engine.Engine [generated in 0.00017s] ('2026-08-05', 10, 0)
+2026-08-05 20:38:05,786 - sqlalchemy.engine.Engine - INFO - [generated in 0.00017s] ('2026-08-05', 10, 0)
+2026-08-05 20:38:05,788 INFO sqlalchemy.engine.Engine SELECT patients.id AS patients_id, patients.uuid AS patients_uuid, patients.patient_id AS patients_patient_id, patients.first_name AS patients_first_name, patients.last_name AS patients_last_name, patients.date_of_birth AS patients_date_of_birth, patients.gender AS patients_gender, patients.blood_type AS patients_blood_type, patients.marital_status AS patients_marital_status, patients.occupation AS patients_occupation, patients.phone AS patients_phone, patients.email AS patients_email, patients.address AS patients_address, patients.emergency_contact_name AS patients_emergency_contact_name, patients.emergency_contact_phone AS patients_emergency_contact_phone, patients.insurance_provider AS patients_insurance_provider, patients.insurance_policy_number AS patients_insurance_policy_number, patients.insurance_group_number AS patients_insurance_group_number, patients.allergies AS patients_allergies, patients.chronic_conditions AS patients_chronic_conditions, patients.current_medications AS patients_current_medications, patients.family_history AS patients_family_history, patients.surgical_history AS patients_surgical_history, patients.is_active AS patients_is_active, patients.created_at AS patients_created_at, patients.updated_at AS patients_updated_at 
+FROM patients ORDER BY patients.created_at DESC
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:05,788 - sqlalchemy.engine.Engine - INFO - SELECT patients.id AS patients_id, patients.uuid AS patients_uuid, patients.patient_id AS patients_patient_id, patients.first_name AS patients_first_name, patients.last_name AS patients_last_name, patients.date_of_birth AS patients_date_of_birth, patients.gender AS patients_gender, patients.blood_type AS patients_blood_type, patients.marital_status AS patients_marital_status, patients.occupation AS patients_occupation, patients.phone AS patients_phone, patients.email AS patients_email, patients.address AS patients_address, patients.emergency_contact_name AS patients_emergency_contact_name, patients.emergency_contact_phone AS patients_emergency_contact_phone, patients.insurance_provider AS patients_insurance_provider, patients.insurance_policy_number AS patients_insurance_policy_number, patients.insurance_group_number AS patients_insurance_group_number, patients.allergies AS patients_allergies, patients.chronic_conditions AS patients_chronic_conditions, patients.current_medications AS patients_current_medications, patients.family_history AS patients_family_history, patients.surgical_history AS patients_surgical_history, patients.is_active AS patients_is_active, patients.created_at AS patients_created_at, patients.updated_at AS patients_updated_at 
+FROM patients ORDER BY patients.created_at DESC
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:05,788 INFO sqlalchemy.engine.Engine [generated in 0.00017s] (5, 0)
+2026-08-05 20:38:05,788 - sqlalchemy.engine.Engine - INFO - [generated in 0.00017s] (5, 0)
+2026-08-05 20:38:05,790 INFO sqlalchemy.engine.Engine SELECT tasks.id AS tasks_id, tasks.assigned_to AS tasks_assigned_to, tasks.assigned_by AS tasks_assigned_by, tasks.title AS tasks_title, tasks.description AS tasks_description, tasks.priority AS tasks_priority, tasks.status AS tasks_status, tasks.due_date AS tasks_due_date, tasks.completed_at AS tasks_completed_at, tasks.related_to_type AS tasks_related_to_type, tasks.related_to_id AS tasks_related_to_id, tasks.created_at AS tasks_created_at, tasks.updated_at AS tasks_updated_at 
+FROM tasks 
+WHERE tasks.status IN (?, ?) ORDER BY tasks.due_date
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:05,790 - sqlalchemy.engine.Engine - INFO - SELECT tasks.id AS tasks_id, tasks.assigned_to AS tasks_assigned_to, tasks.assigned_by AS tasks_assigned_by, tasks.title AS tasks_title, tasks.description AS tasks_description, tasks.priority AS tasks_priority, tasks.status AS tasks_status, tasks.due_date AS tasks_due_date, tasks.completed_at AS tasks_completed_at, tasks.related_to_type AS tasks_related_to_type, tasks.related_to_id AS tasks_related_to_id, tasks.created_at AS tasks_created_at, tasks.updated_at AS tasks_updated_at 
+FROM tasks 
+WHERE tasks.status IN (?, ?) ORDER BY tasks.due_date
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:05,790 INFO sqlalchemy.engine.Engine [generated in 0.00017s] ('pending', 'in_progress', 5, 0)
+2026-08-05 20:38:05,790 - sqlalchemy.engine.Engine - INFO - [generated in 0.00017s] ('pending', 'in_progress', 5, 0)
+2026-08-05 20:38:05,792 INFO sqlalchemy.engine.Engine SELECT notifications.id AS notifications_id, notifications.user_id AS notifications_user_id, notifications.title AS notifications_title, notifications.message AS notifications_message, notifications.notification_type AS notifications_notification_type, notifications.entity_type AS notifications_entity_type, notifications.entity_id AS notifications_entity_id, notifications.link AS notifications_link, notifications.is_read AS notifications_is_read, notifications.read_at AS notifications_read_at, notifications.created_at AS notifications_created_at 
+FROM notifications 
+WHERE notifications.user_id = ? AND notifications.is_read = 0 ORDER BY notifications.created_at DESC
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:05,792 - sqlalchemy.engine.Engine - INFO - SELECT notifications.id AS notifications_id, notifications.user_id AS notifications_user_id, notifications.title AS notifications_title, notifications.message AS notifications_message, notifications.notification_type AS notifications_notification_type, notifications.entity_type AS notifications_entity_type, notifications.entity_id AS notifications_entity_id, notifications.link AS notifications_link, notifications.is_read AS notifications_is_read, notifications.read_at AS notifications_read_at, notifications.created_at AS notifications_created_at 
+FROM notifications 
+WHERE notifications.user_id = ? AND notifications.is_read = 0 ORDER BY notifications.created_at DESC
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:05,792 INFO sqlalchemy.engine.Engine [generated in 0.00015s] (1, 5, 0)
+2026-08-05 20:38:05,792 - sqlalchemy.engine.Engine - INFO - [generated in 0.00015s] (1, 5, 0)
+2026-08-05 20:38:05,793 INFO sqlalchemy.engine.Engine SELECT audit_logs.id AS audit_logs_id, audit_logs.user_id AS audit_logs_user_id, audit_logs.user_email AS audit_logs_user_email, audit_logs.action AS audit_logs_action, audit_logs.entity_type AS audit_logs_entity_type, audit_logs.entity_id AS audit_logs_entity_id, audit_logs.description AS audit_logs_description, audit_logs.ip_address AS audit_logs_ip_address, audit_logs.user_agent AS audit_logs_user_agent, audit_logs.created_at AS audit_logs_created_at 
+FROM audit_logs ORDER BY audit_logs.created_at DESC
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:05,793 - sqlalchemy.engine.Engine - INFO - SELECT audit_logs.id AS audit_logs_id, audit_logs.user_id AS audit_logs_user_id, audit_logs.user_email AS audit_logs_user_email, audit_logs.action AS audit_logs_action, audit_logs.entity_type AS audit_logs_entity_type, audit_logs.entity_id AS audit_logs_entity_id, audit_logs.description AS audit_logs_description, audit_logs.ip_address AS audit_logs_ip_address, audit_logs.user_agent AS audit_logs_user_agent, audit_logs.created_at AS audit_logs_created_at 
+FROM audit_logs ORDER BY audit_logs.created_at DESC
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:05,793 INFO sqlalchemy.engine.Engine [generated in 0.00014s] (10, 0)
+2026-08-05 20:38:05,793 - sqlalchemy.engine.Engine - INFO - [generated in 0.00014s] (10, 0)
+2026-08-05 20:38:05,794 INFO sqlalchemy.engine.Engine SELECT count(*) AS count_1 
+FROM (SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE appointments.appointment_date = ?) AS anon_1
+2026-08-05 20:38:05,794 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE appointments.appointment_date = ?) AS anon_1
+2026-08-05 20:38:05,794 INFO sqlalchemy.engine.Engine [cached since 0.01904s ago] ('2026-08-03',)
+2026-08-05 20:38:05,794 - sqlalchemy.engine.Engine - INFO - [cached since 0.01904s ago] ('2026-08-03',)
+2026-08-05 20:38:05,795 INFO sqlalchemy.engine.Engine SELECT count(*) AS count_1 
+FROM (SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE appointments.appointment_date = ?) AS anon_1
+2026-08-05 20:38:05,795 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE appointments.appointment_date = ?) AS anon_1
+2026-08-05 20:38:05,795 INFO sqlalchemy.engine.Engine [cached since 0.01969s ago] ('2026-08-04',)
+2026-08-05 20:38:05,795 - sqlalchemy.engine.Engine - INFO - [cached since 0.01969s ago] ('2026-08-04',)
+2026-08-05 20:38:05,796 INFO sqlalchemy.engine.Engine SELECT count(*) AS count_1 
+FROM (SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE appointments.appointment_date = ?) AS anon_1
+2026-08-05 20:38:05,796 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE appointments.appointment_date = ?) AS anon_1
+2026-08-05 20:38:05,796 INFO sqlalchemy.engine.Engine [cached since 0.02032s ago] ('2026-08-05',)
+2026-08-05 20:38:05,796 - sqlalchemy.engine.Engine - INFO - [cached since 0.02032s ago] ('2026-08-05',)
+2026-08-05 20:38:05,796 INFO sqlalchemy.engine.Engine SELECT count(*) AS count_1 
+FROM (SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE appointments.appointment_date = ?) AS anon_1
+2026-08-05 20:38:05,796 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE appointments.appointment_date = ?) AS anon_1
+2026-08-05 20:38:05,796 INFO sqlalchemy.engine.Engine [cached since 0.02098s ago] ('2026-08-06',)
+2026-08-05 20:38:05,796 - sqlalchemy.engine.Engine - INFO - [cached since 0.02098s ago] ('2026-08-06',)
+2026-08-05 20:38:05,797 INFO sqlalchemy.engine.Engine SELECT count(*) AS count_1 
+FROM (SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE appointments.appointment_date = ?) AS anon_1
+2026-08-05 20:38:05,797 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE appointments.appointment_date = ?) AS anon_1
+2026-08-05 20:38:05,797 INFO sqlalchemy.engine.Engine [cached since 0.0216s ago] ('2026-08-07',)
+2026-08-05 20:38:05,797 - sqlalchemy.engine.Engine - INFO - [cached since 0.0216s ago] ('2026-08-07',)
+2026-08-05 20:38:05,797 INFO sqlalchemy.engine.Engine SELECT count(*) AS count_1 
+FROM (SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE appointments.appointment_date = ?) AS anon_1
+2026-08-05 20:38:05,797 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE appointments.appointment_date = ?) AS anon_1
+2026-08-05 20:38:05,797 INFO sqlalchemy.engine.Engine [cached since 0.02223s ago] ('2026-08-08',)
+2026-08-05 20:38:05,797 - sqlalchemy.engine.Engine - INFO - [cached since 0.02223s ago] ('2026-08-08',)
+2026-08-05 20:38:05,798 INFO sqlalchemy.engine.Engine SELECT count(*) AS count_1 
+FROM (SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE appointments.appointment_date = ?) AS anon_1
+2026-08-05 20:38:05,798 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE appointments.appointment_date = ?) AS anon_1
+2026-08-05 20:38:05,798 INFO sqlalchemy.engine.Engine [cached since 0.02286s ago] ('2026-08-09',)
+2026-08-05 20:38:05,798 - sqlalchemy.engine.Engine - INFO - [cached since 0.02286s ago] ('2026-08-09',)
+2026-08-05 20:38:05,799 INFO sqlalchemy.engine.Engine SELECT sum(invoices.paid_amount) AS sum_1 
+FROM invoices 
+WHERE strftime(?, invoices.invoice_date) = ?
+2026-08-05 20:38:05,799 - sqlalchemy.engine.Engine - INFO - SELECT sum(invoices.paid_amount) AS sum_1 
+FROM invoices 
+WHERE strftime(?, invoices.invoice_date) = ?
+2026-08-05 20:38:05,799 INFO sqlalchemy.engine.Engine [cached since 0.01688s ago] ('%Y-%m', '2026-03')
+2026-08-05 20:38:05,799 - sqlalchemy.engine.Engine - INFO - [cached since 0.01688s ago] ('%Y-%m', '2026-03')
+2026-08-05 20:38:05,799 INFO sqlalchemy.engine.Engine SELECT sum(invoices.paid_amount) AS sum_1 
+FROM invoices 
+WHERE strftime(?, invoices.invoice_date) = ?
+2026-08-05 20:38:05,799 - sqlalchemy.engine.Engine - INFO - SELECT sum(invoices.paid_amount) AS sum_1 
+FROM invoices 
+WHERE strftime(?, invoices.invoice_date) = ?
+2026-08-05 20:38:05,799 INFO sqlalchemy.engine.Engine [cached since 0.01746s ago] ('%Y-%m', '2026-04')
+2026-08-05 20:38:05,799 - sqlalchemy.engine.Engine - INFO - [cached since 0.01746s ago] ('%Y-%m', '2026-04')
+2026-08-05 20:38:05,800 INFO sqlalchemy.engine.Engine SELECT sum(invoices.paid_amount) AS sum_1 
+FROM invoices 
+WHERE strftime(?, invoices.invoice_date) = ?
+2026-08-05 20:38:05,800 - sqlalchemy.engine.Engine - INFO - SELECT sum(invoices.paid_amount) AS sum_1 
+FROM invoices 
+WHERE strftime(?, invoices.invoice_date) = ?
+2026-08-05 20:38:05,800 INFO sqlalchemy.engine.Engine [cached since 0.01803s ago] ('%Y-%m', '2026-05')
+2026-08-05 20:38:05,800 - sqlalchemy.engine.Engine - INFO - [cached since 0.01803s ago] ('%Y-%m', '2026-05')
+2026-08-05 20:38:05,800 INFO sqlalchemy.engine.Engine SELECT sum(invoices.paid_amount) AS sum_1 
+FROM invoices 
+WHERE strftime(?, invoices.invoice_date) = ?
+2026-08-05 20:38:05,800 - sqlalchemy.engine.Engine - INFO - SELECT sum(invoices.paid_amount) AS sum_1 
+FROM invoices 
+WHERE strftime(?, invoices.invoice_date) = ?
+2026-08-05 20:38:05,801 INFO sqlalchemy.engine.Engine [cached since 0.01865s ago] ('%Y-%m', '2026-06')
+2026-08-05 20:38:05,801 - sqlalchemy.engine.Engine - INFO - [cached since 0.01865s ago] ('%Y-%m', '2026-06')
+2026-08-05 20:38:05,801 INFO sqlalchemy.engine.Engine SELECT sum(invoices.paid_amount) AS sum_1 
+FROM invoices 
+WHERE strftime(?, invoices.invoice_date) = ?
+2026-08-05 20:38:05,801 - sqlalchemy.engine.Engine - INFO - SELECT sum(invoices.paid_amount) AS sum_1 
+FROM invoices 
+WHERE strftime(?, invoices.invoice_date) = ?
+2026-08-05 20:38:05,801 INFO sqlalchemy.engine.Engine [cached since 0.01923s ago] ('%Y-%m', '2026-07')
+2026-08-05 20:38:05,801 - sqlalchemy.engine.Engine - INFO - [cached since 0.01923s ago] ('%Y-%m', '2026-07')
+2026-08-05 20:38:05,802 INFO sqlalchemy.engine.Engine SELECT sum(invoices.paid_amount) AS sum_1 
+FROM invoices 
+WHERE strftime(?, invoices.invoice_date) = ?
+2026-08-05 20:38:05,802 - sqlalchemy.engine.Engine - INFO - SELECT sum(invoices.paid_amount) AS sum_1 
+FROM invoices 
+WHERE strftime(?, invoices.invoice_date) = ?
+2026-08-05 20:38:05,802 INFO sqlalchemy.engine.Engine [cached since 0.0198s ago] ('%Y-%m', '2026-08')
+2026-08-05 20:38:05,802 - sqlalchemy.engine.Engine - INFO - [cached since 0.0198s ago] ('%Y-%m', '2026-08')
+2026-08-05 20:38:05,822 INFO sqlalchemy.engine.Engine SELECT patients.id AS patients_id, patients.uuid AS patients_uuid, patients.patient_id AS patients_patient_id, patients.first_name AS patients_first_name, patients.last_name AS patients_last_name, patients.date_of_birth AS patients_date_of_birth, patients.gender AS patients_gender, patients.blood_type AS patients_blood_type, patients.marital_status AS patients_marital_status, patients.occupation AS patients_occupation, patients.phone AS patients_phone, patients.email AS patients_email, patients.address AS patients_address, patients.emergency_contact_name AS patients_emergency_contact_name, patients.emergency_contact_phone AS patients_emergency_contact_phone, patients.insurance_provider AS patients_insurance_provider, patients.insurance_policy_number AS patients_insurance_policy_number, patients.insurance_group_number AS patients_insurance_group_number, patients.allergies AS patients_allergies, patients.chronic_conditions AS patients_chronic_conditions, patients.current_medications AS patients_current_medications, patients.family_history AS patients_family_history, patients.surgical_history AS patients_surgical_history, patients.is_active AS patients_is_active, patients.created_at AS patients_created_at, patients.updated_at AS patients_updated_at 
+FROM patients 
+WHERE patients.id = ?
+2026-08-05 20:38:05,822 - sqlalchemy.engine.Engine - INFO - SELECT patients.id AS patients_id, patients.uuid AS patients_uuid, patients.patient_id AS patients_patient_id, patients.first_name AS patients_first_name, patients.last_name AS patients_last_name, patients.date_of_birth AS patients_date_of_birth, patients.gender AS patients_gender, patients.blood_type AS patients_blood_type, patients.marital_status AS patients_marital_status, patients.occupation AS patients_occupation, patients.phone AS patients_phone, patients.email AS patients_email, patients.address AS patients_address, patients.emergency_contact_name AS patients_emergency_contact_name, patients.emergency_contact_phone AS patients_emergency_contact_phone, patients.insurance_provider AS patients_insurance_provider, patients.insurance_policy_number AS patients_insurance_policy_number, patients.insurance_group_number AS patients_insurance_group_number, patients.allergies AS patients_allergies, patients.chronic_conditions AS patients_chronic_conditions, patients.current_medications AS patients_current_medications, patients.family_history AS patients_family_history, patients.surgical_history AS patients_surgical_history, patients.is_active AS patients_is_active, patients.created_at AS patients_created_at, patients.updated_at AS patients_updated_at 
+FROM patients 
+WHERE patients.id = ?
+2026-08-05 20:38:05,822 INFO sqlalchemy.engine.Engine [generated in 0.00029s] (8,)
+2026-08-05 20:38:05,822 - sqlalchemy.engine.Engine - INFO - [generated in 0.00029s] (8,)
+2026-08-05 20:38:05,824 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-08-05 20:38:05,824 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2026-08-05 20:38:05,824 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:38:05] "GET /dashboard/ HTTP/1.1" 200 -
+2026-08-05 20:38:05,846 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:38:05] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-08-05 20:38:05,847 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:38:05] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-08-05 20:38:05,990 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-08-05 20:38:05,990 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-08-05 20:38:05,990 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.uuid AS users_uuid, users.email AS users_email, users.password_hash AS users_password_hash, users.first_name AS users_first_name, users.last_name AS users_last_name, users.phone AS users_phone, users.role AS users_role, users.specialization AS users_specialization, users.license_number AS users_license_number, users.is_active AS users_is_active, users.last_login AS users_last_login, users.created_at AS users_created_at, users.updated_at AS users_updated_at 
+FROM users 
+WHERE users.id = ?
+2026-08-05 20:38:05,990 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.uuid AS users_uuid, users.email AS users_email, users.password_hash AS users_password_hash, users.first_name AS users_first_name, users.last_name AS users_last_name, users.phone AS users_phone, users.role AS users_role, users.specialization AS users_specialization, users.license_number AS users_license_number, users.is_active AS users_is_active, users.last_login AS users_last_login, users.created_at AS users_created_at, users.updated_at AS users_updated_at 
+FROM users 
+WHERE users.id = ?
+2026-08-05 20:38:05,990 INFO sqlalchemy.engine.Engine [cached since 0.2255s ago] (1,)
+2026-08-05 20:38:05,990 - sqlalchemy.engine.Engine - INFO - [cached since 0.2255s ago] (1,)
+2026-08-05 20:38:05,995 INFO sqlalchemy.engine.Engine SELECT count(*) AS count_1 
+FROM (SELECT notifications.id AS notifications_id, notifications.user_id AS notifications_user_id, notifications.title AS notifications_title, notifications.message AS notifications_message, notifications.notification_type AS notifications_notification_type, notifications.entity_type AS notifications_entity_type, notifications.entity_id AS notifications_entity_id, notifications.link AS notifications_link, notifications.is_read AS notifications_is_read, notifications.read_at AS notifications_read_at, notifications.created_at AS notifications_created_at 
+FROM notifications 
+WHERE notifications.user_id = ? AND notifications.is_read = 0) AS anon_1
+2026-08-05 20:38:05,995 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT notifications.id AS notifications_id, notifications.user_id AS notifications_user_id, notifications.title AS notifications_title, notifications.message AS notifications_message, notifications.notification_type AS notifications_notification_type, notifications.entity_type AS notifications_entity_type, notifications.entity_id AS notifications_entity_id, notifications.link AS notifications_link, notifications.is_read AS notifications_is_read, notifications.read_at AS notifications_read_at, notifications.created_at AS notifications_created_at 
+FROM notifications 
+WHERE notifications.user_id = ? AND notifications.is_read = 0) AS anon_1
+2026-08-05 20:38:05,995 INFO sqlalchemy.engine.Engine [generated in 0.00021s] (1,)
+2026-08-05 20:38:05,995 - sqlalchemy.engine.Engine - INFO - [generated in 0.00021s] (1,)
+2026-08-05 20:38:05,996 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-08-05 20:38:05,996 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2026-08-05 20:38:05,996 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:38:05] "GET /api/notifications/unread-count HTTP/1.1" 200 -
+2026-08-05 20:38:06,000 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:38:05] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-08-05 20:38:16,400 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-08-05 20:38:16,400 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-08-05 20:38:16,400 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.uuid AS users_uuid, users.email AS users_email, users.password_hash AS users_password_hash, users.first_name AS users_first_name, users.last_name AS users_last_name, users.phone AS users_phone, users.role AS users_role, users.specialization AS users_specialization, users.license_number AS users_license_number, users.is_active AS users_is_active, users.last_login AS users_last_login, users.created_at AS users_created_at, users.updated_at AS users_updated_at 
+FROM users 
+WHERE users.id = ?
+2026-08-05 20:38:16,400 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.uuid AS users_uuid, users.email AS users_email, users.password_hash AS users_password_hash, users.first_name AS users_first_name, users.last_name AS users_last_name, users.phone AS users_phone, users.role AS users_role, users.specialization AS users_specialization, users.license_number AS users_license_number, users.is_active AS users_is_active, users.last_login AS users_last_login, users.created_at AS users_created_at, users.updated_at AS users_updated_at 
+FROM users 
+WHERE users.id = ?
+2026-08-05 20:38:16,400 INFO sqlalchemy.engine.Engine [cached since 10.64s ago] (1,)
+2026-08-05 20:38:16,400 - sqlalchemy.engine.Engine - INFO - [cached since 10.64s ago] (1,)
+2026-08-05 20:38:16,402 INFO sqlalchemy.engine.Engine SELECT patients.id AS patients_id, patients.uuid AS patients_uuid, patients.patient_id AS patients_patient_id, patients.first_name AS patients_first_name, patients.last_name AS patients_last_name, patients.date_of_birth AS patients_date_of_birth, patients.gender AS patients_gender, patients.blood_type AS patients_blood_type, patients.marital_status AS patients_marital_status, patients.occupation AS patients_occupation, patients.phone AS patients_phone, patients.email AS patients_email, patients.address AS patients_address, patients.emergency_contact_name AS patients_emergency_contact_name, patients.emergency_contact_phone AS patients_emergency_contact_phone, patients.insurance_provider AS patients_insurance_provider, patients.insurance_policy_number AS patients_insurance_policy_number, patients.insurance_group_number AS patients_insurance_group_number, patients.allergies AS patients_allergies, patients.chronic_conditions AS patients_chronic_conditions, patients.current_medications AS patients_current_medications, patients.family_history AS patients_family_history, patients.surgical_history AS patients_surgical_history, patients.is_active AS patients_is_active, patients.created_at AS patients_created_at, patients.updated_at AS patients_updated_at 
+FROM patients ORDER BY patients.created_at DESC
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,402 - sqlalchemy.engine.Engine - INFO - SELECT patients.id AS patients_id, patients.uuid AS patients_uuid, patients.patient_id AS patients_patient_id, patients.first_name AS patients_first_name, patients.last_name AS patients_last_name, patients.date_of_birth AS patients_date_of_birth, patients.gender AS patients_gender, patients.blood_type AS patients_blood_type, patients.marital_status AS patients_marital_status, patients.occupation AS patients_occupation, patients.phone AS patients_phone, patients.email AS patients_email, patients.address AS patients_address, patients.emergency_contact_name AS patients_emergency_contact_name, patients.emergency_contact_phone AS patients_emergency_contact_phone, patients.insurance_provider AS patients_insurance_provider, patients.insurance_policy_number AS patients_insurance_policy_number, patients.insurance_group_number AS patients_insurance_group_number, patients.allergies AS patients_allergies, patients.chronic_conditions AS patients_chronic_conditions, patients.current_medications AS patients_current_medications, patients.family_history AS patients_family_history, patients.surgical_history AS patients_surgical_history, patients.is_active AS patients_is_active, patients.created_at AS patients_created_at, patients.updated_at AS patients_updated_at 
+FROM patients ORDER BY patients.created_at DESC
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,402 INFO sqlalchemy.engine.Engine [generated in 0.00016s] (20, 0)
+2026-08-05 20:38:16,402 - sqlalchemy.engine.Engine - INFO - [generated in 0.00016s] (20, 0)
+2026-08-05 20:38:16,406 INFO sqlalchemy.engine.Engine SELECT count(*) AS count_1 
+FROM (SELECT patients.id AS patients_id, patients.uuid AS patients_uuid, patients.patient_id AS patients_patient_id, patients.first_name AS patients_first_name, patients.last_name AS patients_last_name, patients.date_of_birth AS patients_date_of_birth, patients.gender AS patients_gender, patients.blood_type AS patients_blood_type, patients.marital_status AS patients_marital_status, patients.occupation AS patients_occupation, patients.phone AS patients_phone, patients.email AS patients_email, patients.address AS patients_address, patients.emergency_contact_name AS patients_emergency_contact_name, patients.emergency_contact_phone AS patients_emergency_contact_phone, patients.insurance_provider AS patients_insurance_provider, patients.insurance_policy_number AS patients_insurance_policy_number, patients.insurance_group_number AS patients_insurance_group_number, patients.allergies AS patients_allergies, patients.chronic_conditions AS patients_chronic_conditions, patients.current_medications AS patients_current_medications, patients.family_history AS patients_family_history, patients.surgical_history AS patients_surgical_history, patients.is_active AS patients_is_active, patients.created_at AS patients_created_at, patients.updated_at AS patients_updated_at 
+FROM patients) AS anon_1
+2026-08-05 20:38:16,406 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT patients.id AS patients_id, patients.uuid AS patients_uuid, patients.patient_id AS patients_patient_id, patients.first_name AS patients_first_name, patients.last_name AS patients_last_name, patients.date_of_birth AS patients_date_of_birth, patients.gender AS patients_gender, patients.blood_type AS patients_blood_type, patients.marital_status AS patients_marital_status, patients.occupation AS patients_occupation, patients.phone AS patients_phone, patients.email AS patients_email, patients.address AS patients_address, patients.emergency_contact_name AS patients_emergency_contact_name, patients.emergency_contact_phone AS patients_emergency_contact_phone, patients.insurance_provider AS patients_insurance_provider, patients.insurance_policy_number AS patients_insurance_policy_number, patients.insurance_group_number AS patients_insurance_group_number, patients.allergies AS patients_allergies, patients.chronic_conditions AS patients_chronic_conditions, patients.current_medications AS patients_current_medications, patients.family_history AS patients_family_history, patients.surgical_history AS patients_surgical_history, patients.is_active AS patients_is_active, patients.created_at AS patients_created_at, patients.updated_at AS patients_updated_at 
+FROM patients) AS anon_1
+2026-08-05 20:38:16,406 INFO sqlalchemy.engine.Engine [generated in 0.00015s] ()
+2026-08-05 20:38:16,406 - sqlalchemy.engine.Engine - INFO - [generated in 0.00015s] ()
+2026-08-05 20:38:16,420 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,420 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,420 INFO sqlalchemy.engine.Engine [generated in 0.00028s] (20, 1, 0)
+2026-08-05 20:38:16,420 - sqlalchemy.engine.Engine - INFO - [generated in 0.00028s] (20, 1, 0)
+2026-08-05 20:38:16,421 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,421 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,421 INFO sqlalchemy.engine.Engine [cached since 0.001332s ago] (20, 1, 0)
+2026-08-05 20:38:16,421 - sqlalchemy.engine.Engine - INFO - [cached since 0.001332s ago] (20, 1, 0)
+2026-08-05 20:38:16,422 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,422 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,422 INFO sqlalchemy.engine.Engine [cached since 0.002308s ago] (19, 1, 0)
+2026-08-05 20:38:16,422 - sqlalchemy.engine.Engine - INFO - [cached since 0.002308s ago] (19, 1, 0)
+2026-08-05 20:38:16,423 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,423 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,423 INFO sqlalchemy.engine.Engine [cached since 0.002938s ago] (19, 1, 0)
+2026-08-05 20:38:16,423 - sqlalchemy.engine.Engine - INFO - [cached since 0.002938s ago] (19, 1, 0)
+2026-08-05 20:38:16,424 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,424 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,424 INFO sqlalchemy.engine.Engine [cached since 0.00379s ago] (18, 1, 0)
+2026-08-05 20:38:16,424 - sqlalchemy.engine.Engine - INFO - [cached since 0.00379s ago] (18, 1, 0)
+2026-08-05 20:38:16,424 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,424 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,425 INFO sqlalchemy.engine.Engine [cached since 0.004447s ago] (18, 1, 0)
+2026-08-05 20:38:16,425 - sqlalchemy.engine.Engine - INFO - [cached since 0.004447s ago] (18, 1, 0)
+2026-08-05 20:38:16,425 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,425 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,425 INFO sqlalchemy.engine.Engine [cached since 0.005267s ago] (17, 1, 0)
+2026-08-05 20:38:16,425 - sqlalchemy.engine.Engine - INFO - [cached since 0.005267s ago] (17, 1, 0)
+2026-08-05 20:38:16,426 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,426 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,426 INFO sqlalchemy.engine.Engine [cached since 0.005893s ago] (17, 1, 0)
+2026-08-05 20:38:16,426 - sqlalchemy.engine.Engine - INFO - [cached since 0.005893s ago] (17, 1, 0)
+2026-08-05 20:38:16,427 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,427 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,427 INFO sqlalchemy.engine.Engine [cached since 0.006691s ago] (16, 1, 0)
+2026-08-05 20:38:16,427 - sqlalchemy.engine.Engine - INFO - [cached since 0.006691s ago] (16, 1, 0)
+2026-08-05 20:38:16,427 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,427 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,427 INFO sqlalchemy.engine.Engine [cached since 0.007333s ago] (16, 1, 0)
+2026-08-05 20:38:16,427 - sqlalchemy.engine.Engine - INFO - [cached since 0.007333s ago] (16, 1, 0)
+2026-08-05 20:38:16,428 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,428 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,428 INFO sqlalchemy.engine.Engine [cached since 0.00815s ago] (15, 1, 0)
+2026-08-05 20:38:16,428 - sqlalchemy.engine.Engine - INFO - [cached since 0.00815s ago] (15, 1, 0)
+2026-08-05 20:38:16,429 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,429 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,429 INFO sqlalchemy.engine.Engine [cached since 0.008785s ago] (15, 1, 0)
+2026-08-05 20:38:16,429 - sqlalchemy.engine.Engine - INFO - [cached since 0.008785s ago] (15, 1, 0)
+2026-08-05 20:38:16,430 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,430 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,430 INFO sqlalchemy.engine.Engine [cached since 0.009576s ago] (14, 1, 0)
+2026-08-05 20:38:16,430 - sqlalchemy.engine.Engine - INFO - [cached since 0.009576s ago] (14, 1, 0)
+2026-08-05 20:38:16,430 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,430 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,430 INFO sqlalchemy.engine.Engine [cached since 0.01036s ago] (14, 1, 0)
+2026-08-05 20:38:16,430 - sqlalchemy.engine.Engine - INFO - [cached since 0.01036s ago] (14, 1, 0)
+2026-08-05 20:38:16,431 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,431 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,431 INFO sqlalchemy.engine.Engine [cached since 0.01116s ago] (13, 1, 0)
+2026-08-05 20:38:16,431 - sqlalchemy.engine.Engine - INFO - [cached since 0.01116s ago] (13, 1, 0)
+2026-08-05 20:38:16,432 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,432 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,432 INFO sqlalchemy.engine.Engine [cached since 0.01188s ago] (12, 1, 0)
+2026-08-05 20:38:16,432 - sqlalchemy.engine.Engine - INFO - [cached since 0.01188s ago] (12, 1, 0)
+2026-08-05 20:38:16,433 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,433 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,433 INFO sqlalchemy.engine.Engine [cached since 0.01265s ago] (11, 1, 0)
+2026-08-05 20:38:16,433 - sqlalchemy.engine.Engine - INFO - [cached since 0.01265s ago] (11, 1, 0)
+2026-08-05 20:38:16,433 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,433 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,433 INFO sqlalchemy.engine.Engine [cached since 0.01328s ago] (11, 1, 0)
+2026-08-05 20:38:16,433 - sqlalchemy.engine.Engine - INFO - [cached since 0.01328s ago] (11, 1, 0)
+2026-08-05 20:38:16,434 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,434 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,434 INFO sqlalchemy.engine.Engine [cached since 0.01407s ago] (10, 1, 0)
+2026-08-05 20:38:16,434 - sqlalchemy.engine.Engine - INFO - [cached since 0.01407s ago] (10, 1, 0)
+2026-08-05 20:38:16,435 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,435 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,435 INFO sqlalchemy.engine.Engine [cached since 0.01479s ago] (9, 1, 0)
+2026-08-05 20:38:16,435 - sqlalchemy.engine.Engine - INFO - [cached since 0.01479s ago] (9, 1, 0)
+2026-08-05 20:38:16,436 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,436 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,436 INFO sqlalchemy.engine.Engine [cached since 0.01553s ago] (8, 1, 0)
+2026-08-05 20:38:16,436 - sqlalchemy.engine.Engine - INFO - [cached since 0.01553s ago] (8, 1, 0)
+2026-08-05 20:38:16,436 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,436 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,436 INFO sqlalchemy.engine.Engine [cached since 0.01619s ago] (8, 1, 0)
+2026-08-05 20:38:16,436 - sqlalchemy.engine.Engine - INFO - [cached since 0.01619s ago] (8, 1, 0)
+2026-08-05 20:38:16,437 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,437 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,437 INFO sqlalchemy.engine.Engine [cached since 0.01698s ago] (7, 1, 0)
+2026-08-05 20:38:16,437 - sqlalchemy.engine.Engine - INFO - [cached since 0.01698s ago] (7, 1, 0)
+2026-08-05 20:38:16,438 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,438 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,438 INFO sqlalchemy.engine.Engine [cached since 0.0176s ago] (7, 1, 0)
+2026-08-05 20:38:16,438 - sqlalchemy.engine.Engine - INFO - [cached since 0.0176s ago] (7, 1, 0)
+2026-08-05 20:38:16,438 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,438 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,438 INFO sqlalchemy.engine.Engine [cached since 0.01839s ago] (6, 1, 0)
+2026-08-05 20:38:16,438 - sqlalchemy.engine.Engine - INFO - [cached since 0.01839s ago] (6, 1, 0)
+2026-08-05 20:38:16,439 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,439 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,439 INFO sqlalchemy.engine.Engine [cached since 0.01914s ago] (5, 1, 0)
+2026-08-05 20:38:16,439 - sqlalchemy.engine.Engine - INFO - [cached since 0.01914s ago] (5, 1, 0)
+2026-08-05 20:38:16,440 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,440 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,440 INFO sqlalchemy.engine.Engine [cached since 0.01975s ago] (5, 1, 0)
+2026-08-05 20:38:16,440 - sqlalchemy.engine.Engine - INFO - [cached since 0.01975s ago] (5, 1, 0)
+2026-08-05 20:38:16,441 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,441 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,441 INFO sqlalchemy.engine.Engine [cached since 0.02057s ago] (4, 1, 0)
+2026-08-05 20:38:16,441 - sqlalchemy.engine.Engine - INFO - [cached since 0.02057s ago] (4, 1, 0)
+2026-08-05 20:38:16,441 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,441 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,441 INFO sqlalchemy.engine.Engine [cached since 0.0212s ago] (4, 1, 0)
+2026-08-05 20:38:16,441 - sqlalchemy.engine.Engine - INFO - [cached since 0.0212s ago] (4, 1, 0)
+2026-08-05 20:38:16,442 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,442 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,442 INFO sqlalchemy.engine.Engine [cached since 0.02199s ago] (3, 1, 0)
+2026-08-05 20:38:16,442 - sqlalchemy.engine.Engine - INFO - [cached since 0.02199s ago] (3, 1, 0)
+2026-08-05 20:38:16,443 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,443 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,443 INFO sqlalchemy.engine.Engine [cached since 0.02261s ago] (3, 1, 0)
+2026-08-05 20:38:16,443 - sqlalchemy.engine.Engine - INFO - [cached since 0.02261s ago] (3, 1, 0)
+2026-08-05 20:38:16,443 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,443 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,443 INFO sqlalchemy.engine.Engine [cached since 0.0234s ago] (2, 1, 0)
+2026-08-05 20:38:16,443 - sqlalchemy.engine.Engine - INFO - [cached since 0.0234s ago] (2, 1, 0)
+2026-08-05 20:38:16,444 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,444 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,444 INFO sqlalchemy.engine.Engine [cached since 0.02403s ago] (2, 1, 0)
+2026-08-05 20:38:16,444 - sqlalchemy.engine.Engine - INFO - [cached since 0.02403s ago] (2, 1, 0)
+2026-08-05 20:38:16,445 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,445 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,445 INFO sqlalchemy.engine.Engine [cached since 0.0249s ago] (1, 1, 0)
+2026-08-05 20:38:16,445 - sqlalchemy.engine.Engine - INFO - [cached since 0.0249s ago] (1, 1, 0)
+2026-08-05 20:38:16,446 INFO sqlalchemy.engine.Engine SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,446 - sqlalchemy.engine.Engine - INFO - SELECT appointments.id AS appointments_id, appointments.uuid AS appointments_uuid, appointments.patient_id AS appointments_patient_id, appointments.doctor_id AS appointments_doctor_id, appointments.appointment_date AS appointments_appointment_date, appointments.start_time AS appointments_start_time, appointments.end_time AS appointments_end_time, appointments.status AS appointments_status, appointments.appointment_type AS appointments_appointment_type, appointments.reason AS appointments_reason, appointments.notes AS appointments_notes, appointments.is_recurring AS appointments_is_recurring, appointments.recurring_pattern AS appointments_recurring_pattern, appointments.reminder_sent AS appointments_reminder_sent, appointments.reminder_sent_at AS appointments_reminder_sent_at, appointments.created_at AS appointments_created_at, appointments.updated_at AS appointments_updated_at, appointments.created_by AS appointments_created_by 
+FROM appointments 
+WHERE ? = appointments.patient_id
+ LIMIT ? OFFSET ?
+2026-08-05 20:38:16,446 INFO sqlalchemy.engine.Engine [cached since 0.02554s ago] (1, 1, 0)
+2026-08-05 20:38:16,446 - sqlalchemy.engine.Engine - INFO - [cached since 0.02554s ago] (1, 1, 0)
+2026-08-05 20:38:16,447 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-08-05 20:38:16,447 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2026-08-05 20:38:16,447 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:38:16] "GET /patients/ HTTP/1.1" 200 -
+2026-08-05 20:38:16,470 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:38:16] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-08-05 20:38:16,471 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:38:16] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-08-05 20:38:16,521 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-08-05 20:38:16,521 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-08-05 20:38:16,521 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.uuid AS users_uuid, users.email AS users_email, users.password_hash AS users_password_hash, users.first_name AS users_first_name, users.last_name AS users_last_name, users.phone AS users_phone, users.role AS users_role, users.specialization AS users_specialization, users.license_number AS users_license_number, users.is_active AS users_is_active, users.last_login AS users_last_login, users.created_at AS users_created_at, users.updated_at AS users_updated_at 
+FROM users 
+WHERE users.id = ?
+2026-08-05 20:38:16,521 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.uuid AS users_uuid, users.email AS users_email, users.password_hash AS users_password_hash, users.first_name AS users_first_name, users.last_name AS users_last_name, users.phone AS users_phone, users.role AS users_role, users.specialization AS users_specialization, users.license_number AS users_license_number, users.is_active AS users_is_active, users.last_login AS users_last_login, users.created_at AS users_created_at, users.updated_at AS users_updated_at 
+FROM users 
+WHERE users.id = ?
+2026-08-05 20:38:16,521 INFO sqlalchemy.engine.Engine [cached since 10.76s ago] (1,)
+2026-08-05 20:38:16,521 - sqlalchemy.engine.Engine - INFO - [cached since 10.76s ago] (1,)
+2026-08-05 20:38:16,523 INFO sqlalchemy.engine.Engine SELECT count(*) AS count_1 
+FROM (SELECT notifications.id AS notifications_id, notifications.user_id AS notifications_user_id, notifications.title AS notifications_title, notifications.message AS notifications_message, notifications.notification_type AS notifications_notification_type, notifications.entity_type AS notifications_entity_type, notifications.entity_id AS notifications_entity_id, notifications.link AS notifications_link, notifications.is_read AS notifications_is_read, notifications.read_at AS notifications_read_at, notifications.created_at AS notifications_created_at 
+FROM notifications 
+WHERE notifications.user_id = ? AND notifications.is_read = 0) AS anon_1
+2026-08-05 20:38:16,523 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT notifications.id AS notifications_id, notifications.user_id AS notifications_user_id, notifications.title AS notifications_title, notifications.message AS notifications_message, notifications.notification_type AS notifications_notification_type, notifications.entity_type AS notifications_entity_type, notifications.entity_id AS notifications_entity_id, notifications.link AS notifications_link, notifications.is_read AS notifications_is_read, notifications.read_at AS notifications_read_at, notifications.created_at AS notifications_created_at 
+FROM notifications 
+WHERE notifications.user_id = ? AND notifications.is_read = 0) AS anon_1
+2026-08-05 20:38:16,523 INFO sqlalchemy.engine.Engine [cached since 10.53s ago] (1,)
+2026-08-05 20:38:16,523 - sqlalchemy.engine.Engine - INFO - [cached since 10.53s ago] (1,)
+2026-08-05 20:38:16,523 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-08-05 20:38:16,523 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2026-08-05 20:38:16,523 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:38:16] "GET /api/notifications/unread-count HTTP/1.1" 200 -
+2026-08-05 20:38:17,209 - werkzeug - INFO - 127.0.0.1 - - [05/Aug/2026 20:38:17] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -

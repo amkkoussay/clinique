@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}Invoices - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}Invoices{% endblock %}
+
+{% block page_actions %}
+<div class="page-actions">
+    <a href="{{ url_for('billing.reports') }}" class="btn btn-outline">
+        <i class="fas fa-chart-bar"></i> Reports
+    </a>
+    <a href="{{ url_for('billing.create_invoice') }}" class="btn btn-primary">
+        <i class="fas fa-file-invoice"></i> New Invoice
+    </a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="content-card">
+    <div class="card-header">
+        <div class="filter-tabs">
+            <a href="{{ url_for('billing.list_invoices', status='all') }}" 
+               class="tab-link {% if status_filter == 'all' %}active{% endif %}">All</a>
+            <a href="{{ url_for('billing.list_invoices', status='pending') }}" 
+               class="tab-link {% if status_filter == 'pending' %}active{% endif %}">Pending</a>
+            <a href="{{ url_for('billing.list_invoices', status='partial') }}" 
+               class="tab-link {% if status_filter == 'partial' %}active{% endif %}">Partial</a>
+            <a href="{{ url_for('billing.list_invoices', status='paid') }}" 
+               class="tab-link {% if status_filter == 'paid' %}active{% endif %}">Paid</a>
+            <a href="{{ url_for('billing.list_invoices', status='overdue') }}" 
+               class="tab-link {% if status_filter == 'overdue' %}active{% endif %}">Overdue</a>
+        </div>
+    </div>
+    <div class="card-body">
+        {% if invoices.items %}
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Invoice #</th>
+                        <th>Patient</th>
+                        <th>Date</th>
+                        <th>Total</th>
+                        <th>Paid</th>
+                        <th>Balance</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for inv in invoices.items %}
+                    <tr>
+                        <td><span class="invoice-number">{{ inv.invoice_number }}</span></td>
+                        <td>{{ inv.patient.get_full_name() }}</td>
+                        <td>{{ inv.invoice_date.strftime('%b %d, %Y') }}</td>
+                        <td>${{ "%.2f"|format(inv.total_amount) }}</td>
+                        <td>${{ "%.2f"|format(inv.paid_amount) }}</td>
+                        <td>${{ "%.2f"|format(inv.balance_due) }}</td>
+                        <td><span class="badge badge-{{ inv.status }}">{{ inv.status|title }}</span></td>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="{{ url_for('billing.view_invoice', invoice_id=inv.id) }}" class="btn btn-sm btn-icon" title="View">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="{{ url_for('billing.invoice_pdf', invoice_id=inv.id) }}" class="btn btn-sm btn-icon" title="Download PDF" target="_blank">
+                                    <i class="fas fa-download"></i>
+                                </a>
+                                {% if inv.balance_due > 0 %}
+                                <a href="{{ url_for('billing.record_payment', invoice_id=inv.id) }}" class="btn btn-sm btn-success" title="Record Payment">
+                                    <i class="fas fa-dollar-sign"></i>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        {% if invoices.pages > 1 %}
+        <div class="pagination">
+            {% if invoices.has_prev %}
+            <a href="{{ url_for('billing.list_invoices', page=invoices.prev_num, status=status_filter) }}" 
+               class="btn btn-outline btn-sm"><i class="fas fa-chevron-left"></i> Previous</a>
+            {% endif %}
+            <span class="page-info">Page {{ invoices.page }} of {{ invoices.pages }}</span>
+            {% if invoices.has_next %}
+            <a href="{{ url_for('billing.list_invoices', page=invoices.next_num, status=status_filter) }}" 
+               class="btn btn-outline btn-sm">Next <i class="fas fa-chevron-right"></i></a>
+            {% endif %}
+        </div>
+        {% endif %}
+        
+        {% else %}
+        <div class="empty-state">
+            <i class="fas fa-file-invoice"></i>
+            <h3>No invoices found</h3>
+            <p>Create your first invoice to get started</p>
+            <a href="{{ url_for('billing.create_invoice') }}" class="btn btn-primary">
+                <i class="fas fa-file-invoice"></i> New Invoice
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

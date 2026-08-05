@@ -1,0 +1,334 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}Dashboard{% endblock %}
+
+{% block page_actions %}
+<div class="page-actions">
+    <a href="{{ url_for('appointments.create') }}" class="btn btn-primary">
+        <i class="fas fa-calendar-plus"></i>
+        New Appointment
+    </a>
+    <a href="{{ url_for('patients.create') }}" class="btn btn-outline">
+        <i class="fas fa-user-plus"></i>
+        New Patient
+    </a>
+</div>
+{% endblock %}
+
+{% block content %}
+<!-- Statistics Cards -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon patients">
+            <i class="fas fa-users"></i>
+        </div>
+        <div class="stat-content">
+            <span class="stat-value">{{ stats.total_patients }}</span>
+            <span class="stat-label">Total Patients</span>
+        </div>
+        <div class="stat-trend up">
+            <i class="fas fa-arrow-up"></i>
+            <span>+12%</span>
+        </div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-icon appointments">
+            <i class="fas fa-calendar-check"></i>
+        </div>
+        <div class="stat-content">
+            <span class="stat-value">{{ stats.today_appointments }}</span>
+            <span class="stat-label">Today's Appointments</span>
+        </div>
+        <div class="stat-trend">
+            <span>{{ stats.pending_appointments }} pending</span>
+        </div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-icon revenue">
+            <i class="fas fa-dollar-sign"></i>
+        </div>
+        <div class="stat-content">
+            <span class="stat-value">${{ "%.2f"|format(stats.monthly_revenue) }}</span>
+            <span class="stat-label">Monthly Revenue</span>
+        </div>
+        <div class="stat-trend up">
+            <i class="fas fa-arrow-up"></i>
+            <span>+8%</span>
+        </div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-icon tasks">
+            <i class="fas fa-tasks"></i>
+        </div>
+        <div class="stat-content">
+            <span class="stat-value">{{ stats.pending_tasks }}</span>
+            <span class="stat-label">Pending Tasks</span>
+        </div>
+        <a href="{{ url_for('dashboard.tasks') }}" class="stat-link">
+            View all <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
+</div>
+
+<!-- Dashboard Grid -->
+<div class="dashboard-grid">
+    <!-- Today's Schedule -->
+    <div class="dashboard-card schedule-card">
+        <div class="card-header">
+            <h3><i class="fas fa-clock"></i> Today's Schedule</h3>
+            <a href="{{ url_for('appointments.index') }}" class="btn btn-sm btn-outline">View All</a>
+        </div>
+        <div class="card-body">
+            {% if today_appointments %}
+                <div class="appointment-list">
+                    {% for apt in today_appointments %}
+                    <div class="appointment-item {{ apt.status }}">
+                        <div class="appointment-time">
+                            <span class="time">{{ apt.start_time.strftime('%H:%M') }}</span>
+                            <span class="duration">{{ (apt.end_time.hour - apt.start_time.hour) * 60 + (apt.end_time.minute - apt.start_time.minute) }} min</span>
+                        </div>
+                        <div class="appointment-info">
+                            <span class="patient-name">{{ apt.patient.get_full_name() }}</span>
+                            <span class="appointment-type">{{ apt.appointment_type|replace('_', ' ')|title }}</span>
+                        </div>
+                        <div class="appointment-status">
+                            <span class="badge badge-{{ apt.get_status_color() }}">
+                                {{ apt.status|replace('_', ' ')|title }}
+                            </span>
+                        </div>
+                        <div class="appointment-actions">
+                            <a href="{{ url_for('appointments.view', appointment_id=apt.id) }}" 
+                               class="btn btn-sm btn-icon" title="View">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-calendar-day"></i>
+                    <p>No appointments scheduled for today</p>
+                    <a href="{{ url_for('appointments.create') }}" class="btn btn-primary btn-sm">
+                        Schedule Appointment
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Weekly Overview Chart -->
+    <div class="dashboard-card chart-card">
+        <div class="card-header">
+            <h3><i class="fas fa-chart-bar"></i> Weekly Overview</h3>
+        </div>
+        <div class="card-body">
+            <canvas id="weeklyChart" height="200"></canvas>
+        </div>
+    </div>
+    
+    <!-- Recent Patients -->
+    <div class="dashboard-card">
+        <div class="card-header">
+            <h3><i class="fas fa-user-clock"></i> Recent Patients</h3>
+            <a href="{{ url_for('patients.index') }}" class="btn btn-sm btn-outline">View All</a>
+        </div>
+        <div class="card-body">
+            {% if recent_patients %}
+                <div class="patient-list">
+                    {% for patient in recent_patients %}
+                    <div class="patient-item">
+                        <div class="patient-avatar">
+                            {{ patient.first_name[0] }}{{ patient.last_name[0] }}
+                        </div>
+                        <div class="patient-info">
+                            <span class="patient-name">{{ patient.get_full_name() }}</span>
+                            <span class="patient-id">{{ patient.patient_id }}</span>
+                        </div>
+                        <div class="patient-meta">
+                            <span class="patient-age">{{ patient.get_age() }} years</span>
+                        </div>
+                        <a href="{{ url_for('patients.view', patient_id=patient.id) }}" 
+                           class="btn btn-sm btn-icon">
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-users"></i>
+                    <p>No patients yet</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Revenue Chart -->
+    <div class="dashboard-card chart-card">
+        <div class="card-header">
+            <h3><i class="fas fa-chart-line"></i> Revenue Trend</h3>
+        </div>
+        <div class="card-body">
+            <canvas id="revenueChart" height="200"></canvas>
+        </div>
+    </div>
+    
+    <!-- Pending Tasks -->
+    <div class="dashboard-card">
+        <div class="card-header">
+            <h3><i class="fas fa-tasks"></i> Pending Tasks</h3>
+            <a href="{{ url_for('dashboard.tasks') }}" class="btn btn-sm btn-outline">View All</a>
+        </div>
+        <div class="card-body">
+            {% if pending_tasks %}
+                <div class="task-list">
+                    {% for task in pending_tasks %}
+                    <div class="task-item priority-{{ task.priority }}">
+                        <div class="task-checkbox">
+                            <form action="{{ url_for('dashboard.complete_task', task_id=task.id) }}" 
+                                  method="POST" style="display: inline;">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="submit" class="btn-check">
+                                    <i class="far fa-circle"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="task-content">
+                            <span class="task-title">{{ task.title }}</span>
+                            {% if task.due_date %}
+                                <span class="task-due {% if task.due_date < now %}overdue{% endif %}">
+                                    <i class="fas fa-clock"></i>
+                                    {{ task.due_date.strftime('%b %d') }}
+                                </span>
+                            {% endif %}
+                        </div>
+                        <span class="badge badge-{{ task.priority }}">{{ task.priority|title }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-check-circle"></i>
+                    <p>No pending tasks</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Quick Actions -->
+    <div class="dashboard-card">
+        <div class="card-header">
+            <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+        </div>
+        <div class="card-body">
+            <div class="quick-actions">
+                <a href="{{ url_for('patients.create') }}" class="quick-action">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Add Patient</span>
+                </a>
+                <a href="{{ url_for('appointments.create') }}" class="quick-action">
+                    <i class="fas fa-calendar-plus"></i>
+                    <span>Book Appointment</span>
+                </a>
+                <a href="{{ url_for('medical.create_prescription') }}" class="quick-action">
+                    <i class="fas fa-prescription"></i>
+                    <span>Write Prescription</span>
+                </a>
+                <a href="{{ url_for('billing.create_invoice') }}" class="quick-action">
+                    <i class="fas fa-file-invoice"></i>
+                    <span>Create Invoice</span>
+                </a>
+                <a href="{{ url_for('medical.order_lab_test') }}" class="quick-action">
+                    <i class="fas fa-flask"></i>
+                    <span>Order Lab Test</span>
+                </a>
+                <a href="{{ url_for('chatbot.index') }}" class="quick-action">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Assistant</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Weekly Appointments Chart
+const weeklyCtx = document.getElementById('weeklyChart').getContext('2d');
+const weeklyChart = new Chart(weeklyCtx, {
+    type: 'bar',
+    data: {
+        labels: {{ weekly_data|map(attribute='day')|list|tojson }},
+        datasets: [{
+            label: 'Appointments',
+            data: {{ weekly_data|map(attribute='count')|list|tojson }},
+            backgroundColor: 'rgba(59, 130, 246, 0.8)',
+            borderColor: 'rgba(59, 130, 246, 1)',
+            borderWidth: 1,
+            borderRadius: 4
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    stepSize: 1
+                }
+            }
+        }
+    }
+});
+
+// Revenue Chart
+const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+const revenueChart = new Chart(revenueCtx, {
+    type: 'line',
+    data: {
+        labels: {{ revenue_data|map(attribute='month')|list|tojson }},
+        datasets: [{
+            label: 'Revenue',
+            data: {{ revenue_data|map(attribute='revenue')|list|tojson }},
+            borderColor: 'rgba(16, 185, 129, 1)',
+            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+            borderWidth: 2,
+            fill: true,
+            tension: 0.4
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    callback: function(value) {
+                        return '$' + value.toLocaleString();
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+{% endblock %}

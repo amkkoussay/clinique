@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block title %}New Patient - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}New Patient{% endblock %}
+
+{% block page_actions %}
+<a href="{{ url_for('patients.index') }}" class="btn btn-outline">
+    <i class="fas fa-arrow-left"></i> Back to Patients
+</a>
+{% endblock %}
+
+{% block content %}
+<div class="content-card">
+    <div class="card-header">
+        <h3><i class="fas fa-user-plus"></i> Patient Registration</h3>
+    </div>
+    <div class="card-body">
+        <form method="POST" action="{{ url_for('patients.create') }}" class="patient-form">
+            {{ form.hidden_tag() }}
+            
+            <!-- Personal Information -->
+            <div class="form-section">
+                <h4><i class="fas fa-user"></i> Personal Information</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="first_name">First Name *</label>
+                        {{ form.first_name(class="form-control", placeholder="Enter first name") }}
+                        {% if form.first_name.errors %}
+                            <span class="error-message">{{ form.first_name.errors[0] }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="last_name">Last Name *</label>
+                        {{ form.last_name(class="form-control", placeholder="Enter last name") }}
+                        {% if form.last_name.errors %}
+                            <span class="error-message">{{ form.last_name.errors[0] }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="date_of_birth">Date of Birth *</label>
+                        {{ form.date_of_birth(class="form-control", type="date") }}
+                        {% if form.date_of_birth.errors %}
+                            <span class="error-message">{{ form.date_of_birth.errors[0] }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="gender">Gender *</label>
+                        {{ form.gender(class="form-control") }}
+                        {% if form.gender.errors %}
+                            <span class="error-message">{{ form.gender.errors[0] }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="blood_type">Blood Type</label>
+                        {{ form.blood_type(class="form-control") }}
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="marital_status">Marital Status</label>
+                        {{ form.marital_status(class="form-control") }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="occupation">Occupation</label>
+                        {{ form.occupation(class="form-control", placeholder="Enter occupation") }}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact Information -->
+            <div class="form-section">
+                <h4><i class="fas fa-address-card"></i> Contact Information</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="phone">Phone Number *</label>
+                        {{ form.phone(class="form-control", placeholder="Enter phone number") }}
+                        {% if form.phone.errors %}
+                            <span class="error-message">{{ form.phone.errors[0] }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="email">Email Address</label>
+                        {{ form.email(class="form-control", placeholder="Enter email address") }}
+                        {% if form.email.errors %}
+                            <span class="error-message">{{ form.email.errors[0] }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    {{ form.address(class="form-control", rows="3", placeholder="Enter full address") }}
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="emergency_contact_name">Emergency Contact Name</label>
+                        {{ form.emergency_contact_name(class="form-control", placeholder="Enter emergency contact name") }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="emergency_contact_phone">Emergency Contact Phone</label>
+                        {{ form.emergency_contact_phone(class="form-control", placeholder="Enter emergency contact phone") }}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Insurance Information -->
+            <div class="form-section">
+                <h4><i class="fas fa-shield-alt"></i> Insurance Information</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="insurance_provider">Insurance Provider</label>
+                        {{ form.insurance_provider(class="form-control", placeholder="Enter provider name") }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="insurance_policy_number">Policy Number</label>
+                        {{ form.insurance_policy_number(class="form-control", placeholder="Enter policy number") }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="insurance_group_number">Group Number</label>
+                        {{ form.insurance_group_number(class="form-control", placeholder="Enter group number") }}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Medical History -->
+            <div class="form-section">
+                <h4><i class="fas fa-notes-medical"></i> Medical History</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="allergies">Allergies</label>
+                        {{ form.allergies(class="form-control", rows="4", placeholder="Enter allergies (one per line)") }}
+                        <small class="form-text">List all known allergies, one per line</small>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="chronic_conditions">Chronic Conditions</label>
+                        {{ form.chronic_conditions(class="form-control", rows="4", placeholder="Enter conditions (one per line)") }}
+                        <small class="form-text">List chronic conditions, one per line</small>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="current_medications">Current Medications</label>
+                        {{ form.current_medications(class="form-control", rows="4", placeholder="Enter medications (one per line)") }}
+                        <small class="form-text">List current medications, one per line</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="fas fa-save"></i> Save Patient
+                </button>
+                <a href="{{ url_for('patients.index') }}" class="btn btn-outline btn-lg">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

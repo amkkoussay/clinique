@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %}Appointments - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}Appointments{% endblock %}
+
+{% block page_actions %}
+<div class="page-actions">
+    <input type="date" id="dateFilter" class="form-control" value="{{ date_filter }}">
+    <a href="{{ url_for('appointments.create') }}" class="btn btn-primary">
+        <i class="fas fa-calendar-plus"></i> New Appointment
+    </a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="content-card">
+    <div class="card-header">
+        <div class="filter-tabs">
+            <a href="{{ url_for('appointments.index', status='all') }}" 
+               class="tab-link {% if status_filter == 'all' %}active{% endif %}">All</a>
+            <a href="{{ url_for('appointments.index', status='scheduled') }}" 
+               class="tab-link {% if status_filter == 'scheduled' %}active{% endif %}">Scheduled</a>
+            <a href="{{ url_for('appointments.index', status='confirmed') }}" 
+               class="tab-link {% if status_filter == 'confirmed' %}active{% endif %}">Confirmed</a>
+            <a href="{{ url_for('appointments.index', status='completed') }}" 
+               class="tab-link {% if status_filter == 'completed' %}active{% endif %}">Completed</a>
+        </div>
+    </div>
+    <div class="card-body">
+        {% if appointments.items %}
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Patient</th>
+                        <th>Doctor</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for apt in appointments.items %}
+                    <tr>
+                        <td>
+                            <span class="time">{{ apt.start_time.strftime('%H:%M') }}</span>
+                            <span class="duration">{{ (apt.end_time.hour - apt.start_time.hour) * 60 + (apt.end_time.minute - apt.start_time.minute) }} min</span>
+                        </td>
+                        <td>
+                            <div class="patient-info-cell">
+                                <div class="patient-avatar-sm">{{ apt.patient.first_name[0] }}{{ apt.patient.last_name[0] }}</div>
+                                <span>{{ apt.patient.get_full_name() }}</span>
+                            </div>
+                        </td>
+                        <td>Dr. {{ apt.doctor.get_full_name() }}</td>
+                        <td>{{ apt.appointment_type|replace('_', ' ')|title }}</td>
+                        <td><span class="badge badge-{{ apt.get_status_color() }}">{{ apt.status|replace('_', ' ')|title }}</span></td>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="{{ url_for('appointments.view', appointment_id=apt.id) }}" class="btn btn-sm btn-icon" title="View">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-icon" data-toggle="dropdown">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a href="{{ url_for('appointments.edit', appointment_id=apt.id) }}">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </a>
+                                        {% if apt.status == 'scheduled' %}
+                                        <form action="{{ url_for('appointments.update_status', appointment_id=apt.id, status='confirmed') }}" method="POST">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                            <button type="submit"><i class="fas fa-check"></i> Confirm</button>
+                                        </form>
+                                        {% endif %}
+                                        {% if apt.status in ['scheduled', 'confirmed'] %}
+                                        <form action="{{ url_for('appointments.update_status', appointment_id=apt.id, status='in_progress') }}" method="POST">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                            <button type="submit"><i class="fas fa-play"></i> Start</button>
+                                        </form>
+                                        {% endif %}
+                                        {% if apt.status == 'in_progress' %}
+                                        <form action="{{ url_for('appointments.update_status', appointment_id=apt.id, status='completed') }}" method="POST">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                            <button type="submit"><i class="fas fa-check-circle"></i> Complete</button>
+                                        </form>
+                                        {% endif %}
+                                        <hr>
+                                        <form action="{{ url_for('appointments.cancel', appointment_id=apt.id) }}" method="POST" 
+                                              onsubmit="return confirm('Cancel this appointment?');">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                            <button type="submit" class="text-danger"><i class="fas fa-times"></i> Cancel</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        {% if appointments.pages > 1 %}
+        <div class="pagination">
+            {% if appointments.has_prev %}
+            <a href="{{ url_for('appointments.index', page=appointments.prev_num, status=status_filter, date=date_filter) }}" 
+               class="btn btn-outline btn-sm"><i class="fas fa-chevron-left"></i> Previous</a>
+            {% endif %}
+            <span class="page-info">Page {{ appointments.page }} of {{ appointments.pages }}</span>
+            {% if appointments.has_next %}
+            <a href="{{ url_for('appointments.index', page=appointments.next_num, status=status_filter, date=date_filter) }}" 
+               class="btn btn-outline btn-sm">Next <i class="fas fa-chevron-right"></i></a>
+            {% endif %}
+        </div>
+        {% endif %}
+        
+        {% else %}
+        <div class="empty-state">
+            <i class="fas fa-calendar"></i>
+            <h3>No appointments found</h3>
+            <p>Schedule your first appointment to get started</p>
+            <a href="{{ url_for('appointments.create') }}" class="btn btn-primary">
+                <i class="fas fa-calendar-plus"></i> New Appointment
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('dateFilter').addEventListener('change', function() {
+    window.location.href = `{{ url_for('appointments.index') }}?date=${this.value}`;
+});
+</script>
+{% endblock %}

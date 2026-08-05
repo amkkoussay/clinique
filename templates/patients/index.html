@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+{% block title %}Patients - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}Patients{% endblock %}
+
+{% block page_actions %}
+<div class="page-actions">
+    <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="patientSearch" placeholder="Search patients..." 
+               value="{{ search }}" autocomplete="off">
+    </div>
+    <a href="{{ url_for('patients.create') }}" class="btn btn-primary">
+        <i class="fas fa-user-plus"></i>
+        New Patient
+    </a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="content-card">
+    <div class="card-body">
+        {% if patients.items %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Patient ID</th>
+                        <th>Name</th>
+                        <th>Age/Gender</th>
+                        <th>Contact</th>
+                        <th>Last Visit</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for patient in patients.items %}
+                    <tr>
+                        <td>
+                            <span class="patient-id">{{ patient.patient_id }}</span>
+                        </td>
+                        <td>
+                            <div class="patient-info-cell">
+                                <div class="patient-avatar-sm">
+                                    {{ patient.first_name[0] }}{{ patient.last_name[0] }}
+                                </div>
+                                <div>
+                                    <span class="patient-name">{{ patient.get_full_name() }}</span>
+                                    {% if patient.insurance_provider %}
+                                    <span class="insurance-badge">
+                                        <i class="fas fa-shield-alt"></i> {{ patient.insurance_provider }}
+                                    </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="patient-demographics">
+                                {{ patient.get_age() }} years / {{ patient.gender|title }}
+                            </span>
+                            {% if patient.blood_type %}
+                            <span class="blood-type">{{ patient.blood_type }}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="contact-info">
+                                <span><i class="fas fa-phone"></i> {{ patient.phone }}</span>
+                                {% if patient.email %}
+                                <span><i class="fas fa-envelope"></i> {{ patient.email }}</span>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td>
+                            {% if patient.appointments.first() %}
+                                {{ patient.appointments.first().appointment_date.strftime('%b %d, %Y') }}
+                            {% else %}
+                                <span class="text-muted">Never</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="{{ url_for('patients.view', patient_id=patient.id) }}" 
+                                   class="btn btn-sm btn-icon" title="View">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="{{ url_for('appointments.create', patient_id=patient.id) }}" 
+                                   class="btn btn-sm btn-icon" title="Book Appointment">
+                                    <i class="fas fa-calendar-plus"></i>
+                                </a>
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-icon" data-toggle="dropdown">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a href="{{ url_for('patients.edit', patient_id=patient.id) }}">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </a>
+                                        <a href="{{ url_for('medical.create_record', patient_id=patient.id) }}">
+                                            <i class="fas fa-file-medical"></i> Add Record
+                                        </a>
+                                        <a href="{{ url_for('patients.add_vital_signs', patient_id=patient.id) }}">
+                                            <i class="fas fa-heartbeat"></i> Vital Signs
+                                        </a>
+                                        <hr>
+                                        <form action="{{ url_for('patients.delete', patient_id=patient.id) }}" 
+                                              method="POST" class="delete-form"
+                                              onsubmit="return confirm('Are you sure you want to deactivate this patient?');">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                            <button type="submit" class="text-danger">
+                                                <i class="fas fa-trash"></i> Deactivate
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Pagination -->
+        {% if patients.pages > 1 %}
+        <div class="pagination">
+            {% if patients.has_prev %}
+            <a href="{{ url_for('patients.index', page=patients.prev_num, search=search) }}" 
+               class="btn btn-outline btn-sm">
+                <i class="fas fa-chevron-left"></i> Previous
+            </a>
+            {% endif %}
+            
+            <span class="page-info">
+                Page {{ patients.page }} of {{ patients.pages }}
+            </span>
+            
+            {% if patients.has_next %}
+            <a href="{{ url_for('patients.index', page=patients.next_num, search=search) }}" 
+               class="btn btn-outline btn-sm">
+                Next <i class="fas fa-chevron-right"></i>
+            </a>
+            {% endif %}
+        </div>
+        {% endif %}
+        
+        {% else %}
+        <div class="empty-state">
+            <i class="fas fa-users"></i>
+            <h3>No patients found</h3>
+            <p>Get started by adding your first patient</p>
+            <a href="{{ url_for('patients.create') }}" class="btn btn-primary">
+                <i class="fas fa-user-plus"></i> Add Patient
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Live search
+let searchTimeout;
+document.getElementById('patientSearch').addEventListener('input', function() {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+        const searchValue = this.value;
+        window.location.href = `{{ url_for('patients.index') }}?search=${encodeURIComponent(searchValue)}`;
+    }, 500);
+});
+</script>
+{% endblock %}

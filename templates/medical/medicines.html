@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <h2>Medicines Inventory</h2>
+    <table class="table">
+        <thead><tr><th>Name</th><th>Stock</th></tr></thead>
+        <tbody>{% for med in medicines %}<tr><td>{{ med.name }}</td><td>{{ med.stock_quantity }}</td></tr>{% endfor %}</tbody>
+    </table>
+</div>
+{% endblock %}

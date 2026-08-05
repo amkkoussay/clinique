@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="id-card">
+    <h2>Patient ID Card</h2>
+    <p>Name: {{ patient.get_full_name() }}</p>
+    <p>ID: {{ patient.patient_id }}</p>
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <h2>Create Appointment</h2>
+    <form method="POST"> {{ form.hidden_tag() if form.hidden_tag else "" }}
+        {{ form.as_p() if form.as_p else "Form Content Here" }}
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
+{% endblock %}

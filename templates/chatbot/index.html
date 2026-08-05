@@ -1,0 +1,349 @@
+{% extends "base.html" %}
+
+{% block title %}AI Medical Assistant - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}AI Medical Assistant{% endblock %}
+
+{% block page_actions %}
+<button class="btn btn-outline" onclick="clearChat()">
+    <i class="fas fa-trash"></i> Clear Chat
+</button>
+{% endblock %}
+
+{% block content %}
+<div class="chatbot-container">
+    <div class="chat-messages" id="chatMessages">
+        <div class="message bot-message">
+            <div class="message-avatar">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="message-content">
+                <p>Hello! I'm your AI medical assistant. I can help you with:</p>
+                <ul>
+                    <li>Checking symptoms and providing guidance</li>
+                    <li>Booking appointments</li>
+                    <li>Answering questions about our services</li>
+                    <li>Providing general health information</li>
+                </ul>
+                <p>How can I help you today?</p>
+            </div>
+        </div>
+        
+        {% for msg in history %}
+        <div class="message user-message">
+            <div class="message-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="message-content">
+                <p>{{ msg.message }}</p>
+            </div>
+        </div>
+        <div class="message bot-message">
+            <div class="message-avatar">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="message-content">
+                <p>{{ msg.response }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <div class="chat-input-container">
+        <div class="quick-replies" id="quickReplies">
+            <button class="quick-reply" onclick="sendQuickReply('I have a fever')">I have a fever</button>
+            <button class="quick-reply" onclick="sendQuickReply('Book an appointment')">Book an appointment</button>
+            <button class="quick-reply" onclick="sendQuickReply('What are your working hours?')">Working hours</button>
+            <button class="quick-reply" onclick="sendQuickReply('What services do you offer?')">Services</button>
+        </div>
+        
+        <form class="chat-form" id="chatForm" onsubmit="sendMessage(event)">
+            <div class="input-group">
+                <input type="text" id="messageInput" placeholder="Type your message..." autocomplete="off">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.chatbot-container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 200px);
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing);
+}
+
+.message {
+    display: flex;
+    gap: var(--spacing);
+    max-width: 80%;
+}
+
+.message.user-message {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+.message-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.bot-message .message-avatar {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+}
+
+.user-message .message-avatar {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.message-content {
+    background: var(--bg-secondary);
+    padding: var(--spacing);
+    border-radius: var(--radius);
+    border: 1px solid var(--border-color);
+}
+
+.user-message .message-content {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.message-content p {
+    margin: 0 0 var(--spacing-sm) 0;
+}
+
+.message-content p:last-child {
+    margin-bottom: 0;
+}
+
+.message-content ul {
+    margin: var(--spacing-sm) 0;
+    padding-left: var(--spacing-lg);
+}
+
+.message-content li {
+    margin-bottom: var(--spacing-xs);
+}
+
+.chat-input-container {
+    padding: var(--spacing);
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-card);
+}
+
+.quick-replies {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing);
+    flex-wrap: wrap;
+}
+
+.quick-reply {
+    padding: var(--spacing-xs) var(--spacing);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.quick-reply:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.chat-form .input-group {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.chat-form input {
+    flex: 1;
+    padding: var(--spacing);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.chat-form input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.typing-indicator {
+    display: flex;
+    gap: 4px;
+    padding: var(--spacing);
+}
+
+.typing-indicator span {
+    width: 8px;
+    height: 8px;
+    background: var(--text-muted);
+    border-radius: 50%;
+    animation: typing 1s infinite;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+const chatMessages = document.getElementById('chatMessages');
+const messageInput = document.getElementById('messageInput');
+const chatForm = document.getElementById('chatForm');
+
+function scrollToBottom() {
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function addMessage(content, isUser = false) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+    messageDiv.innerHTML = `
+        <div class="message-avatar">
+            <i class="fas fa-${isUser ? 'user' : 'robot'}"></i>
+        </div>
+        <div class="message-content">
+            <p>${content}</p>
+        </div>
+    `;
+    chatMessages.appendChild(messageDiv);
+    scrollToBottom();
+}
+
+function showTypingIndicator() {
+    const indicator = document.createElement('div');
+    indicator.className = 'message bot-message typing';
+    indicator.id = 'typingIndicator';
+    indicator.innerHTML = `
+        <div class="message-avatar">
+            <i class="fas fa-robot"></i>
+        </div>
+        <div class="message-content">
+            <div class="typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    `;
+    chatMessages.appendChild(indicator);
+    scrollToBottom();
+}
+
+function hideTypingIndicator() {
+    const indicator = document.getElementById('typingIndicator');
+    if (indicator) {
+        indicator.remove();
+    }
+}
+
+async function sendMessage(event) {
+    event.preventDefault();
+    
+    const message = messageInput.value.trim();
+    if (!message) return;
+    
+    // Add user message
+    addMessage(message, true);
+    messageInput.value = '';
+    
+    // Show typing indicator
+    showTypingIndicator();
+    
+    try {
+        const response = await fetch('/chatbot/api/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify({ message })
+        });
+        
+        const data = await response.json();
+        
+        // Hide typing indicator and add bot response
+        hideTypingIndicator();
+        addMessage(data.response);
+    } catch (error) {
+        hideTypingIndicator();
+        addMessage('Sorry, I encountered an error. Please try again.');
+    }
+}
+
+function sendQuickReply(message) {
+    messageInput.value = message;
+    chatForm.dispatchEvent(new Event('submit'));
+}
+
+async function clearChat() {
+    if (!confirm('Are you sure you want to clear the chat history?')) return;
+    
+    try {
+        await fetch('/chatbot/api/clear', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').content
+            }
+        });
+        
+        // Clear messages except welcome
+        const messages = chatMessages.querySelectorAll('.message');
+        messages.forEach((msg, index) => {
+            if (index > 0) msg.remove();
+        });
+    } catch (error) {
+        console.error('Error clearing chat:', error);
+    }
+}
+
+// Scroll to bottom on load
+scrollToBottom();
+
+// Focus input on load
+messageInput.focus();
+</script>
+{% endblock %}

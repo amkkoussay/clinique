@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <h2>Appointment Details</h2>
+    <p>ID: {{ appointment.id }}</p>
+    <p>Date: {{ appointment.appointment_date }}</p>
+    <p>Patient: {{ appointment.patient.get_full_name() }}</p>
+</div>
+{% endblock %}

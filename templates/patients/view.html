@@ -1,0 +1,417 @@
+{% extends "base.html" %}
+
+{% block title %}{{ patient.get_full_name() }} - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}
+<div class="patient-header">
+    <div class="patient-title">
+        <div class="patient-avatar-lg">
+            {{ patient.first_name[0] }}{{ patient.last_name[0] }}
+        </div>
+        <div>
+            <h1>{{ patient.get_full_name() }}</h1>
+            <span class="patient-meta">{{ patient.patient_id }} | {{ patient.get_age() }} years | {{ patient.gender|title }}</span>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block page_actions %}
+<div class="page-actions">
+    <a href="{{ url_for('patients.edit', patient_id=patient.id) }}" class="btn btn-outline">
+        <i class="fas fa-edit"></i> Edit
+    </a>
+    <a href="{{ url_for('patients.generate_id_card', patient_id=patient.id) }}" class="btn btn-outline" target="_blank">
+        <i class="fas fa-id-card"></i> ID Card
+    </a>
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle">
+            <i class="fas fa-plus"></i> Actions
+        </button>
+        <div class="dropdown-menu">
+            <a href="{{ url_for('appointments.create', patient_id=patient.id) }}">
+                <i class="fas fa-calendar-plus"></i> Book Appointment
+            </a>
+            <a href="{{ url_for('medical.create_record', patient_id=patient.id) }}">
+                <i class="fas fa-file-medical"></i> Add Medical Record
+            </a>
+            <a href="{{ url_for('medical.create_prescription', patient_id=patient.id) }}">
+                <i class="fas fa-prescription"></i> Write Prescription
+            </a>
+            <a href="{{ url_for('patients.add_vital_signs', patient_id=patient.id) }}">
+                <i class="fas fa-heartbeat"></i> Record Vital Signs
+            </a>
+            <a href="{{ url_for('patients.upload_document', patient_id=patient.id) }}">
+                <i class="fas fa-upload"></i> Upload Document
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="patient-profile">
+    <div class="profile-grid">
+        <!-- Personal Information -->
+        <div class="profile-card">
+            <div class="card-header">
+                <h3><i class="fas fa-user"></i> Personal Information</h3>
+            </div>
+            <div class="card-body">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Full Name</span>
+                        <span class="info-value">{{ patient.get_full_name() }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Date of Birth</span>
+                        <span class="info-value">{{ patient.date_of_birth.strftime('%B %d, %Y') }} ({{ patient.get_age() }} years)</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Gender</span>
+                        <span class="info-value">{{ patient.gender|title }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Blood Type</span>
+                        <span class="info-value">{{ patient.blood_type or 'Not specified' }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Marital Status</span>
+                        <span class="info-value">{{ patient.marital_status|title if patient.marital_status else 'Not specified' }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Occupation</span>
+                        <span class="info-value">{{ patient.occupation or 'Not specified' }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Contact Information -->
+        <div class="profile-card">
+            <div class="card-header">
+                <h3><i class="fas fa-address-card"></i> Contact Information</h3>
+            </div>
+            <div class="card-body">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Phone</span>
+                        <span class="info-value">
+                            <a href="tel:{{ patient.phone }}">{{ patient.phone }}</a>
+                        </span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Email</span>
+                        <span class="info-value">
+                            {% if patient.email %}
+                            <a href="mailto:{{ patient.email }}">{{ patient.email }}</a>
+                            {% else %}
+                            Not provided
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="info-item full-width">
+                        <span class="info-label">Address</span>
+                        <span class="info-value">{{ patient.address or 'Not provided' }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Emergency Contact</span>
+                        <span class="info-value">
+                            {% if patient.emergency_contact_name %}
+                            {{ patient.emergency_contact_name }}<br>
+                            <a href="tel:{{ patient.emergency_contact_phone }}">{{ patient.emergency_contact_phone }}</a>
+                            {% else %}
+                            Not provided
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Insurance Information -->
+        <div class="profile-card">
+            <div class="card-header">
+                <h3><i class="fas fa-shield-alt"></i> Insurance Information</h3>
+            </div>
+            <div class="card-body">
+                {% if patient.insurance_provider %}
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Provider</span>
+                        <span class="info-value">{{ patient.insurance_provider }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Policy Number</span>
+                        <span class="info-value">{{ patient.insurance_policy_number or 'N/A' }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Group Number</span>
+                        <span class="info-value">{{ patient.insurance_group_number or 'N/A' }}</span>
+                    </div>
+                </div>
+                {% else %}
+                <div class="empty-state-sm">
+                    <i class="fas fa-shield-alt"></i>
+                    <p>No insurance information on file</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Medical History -->
+        <div class="profile-card">
+            <div class="card-header">
+                <h3><i class="fas fa-notes-medical"></i> Medical History</h3>
+            </div>
+            <div class="card-body">
+                <div class="medical-sections">
+                    <div class="medical-section">
+                        <h4>Allergies</h4>
+                        {% if patient.get_allergies_list() %}
+                        <ul class="tag-list">
+                            {% for allergy in patient.get_allergies_list() %}
+                            <li class="tag tag-danger">{{ allergy }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% else %}
+                        <p class="text-muted">No known allergies</p>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="medical-section">
+                        <h4>Chronic Conditions</h4>
+                        {% if patient.get_chronic_conditions_list() %}
+                        <ul class="tag-list">
+                            {% for condition in patient.get_chronic_conditions_list() %}
+                            <li class="tag tag-warning">{{ condition }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% else %}
+                        <p class="text-muted">No chronic conditions</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tabs Section -->
+    <div class="profile-tabs">
+        <div class="tabs-header">
+            <button class="tab-btn active" data-tab="appointments">
+                <i class="fas fa-calendar-check"></i> Appointments
+            </button>
+            <button class="tab-btn" data-tab="records">
+                <i class="fas fa-file-medical"></i> Medical Records
+            </button>
+            <button class="tab-btn" data-tab="prescriptions">
+                <i class="fas fa-prescription"></i> Prescriptions
+            </button>
+            <button class="tab-btn" data-tab="vitals">
+                <i class="fas fa-heartbeat"></i> Vital Signs
+            </button>
+            <button class="tab-btn" data-tab="documents">
+                <i class="fas fa-file-alt"></i> Documents
+            </button>
+        </div>
+        
+        <div class="tabs-content">
+            <!-- Appointments Tab -->
+            <div class="tab-panel active" id="appointments">
+                {% if recent_appointments %}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Doctor</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for apt in recent_appointments %}
+                            <tr>
+                                <td>{{ apt.appointment_date.strftime('%b %d, %Y') }}</td>
+                                <td>{{ apt.start_time.strftime('%H:%M') }} - {{ apt.end_time.strftime('%H:%M') }}</td>
+                                <td>Dr. {{ apt.doctor.get_full_name() }}</td>
+                                <td>{{ apt.appointment_type|replace('_', ' ')|title }}</td>
+                                <td><span class="badge badge-{{ apt.get_status_color() }}">{{ apt.status|title }}</span></td>
+                                <td>
+                                    <a href="{{ url_for('appointments.view', appointment_id=apt.id) }}" class="btn btn-sm btn-icon">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-calendar"></i>
+                    <p>No appointments found</p>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Medical Records Tab -->
+            <div class="tab-panel" id="records">
+                {% if recent_records %}
+                <div class="records-list">
+                    {% for record in recent_records %}
+                    <div class="record-item">
+                        <div class="record-header">
+                            <span class="record-date">{{ record.visit_date.strftime('%b %d, %Y') }}</span>
+                            <span class="record-doctor">Dr. {{ record.doctor.get_full_name() }}</span>
+                        </div>
+                        <div class="record-content">
+                            {% if record.primary_diagnosis %}
+                            <p><strong>Diagnosis:</strong> {{ record.primary_diagnosis }}</p>
+                            {% endif %}
+                            {% if record.assessment %}
+                            <p><strong>Assessment:</strong> {{ record.assessment|truncate(100) }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="record-actions">
+                            <a href="{{ url_for('medical.view_record', record_id=record.id) }}" class="btn btn-sm btn-outline">View Details</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-file-medical"></i>
+                    <p>No medical records found</p>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Prescriptions Tab -->
+            <div class="tab-panel" id="prescriptions">
+                {% if recent_prescriptions %}
+                <div class="prescriptions-list">
+                    {% for rx in recent_prescriptions %}
+                    <div class="prescription-item">
+                        <div class="prescription-header">
+                            <span class="prescription-number">{{ rx.prescription_number }}</span>
+                            <span class="prescription-date">{{ rx.prescription_date.strftime('%b %d, %Y') }}</span>
+                        </div>
+                        <div class="prescription-doctor">Dr. {{ rx.doctor.get_full_name() }}</div>
+                        <div class="prescription-medications">
+                            {% for item in rx.items %}
+                            <span class="medication-tag">{{ item.medication_name }}</span>
+                            {% endfor %}
+                        </div>
+                        <div class="prescription-actions">
+                            <a href="{{ url_for('medical.view_prescription', prescription_id=rx.id) }}" class="btn btn-sm btn-outline">View</a>
+                            <a href="{{ url_for('medical.prescription_pdf', prescription_id=rx.id) }}" class="btn btn-sm btn-icon" target="_blank">
+                                <i class="fas fa-download"></i>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-prescription"></i>
+                    <p>No prescriptions found</p>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Vital Signs Tab -->
+            <div class="tab-panel" id="vitals">
+                {% if vital_signs %}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>BP</th>
+                                <th>HR</th>
+                                <th>Temp</th>
+                                <th>Weight</th>
+                                <th>SpO2</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for vital in vital_signs %}
+                            <tr>
+                                <td>{{ vital.recorded_at.strftime('%b %d, %Y %H:%M') }}</td>
+                                <td>{{ vital.get_blood_pressure() or '-' }}</td>
+                                <td>{{ vital.heart_rate or '-' }} bpm</td>
+                                <td>{{ "%.1f"|format(vital.temperature_celsius) + '°C' if vital.temperature_celsius else '-' }}</td>
+                                <td>{{ "%.1f"|format(vital.weight_kg) + ' kg' if vital.weight_kg else '-' }}</td>
+                                <td>{{ "%.1f"|format(vital.oxygen_saturation) + '%' if vital.oxygen_saturation else '-' }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-heartbeat"></i>
+                    <p>No vital signs recorded</p>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Documents Tab -->
+            <div class="tab-panel" id="documents">
+                {% if documents %}
+                <div class="documents-grid">
+                    {% for doc in documents %}
+                    <div class="document-item">
+                        <div class="document-icon">
+                            <i class="fas fa-file-{{ 'pdf' if doc.mime_type == 'application/pdf' else 'image' if doc.mime_type and doc.mime_type.startswith('image') else 'alt' }}"></i>
+                        </div>
+                        <div class="document-info">
+                            <span class="document-title">{{ doc.title }}</span>
+                            <span class="document-type">{{ doc.document_type|replace('_', ' ')|title }}</span>
+                            <span class="document-date">{{ doc.uploaded_at.strftime('%b %d, %Y') }}</span>
+                        </div>
+                        <div class="document-actions">
+                            <a href="{{ url_for('patients.download_document', document_id=doc.id) }}" class="btn btn-sm btn-icon">
+                                <i class="fas fa-download"></i>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-file-alt"></i>
+                    <p>No documents uploaded</p>
+                    <a href="{{ url_for('patients.upload_document', patient_id=patient.id) }}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-upload"></i> Upload Document
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Tab functionality
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const tabId = this.dataset.tab;
+        
+        // Remove active class from all tabs and panels
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        
+        // Add active class to clicked tab and corresponding panel
+        this.classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+    });
+});
+</script>
+{% endblock %}

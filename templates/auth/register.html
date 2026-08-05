@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+
+{% block title %}Sign Up - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block public_content %}
+<div class="auth-page">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <a href="{{ url_for('main.index') }}" class="logo">
+                    <i class="fas fa-heart-pulse"></i>
+                    <span>{{ config.CLINIC_NAME }}</span>
+                </a>
+                <h1>Create Account</h1>
+                <p>Join our healthcare community</p>
+            </div>
+            
+            <form method="POST" action="{{ url_for('auth.register') }}" class="auth-form">
+                {{ form.hidden_tag() }}
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="first_name">First Name</label>
+                        <div class="input-group">
+                            <span class="input-icon">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            {{ form.first_name(class="form-control", placeholder="First name") }}
+                        </div>
+                        {% if form.first_name.errors %}
+                            <span class="error-message">{{ form.first_name.errors[0] }}</span>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="last_name">Last Name</label>
+                        <div class="input-group">
+                            <span class="input-icon">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            {{ form.last_name(class="form-control", placeholder="Last name") }}
+                        </div>
+                        {% if form.last_name.errors %}
+                            <span class="error-message">{{ form.last_name.errors[0] }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-group">
+                        <span class="input-icon">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                        {{ form.email(class="form-control", placeholder="Enter your email") }}
+                    </div>
+                    {% if form.email.errors %}
+                        <span class="error-message">{{ form.email.errors[0] }}</span>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <div class="input-group">
+                        <span class="input-icon">
+                            <i class="fas fa-phone"></i>
+                        </span>
+                        {{ form.phone(class="form-control", placeholder="Enter your phone number") }}
+                    </div>
+                    {% if form.phone.errors %}
+                        <span class="error-message">{{ form.phone.errors[0] }}</span>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <div class="input-group">
+                        <span class="input-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </span>
+                        {{ form.role(class="form-control") }}
+                    </div>
+                    {% if form.role.errors %}
+                        <span class="error-message">{{ form.role.errors[0] }}</span>
+                    {% endif %}
+                </div>
+                
+                <div class="form-row doctor-fields" style="display: none;">
+                    <div class="form-group">
+                        <label for="specialization">Specialization</label>
+                        <div class="input-group">
+                            <span class="input-icon">
+                                <i class="fas fa-stethoscope"></i>
+                            </span>
+                            {{ form.specialization(class="form-control", placeholder="e.g., Cardiology") }}
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="license_number">License Number</label>
+                        <div class="input-group">
+                            <span class="input-icon">
+                                <i class="fas fa-certificate"></i>
+                            </span>
+                            {{ form.license_number(class="form-control", placeholder="Medical license number") }}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-group">
+                        <span class="input-icon">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                        {{ form.password(class="form-control", placeholder="Create a password") }}
+                        <button type="button" class="password-toggle" onclick="togglePassword(this)">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    {% if form.password.errors %}
+                        <span class="error-message">{{ form.password.errors[0] }}</span>
+                    {% endif %}
+                    <span class="help-text">Password must be at least 8 characters long</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password2">Confirm Password</label>
+                    <div class="input-group">
+                        <span class="input-icon">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                        {{ form.password2(class="form-control", placeholder="Confirm your password") }}
+                    </div>
+                    {% if form.password2.errors %}
+                        <span class="error-message">{{ form.password2.errors[0] }}</span>
+                    {% endif %}
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block">
+                    <i class="fas fa-user-plus"></i>
+                    Create Account
+                </button>
+            </form>
+            
+            <div class="auth-footer">
+                <p>Already have an account? 
+                    <a href="{{ url_for('auth.login') }}">Sign in</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function togglePassword(btn) {
+    const input = btn.parentElement.querySelector('input');
+    const icon = btn.querySelector('i');
+    
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+    } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+    }
+}
+
+// Show/hide doctor fields based on role selection
+document.getElementById('role').addEventListener('change', function() {
+    const doctorFields = document.querySelector('.doctor-fields');
+    if (this.value === 'doctor') {
+        doctorFields.style.display = 'flex';
+    } else {
+        doctorFields.style.display = 'none';
+    }
+});
+</script>
+{% endblock %}

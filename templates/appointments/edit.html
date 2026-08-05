@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <h2>Edit Appointment</h2>
+    <form method="POST"> {{ form.hidden_tag() if form.hidden_tag else "" }}
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</div>
+{% endblock %}

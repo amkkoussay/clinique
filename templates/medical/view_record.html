@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <h2>Medical Record Details</h2>
+    <p>Patient: {{ record.patient.get_full_name() }}</p>
+    <p>Diagnosis: {{ record.primary_diagnosis }}</p>
+</div>
+{% endblock %}

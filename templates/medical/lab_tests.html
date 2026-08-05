@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <h2>Laboratory Tests</h2>
+    <table class="table">
+        <thead><tr><th>Test</th><th>Patient</th><th>Status</th></tr></thead>
+        <tbody>{% for test in tests %}<tr><td>{{ test.test_name }}</td><td>{{ test.patient.get_full_name() }}</td><td>{{ test.status }}</td></tr>{% endfor %}</tbody>
+    </table>
+</div>
+{% endblock %}

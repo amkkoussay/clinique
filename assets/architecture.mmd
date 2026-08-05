@@ -1,0 +1,29 @@
+graph TD
+    subgraph Frontend [Web Interface]
+        UI[Jinja2 Templates]
+        JS[JavaScript/AJAX]
+        CSS[Tailwind/Custom CSS]
+    end
+
+    subgraph Backend [Flask Application]
+        App[Flask App]
+        Routes[Blueprints/Routes]
+        Auth[Flask-Login Auth]
+        Forms[Flask-WTF Forms]
+        Chat[AI Chatbot Engine]
+    end
+
+    subgraph Database [Persistence Layer]
+        DB[(SQLite / SQLAlchemy)]
+        Models[Data Models]
+    end
+
+    UI --> Routes
+    JS --> Routes
+    Routes --> App
+    App --> Auth
+    App --> Forms
+    App --> Models
+    Models --> DB
+    Routes --> Chat
+    Chat --> DB
