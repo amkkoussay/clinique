@@ -1,0 +1,46 @@
+# Local Python environments
+.venv/
+venv/
+env/
+
+# Python generated files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local databases and database backups
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+
+# Runtime logs
+*.log
+logs/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+instance/
+
+# User-generated uploads and exports
+static/uploads/*
+!static/uploads/.gitkeep
+exports/
+
+# Test and tooling caches
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# OS/editor files
+.DS_Store
+.vscode/
+.idea/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/

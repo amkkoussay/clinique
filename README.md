@@ -1,102 +1,84 @@
-# 🏥 MediCare Clinic - Comprehensive Management Platform
+# Clinique — Clinic Management Prototype
 
-**MediCare Clinic** is a professional-grade healthcare management solution designed to streamline clinic operations. Built with Flask and modern web technologies, it provides a centralized platform for patient records, appointment scheduling, billing, and AI-driven patient support.
+**Clinique** is a portfolio-scale clinic management prototype built with Flask, SQLAlchemy, and vanilla JavaScript. It explores how patient records, appointments, medical notes, billing, and role-based workflows can be organised in a small health-information system.
+
+> **Project status:** Prototype / educational project. Clinique is not a certified medical device, production healthcare service, or compliance-certified system. Do not use it with real patient information.
 
 ---
 
-## 🏗️ System Architecture
+## What the project demonstrates
 
-The platform follows a modular architecture, ensuring scalability, security, and a seamless user experience across different roles (Admin, Doctor, Receptionist).
+Clinique focuses on practical health-information workflows and a modular Flask structure. The current codebase includes authentication flows, role-aware navigation, patient and appointment management, medical records, prescriptions, billing screens, reports, and an audit-trail concept for local development and testing.
+
+The project is intended to demonstrate software and systems-engineering thinking: separating routes and models, validating user input, protecting forms with CSRF, hashing passwords, and making the workflow explicit for different roles such as administrators, doctors, and reception staff.
+
+## Core modules
+
+### Clinical workflow
+
+- Patient profiles and searchable patient records.
+- Appointment scheduling and status tracking.
+- Medical notes, prescriptions, and medicine lookup.
+- ICD-10-oriented fields and health-data structures where represented in the current models and templates.
+
+### Operations and reporting
+
+- Dashboard summaries and charts.
+- Billing and invoice screens.
+- Printable reports and CSV export paths.
+- Local audit-trail structures for development review.
+
+### Interface
+
+- Responsive Jinja templates with vanilla JavaScript.
+- Light and dark theme support.
+- English and Arabic interface foundations.
+- Input validation, CSRF protection, password hashing, and basic file-upload safeguards.
+
+These features are presented as implementation experiments in a portfolio project. They should not be interpreted as a claim of clinical validation, security certification, or HIPAA/GDPR compliance.
+
+## Architecture
+
+The application uses a modular Flask structure with SQLAlchemy models, blueprints for route groups, Jinja templates, and static assets. SQLite is suitable for local exploration; a production deployment would require a security review, a managed database, secret management, access controls, monitoring, backups, and a formal regulatory and privacy assessment.
 
 ![Architecture Diagram](./assets/architecture.png)
 
-### **Key Technical Features**
-- **Role-Based Access Control (RBAC)**: Secure access management for Admins, Doctors, and Staff.
-- **Smart Scheduling**: Interactive calendar with drag-and-drop support and automated conflict detection.
-- **Electronic Health Records (EHR)**: Comprehensive patient profiles, medical history, SOAP notes, and ICD-10 integration.
-- **Financial Suite**: Automated invoicing, payment tracking, and multi-format financial reporting.
-- **AI Chatbot Integration**: 24/7 assistant for symptom checking, FAQs, and appointment booking.
-- **Multi-language & Theme**: Full support for English/Arabic and Light/Dark modes.
+## Technology stack
 
----
+- **Backend:** Flask, SQLAlchemy, Flask-Login, Flask-WTF.
+- **Database:** SQLite for local development; PostgreSQL or MySQL would require additional deployment work.
+- **Frontend:** Jinja2, vanilla JavaScript, CSS Grid, and Flexbox.
+- **Charts and calendar:** Chart.js and FullCalendar.js.
+- **Security foundations:** Werkzeug password hashing, CSRF protection, input validation, and basic upload checks.
 
-## 📸 Platform Preview
+## Local setup
 
-### **Professional Landing Page**
-Modern and responsive interface to introduce clinic services and features.
-![Landing Page](./assets/screenshots/landing_page.webp)
+### Prerequisites
 
-### **Administrative Dashboard**
-Real-time analytics, revenue trends, and a quick overview of today's schedule.
-![Dashboard](./assets/screenshots/dashboard.webp)
+- Python 3.8 or newer.
+- `pip`.
 
-### **Patient Management**
-Searchable database with detailed medical history and vital signs tracking.
-![Patients List](./assets/screenshots/patients_list.webp)
+### Installation
 
----
+```bash
+git clone https://github.com/amkkoussay/clinique.git
+cd clinique
+python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+python init_db.py
+python seed.py
+python app.py
+```
 
-## 🚀 Core Modules
+Open `http://localhost:5000` after starting the local server. The initialization and seed scripts are intended for local demo data only. Review and replace any development credentials before sharing a running instance, and never commit secrets, databases, logs, or real health data.
 
-### 🩺 Medical Management
-- **Digital Prescriptions**: Fast and accurate prescription writing with a built-in medicine database.
-- **Lab Test Management**: Order tests and track results directly within the patient profile.
-- **Vital Signs Monitoring**: Track and visualize patient health trends over time.
+## Data and safety boundary
 
-### 📅 Operational Excellence
-- **Interactive Calendar**: Manage appointments across multiple doctors with ease.
-- **Waiting Room Queue**: Real-time tracking of patient status in the clinic.
-- **Audit Logging**: Comprehensive logs for every action taken within the system for HIPAA/GDPR compliance.
+This repository intentionally does not include a database file, runtime logs, Python bytecode, uploaded files, or other local artifacts. The `.gitignore` rules prevent those files from being added accidentally.
 
-### 💰 Financial & Reporting
-- **Invoice Generation**: Professional invoices with PDF export capabilities.
-- **Revenue Analytics**: Detailed charts and reports on clinic performance.
-- **Insurance Handling**: Streamlined billing for insured patients.
+Clinique is a software prototype, not a substitute for a clinical information-system assessment. Before any real-world use, the application would need threat modelling, independent security testing, privacy and data-governance review, clinical safety review, audit controls, access-management hardening, secure deployment, and jurisdiction-specific legal and regulatory analysis.
 
----
+## License
 
-## 🛠️ Technology Stack
-
-- **Backend**: Flask 2.3+, SQLAlchemy ORM, Flask-Login, Flask-WTF
-- **Database**: SQLite (Production-ready for PostgreSQL/MySQL)
-- **Frontend**: Vanilla JavaScript (ES6+), Jinja2, CSS Grid/Flexbox
-- **Charts & Calendar**: Chart.js, FullCalendar.js
-- **Security**: Werkzeug Hashing, CSRF Protection, Input Sanitization
-
----
-
-## 🚦 Getting Started
-
-### **Prerequisites**
-- Python 3.8+
-- pip (Python package manager)
-
-### **Installation**
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/amkkoussay/clinique.git
-   cd clinique
-   ```
-2. **Install dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. **Initialize the database**:
-   ```bash
-   python init_db.py
-   python seed.py
-   ```
-4. **Run the application**:
-   ```bash
-   python app.py
-   ```
-   Access the platform at `http://localhost:5000`.
-
-### **Default Credentials**
-- **Admin**: `admin@clinic.com` / `admin123`
-- **Doctor**: `dr.smith@clinic.com` / `doctor123`
-
----
-
-## 📝 License
-This project is licensed under the MIT License.
+This project is licensed under the MIT License. See [LICENSE](./LICENSE).
