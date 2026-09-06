@@ -1,7 +1,96 @@
 {% extends "base.html" %}
+
+{% block title %}Financial Report - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}Financial Report{% endblock %}
+
+{% block page_actions %}
+<form method="GET" class="page-actions">
+    <select name="period" class="form-control" onchange="this.form.submit()">
+        <option value="day" {% if period == 'day' %}selected{% endif %}>Daily</option>
+        <option value="month" {% if period == 'month' %}selected{% endif %}>Monthly</option>
+        <option value="year" {% if period == 'year' %}selected{% endif %}>Yearly</option>
+    </select>
+    <a href="{{ url_for('reports.index') }}" class="btn btn-outline">
+        <i class="fas fa-arrow-left"></i> Back
+    </a>
+</form>
+{% endblock %}
+
 {% block content %}
-<div class="card">
-    <h2>Financial Reports</h2>
-    <p>Total Revenue: {{ total_revenue }}</p>
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-dollar-sign"></i></div>
+        <div class="stat-info">
+            <span class="stat-value">${{ "%.2f"|format(total_revenue) }}</span>
+            <span class="stat-label">Total Revenue Collected</span>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-exclamation-circle"></i></div>
+        <div class="stat-info">
+            <span class="stat-value">${{ "%.2f"|format(total_outstanding) }}</span>
+            <span class="stat-label">Total Outstanding</span>
+        </div>
+    </div>
+</div>
+
+<div class="content-card" style="margin-top: 1.5rem;">
+    <div class="card-header">
+        <h3>Revenue by Period</h3>
+    </div>
+    <div class="card-body">
+        {% if revenue_data %}
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Period</th>
+                        <th>Invoices</th>
+                        <th>Total Billed</th>
+                        <th>Paid</th>
+                        <th>Outstanding</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in revenue_data %}
+                    <tr>
+                        <td>{{ row.period }}</td>
+                        <td>{{ row.count }}</td>
+                        <td>${{ "%.2f"|format(row.total or 0) }}</td>
+                        <td>${{ "%.2f"|format(row.paid or 0) }}</td>
+                        <td>${{ "%.2f"|format(row.outstanding or 0) }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="empty-state-sm"><p>No revenue data for this period</p></div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="content-card" style="margin-top: 1.5rem;">
+    <div class="card-header">
+        <h3>Payment Methods</h3>
+    </div>
+    <div class="card-body">
+        {% if payment_methods %}
+        <table class="table">
+            <thead><tr><th>Method</th><th>Total</th></tr></thead>
+            <tbody>
+                {% for row in payment_methods %}
+                <tr>
+                    <td>{{ row.payment_method|replace('_',' ')|title }}</td>
+                    <td>${{ "%.2f"|format(row.total or 0) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state-sm"><p>No payment data available</p></div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

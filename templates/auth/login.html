@@ -24,7 +24,7 @@
                         <span class="input-icon">
                             <i class="fas fa-envelope"></i>
                         </span>
-                        {{ form.email(class="form-control", placeholder="Enter your email") }}
+                        {{ form.email(class="form-control", placeholder="Enter your email", autocomplete="email") }}
                     </div>
                     {% if form.email.errors %}
                         <span class="error-message">{{ form.email.errors[0] }}</span>
@@ -37,7 +37,7 @@
                         <span class="input-icon">
                             <i class="fas fa-lock"></i>
                         </span>
-                        {{ form.password(class="form-control", placeholder="Enter your password") }}
+                        {{ form.password(class="form-control", placeholder="Enter your password", autocomplete="current-password") }}
                         <button type="button" class="password-toggle" onclick="togglePassword(this)">
                             <i class="fas fa-eye"></i>
                         </button>

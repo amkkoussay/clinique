@@ -1,8 +1,117 @@
 {% extends "base.html" %}
+
+{% block title %}Medical Record - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}Medical Record{% endblock %}
+
+{% block page_actions %}
+<div class="page-actions">
+    {% if record.doctor_id == current_user.id or current_user.is_admin() %}
+    <a href="{{ url_for('medical.edit_record', record_id=record.id) }}" class="btn btn-outline">
+        <i class="fas fa-edit"></i> Edit
+    </a>
+    {% endif %}
+    <a href="{{ url_for('patients.view', patient_id=record.patient_id) }}" class="btn btn-outline">
+        <i class="fas fa-user"></i> View Patient
+    </a>
+</div>
+{% endblock %}
+
 {% block content %}
-<div class="card">
-    <h2>Medical Record Details</h2>
-    <p>Patient: {{ record.patient.get_full_name() }}</p>
-    <p>Diagnosis: {{ record.primary_diagnosis }}</p>
+<div class="content-card" style="max-width: 800px;">
+    <div class="card-body">
+        <div class="info-grid">
+            <div class="info-item">
+                <span class="info-label">Patient</span>
+                <span class="info-value">{{ record.patient.get_full_name() }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Doctor</span>
+                <span class="info-value">Dr. {{ record.doctor.get_full_name() }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Visit Date</span>
+                <span class="info-value">{{ record.visit_date.strftime('%B %d, %Y %H:%M') }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Follow-up Date</span>
+                <span class="info-value">{{ record.follow_up_date.strftime('%B %d, %Y') if record.follow_up_date else 'None scheduled' }}</span>
+            </div>
+        </div>
+
+        <div class="medical-sections" style="margin-top: 1.5rem;">
+            {% if record.subjective %}
+            <div class="medical-section">
+                <h4>Subjective</h4>
+                <p>{{ record.subjective }}</p>
+            </div>
+            {% endif %}
+            {% if record.objective %}
+            <div class="medical-section">
+                <h4>Objective</h4>
+                <p>{{ record.objective }}</p>
+            </div>
+            {% endif %}
+            {% if record.assessment %}
+            <div class="medical-section">
+                <h4>Assessment</h4>
+                <p>{{ record.assessment }}</p>
+            </div>
+            {% endif %}
+            {% if record.plan %}
+            <div class="medical-section">
+                <h4>Plan</h4>
+                <p>{{ record.plan }}</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="info-grid" style="margin-top: 1.5rem;">
+            <div class="info-item">
+                <span class="info-label">Primary Diagnosis</span>
+                <span class="info-value">{{ record.primary_diagnosis or 'Not specified' }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Secondary Diagnosis</span>
+                <span class="info-value">{{ record.secondary_diagnosis or 'Not specified' }}</span>
+            </div>
+            {% if record.get_icd10_list() %}
+            <div class="info-item full-width">
+                <span class="info-label">ICD-10 Codes</span>
+                <span class="info-value">
+                    {% for code in record.get_icd10_list() %}
+                    <span class="tag">{{ code }}</span>
+                    {% endfor %}
+                </span>
+            </div>
+            {% endif %}
+            {% if record.follow_up_notes %}
+            <div class="info-item full-width">
+                <span class="info-label">Follow-up Notes</span>
+                <span class="info-value">{{ record.follow_up_notes }}</span>
+            </div>
+            {% endif %}
+        </div>
+
+        {% if record.lab_tests.count() > 0 %}
+        <div class="medical-section" style="margin-top: 1.5rem;">
+            <h4>Related Lab Tests</h4>
+            <ul class="tag-list">
+                {% for test in record.lab_tests %}
+                <li><a href="{{ url_for('medical.view_lab_test', test_id=test.id) }}">{{ test.test_name }} ({{ test.status|title }})</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <div class="quick-links" style="margin-top: 1.5rem;">
+            <a href="{{ url_for('medical.order_lab_test', patient_id=record.patient_id, medical_record_id=record.id) }}" class="btn btn-sm btn-outline">
+                <i class="fas fa-flask"></i> Order Lab Test
+            </a>
+            <a href="{{ url_for('medical.create_prescription', patient_id=record.patient_id, medical_record_id=record.id) }}" class="btn btn-sm btn-outline">
+                <i class="fas fa-prescription"></i> Write Prescription
+            </a>
+        </div>
+    </div>
 </div>
 {% endblock %}

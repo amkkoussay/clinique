@@ -61,10 +61,13 @@ class RegistrationForm(FlaskForm):
         EqualTo('password', message='Passwords must match')
     ])
     role = SelectField('Role', choices=[
+        ('patient', 'Patient'),
         ('doctor', 'Doctor'),
         ('receptionist', 'Receptionist'),
         ('accountant', 'Accountant')
     ], validators=[DataRequired()])
+    date_of_birth = DateField('Date of Birth', validators=[Optional()], format='%Y-%m-%d')
+    gender = SelectField('Gender', choices=[('', 'Select gender'), ('male', 'Male'), ('female', 'Female'), ('other', 'Other')], validators=[Optional()])
     specialization = StringField('Specialization', validators=[Optional(), Length(max=100)])
     license_number = StringField('License Number', validators=[Optional(), Length(max=50)])
     submit = SubmitField('Register')

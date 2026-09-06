@@ -1,9 +1,90 @@
 {% extends "base.html" %}
+
+{% block title %}Appointment Details - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}Appointment Details{% endblock %}
+
+{% block page_actions %}
+<div class="page-actions">
+    {% if current_user.is_admin() or current_user.is_receptionist() %}
+    <a href="{{ url_for('appointments.edit', appointment_id=appointment.id) }}" class="btn btn-outline">
+        <i class="fas fa-edit"></i> Edit
+    </a>
+    {% endif %}
+    <a href="{{ url_for('patients.view', patient_id=appointment.patient_id) }}" class="btn btn-outline">
+        <i class="fas fa-user"></i> View Patient
+    </a>
+</div>
+{% endblock %}
+
 {% block content %}
-<div class="card">
-    <h2>Appointment Details</h2>
-    <p>ID: {{ appointment.id }}</p>
-    <p>Date: {{ appointment.appointment_date }}</p>
-    <p>Patient: {{ appointment.patient.get_full_name() }}</p>
+<div class="content-card" style="max-width: 700px;">
+    <div class="card-body">
+        <div class="info-grid">
+            <div class="info-item">
+                <span class="info-label">Patient</span>
+                <span class="info-value">{{ appointment.patient.get_full_name() }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Doctor</span>
+                <span class="info-value">Dr. {{ appointment.doctor.get_full_name() }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Date</span>
+                <span class="info-value">{{ appointment.appointment_date.strftime('%B %d, %Y') }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Time</span>
+                <span class="info-value">{{ appointment.start_time.strftime('%H:%M') }} - {{ appointment.end_time.strftime('%H:%M') }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Type</span>
+                <span class="info-value">{{ appointment.appointment_type|replace('_', ' ')|title if appointment.appointment_type else 'N/A' }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Status</span>
+                <span class="badge badge-{{ appointment.status }}">{{ appointment.status|replace('_', ' ')|title }}</span>
+            </div>
+            <div class="info-item full-width">
+                <span class="info-label">Reason</span>
+                <span class="info-value">{{ appointment.reason or 'Not specified' }}</span>
+            </div>
+            {% if appointment.notes %}
+            <div class="info-item full-width">
+                <span class="info-label">Notes</span>
+                <span class="info-value">{{ appointment.notes }}</span>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="form-actions" style="margin-top: 2rem;">
+            {% if appointment.status not in ['completed', 'cancelled'] %}
+            <form method="POST" action="{{ url_for('appointments.update_status', appointment_id=appointment.id, status='confirmed') }}" style="display:inline;">
+                <button type="submit" class="btn btn-outline btn-sm">Confirm</button>
+            </form>
+            <form method="POST" action="{{ url_for('appointments.update_status', appointment_id=appointment.id, status='in_progress') }}" style="display:inline;">
+                <button type="submit" class="btn btn-outline btn-sm">Start Visit</button>
+            </form>
+            <form method="POST" action="{{ url_for('appointments.update_status', appointment_id=appointment.id, status='completed') }}" style="display:inline;">
+                <button type="submit" class="btn btn-outline btn-sm">Mark Completed</button>
+            </form>
+            {% if current_user.is_admin() or current_user.is_receptionist() %}
+            <form method="POST" action="{{ url_for('appointments.cancel', appointment_id=appointment.id) }}" style="display:inline;"
+                  onsubmit="return confirm('Cancel this appointment?');">
+                <button type="submit" class="btn btn-outline btn-danger btn-sm">Cancel Appointment</button>
+            </form>
+            {% endif %}
+            {% endif %}
+        </div>
+
+        <div class="quick-links" style="margin-top: 1.5rem;">
+            <a href="{{ url_for('medical.create_record', patient_id=appointment.patient_id, appointment_id=appointment.id) }}" class="btn btn-sm btn-outline">
+                <i class="fas fa-file-medical"></i> Add Medical Record
+            </a>
+            <a href="{{ url_for('medical.create_prescription', patient_id=appointment.patient_id) }}" class="btn btn-sm btn-outline">
+                <i class="fas fa-prescription"></i> Write Prescription
+            </a>
+        </div>
+    </div>
 </div>
 {% endblock %}

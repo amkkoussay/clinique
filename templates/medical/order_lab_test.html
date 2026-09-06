@@ -1,9 +1,57 @@
 {% extends "base.html" %}
+
+{% block title %}Order Lab Test - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}Order Lab Test{% endblock %}
+
+{% block page_actions %}
+<a href="{{ url_for('medical.list_lab_tests') }}" class="btn btn-outline">
+    <i class="fas fa-arrow-left"></i> Back to Lab Tests
+</a>
+{% endblock %}
+
 {% block content %}
-<div class="card">
-    <h2>Order Lab Test</h2>
-    <form method="POST">{{ form.hidden_tag() }}
-        <button type="submit">Order</button>
-    </form>
+<div class="content-card" style="max-width: 600px;">
+    <div class="card-header">
+        <h3><i class="fas fa-flask"></i> Order Lab Test</h3>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            {{ form.patient_id() }}
+            {{ form.medical_record_id() }}
+
+            <div class="form-group">
+                <label for="test_name">Test Name *</label>
+                {{ form.test_name(class="form-control", placeholder="e.g. Complete Blood Count") }}
+                {% if form.test_name.errors %}
+                    <span class="error-message">{{ form.test_name.errors[0] }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="test_category">Category</label>
+                    {{ form.test_category(class="form-control") }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="test_code">Test Code</label>
+                    {{ form.test_code(class="form-control") }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="clinical_notes">Clinical Notes</label>
+                {{ form.clinical_notes(class="form-control", rows="3") }}
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="fas fa-save"></i> Order Test
+                </button>
+                <a href="{{ url_for('medical.list_lab_tests') }}" class="btn btn-outline btn-lg">Cancel</a>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}

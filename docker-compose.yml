@@ -1,0 +1,40 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-clinic}
+      POSTGRES_USER: ${POSTGRES_USER:-clinic}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - clinic_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-clinic} -d ${POSTGRES_DB:-clinic}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  n8n:
+    image: n8nio/n8n:latest
+    restart: unless-stopped
+    ports:
+      - "${N8N_PORT:-5678}:5678"
+    environment:
+      N8N_HOST: ${N8N_HOST:-localhost}
+      N8N_PORT: 5678
+      N8N_PROTOCOL: ${N8N_PROTOCOL:-http}
+      WEBHOOK_URL: ${N8N_WEBHOOK_PUBLIC_URL:-http://localhost:5678/}
+      N8N_SECURE_COOKIE: ${N8N_SECURE_COOKIE:-false}
+      TZ: ${TZ:-Africa/Tunis}
+      CLINIC_BASE_URL: ${CLINIC_BASE_URL:-http://host.docker.internal:5000}
+      N8N_API_KEY: ${N8N_API_KEY:-change-this-secret}
+    volumes:
+      - n8n_data:/home/node/.n8n
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  clinic_postgres_data:
+  n8n_data:

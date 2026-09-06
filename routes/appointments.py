@@ -4,7 +4,7 @@ Clinic Management Platform - Appointment Routes
 Routes for appointment scheduling and management.
 """
 
-from flask import Blueprint, render_template, redirect, url_for, flash, request, jsonify
+from flask import abort, Blueprint, render_template, redirect, url_for, flash, request, jsonify
 from flask_login import login_required, current_user
 from datetime import datetime, date, timedelta
 from sqlalchemy import and_
@@ -55,6 +55,9 @@ def index():
     doctor_filter = request.args.get('doctor', 'all')
     
     query = Appointment.query
+    # Doctors can only see their own appointments.
+    if current_user.is_doctor():
+        query = query.filter(Appointment.doctor_id == current_user.id)
     
     # Apply filters
     if date_filter:
@@ -221,6 +224,8 @@ def create_recurring_appointments(base_appointment, pattern):
 def view(appointment_id):
     """View appointment details."""
     appointment = Appointment.query.get_or_404(appointment_id)
+    if current_user.is_doctor() and appointment.doctor_id != current_user.id:
+        abort(403)
     return render_template('appointments/view.html', 
                          appointment=appointment, 
                          title='Appointment Details')
@@ -232,6 +237,8 @@ def view(appointment_id):
 def edit(appointment_id):
     """Edit appointment route."""
     appointment = Appointment.query.get_or_404(appointment_id)
+    if current_user.is_doctor() and appointment.doctor_id != current_user.id:
+        abort(403)
     form = AppointmentForm(obj=appointment)
     
     # Populate choices
@@ -285,12 +292,14 @@ def edit(appointment_id):
                          title='Edit Appointment')
 
 
-@appointments_bp.route('/<int:appointment_id>/cancel', methods=['POST'])
+@appointments_bp.route('/<int:appointment_id>/cancel', methods=['POST', 'PUT'])
 @login_required
 @role_required('admin', 'receptionist')
 def cancel(appointment_id):
     """Cancel appointment route."""
     appointment = Appointment.query.get_or_404(appointment_id)
+    if current_user.is_doctor() and appointment.doctor_id != current_user.id:
+        abort(403)
     
     appointment.status = 'cancelled'
     appointment.updated_at = datetime.utcnow()
@@ -299,15 +308,25 @@ def cancel(appointment_id):
     log_action('cancel', 'Appointment', appointment.id, 
               f"Cancelled appointment for {appointment.patient.get_full_name()}")
     
+    if request.method == 'PUT':
+        return jsonify({
+            'ok': True,
+            'appointment_id': appointment.id,
+            'status': appointment.status,
+            'message': 'Appointment cancelled successfully.'
+        })
+
     flash('Appointment cancelled successfully.', 'success')
     return redirect(url_for('appointments.index'))
 
 
-@appointments_bp.route('/<int:appointment_id>/status/<status>', methods=['POST'])
+@appointments_bp.route('/<int:appointment_id>/status/<status>', methods=['POST', 'PUT'])
 @login_required
 def update_status(appointment_id, status):
     """Update appointment status."""
     appointment = Appointment.query.get_or_404(appointment_id)
+    if current_user.is_doctor() and appointment.doctor_id != current_user.id:
+        abort(403)
     
     valid_statuses = ['scheduled', 'confirmed', 'in_progress', 'completed', 'cancelled', 'no_show']
     
@@ -322,20 +341,30 @@ def update_status(appointment_id, status):
     log_action('update', 'Appointment', appointment.id, 
               f"Changed status to {status}")
     
-    flash(f'Appointment status updated to {status.replace("_", " ").title()}.', 'success')
+    if request.method == 'PUT':
+        return jsonify({
+            'ok': True,
+            'appointment_id': appointment.id,
+            'status': appointment.status,
+            'message': f"Appointment status updated to {status.replace('_', ' ').title()}."
+        })
+
+    flash(f"Appointment status updated to {status.replace('_', ' ').title()}.", 'success')
     return redirect(url_for('appointments.view', appointment_id=appointment_id))
 
 
 @appointments_bp.route('/waiting-room')
 @login_required
+@role_required('admin', 'doctor', 'receptionist')
 def waiting_room():
     """Waiting room display route."""
     today = date.today()
     
-    # Get today's appointments
-    appointments = Appointment.query.filter(
-        Appointment.appointment_date == today
-    ).order_by(Appointment.start_time).all()
+    # Doctors get their own waiting room; clinic staff/admin can view the full clinic queue.
+    waiting_query = Appointment.query.filter(Appointment.appointment_date == today)
+    if current_user.is_doctor():
+        waiting_query = waiting_query.filter(Appointment.doctor_id == current_user.id)
+    appointments = waiting_query.order_by(Appointment.start_time).all()
     
     # Group by status
     waiting = [a for a in appointments if a.status == 'confirmed']

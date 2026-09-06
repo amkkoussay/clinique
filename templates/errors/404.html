@@ -2,6 +2,7 @@
 
 {% block title %}Page Not Found - {{ config.CLINIC_NAME }}{% endblock %}
 
+{% block content %}
 {% block public_content %}
 <div class="error-page">
     <div class="error-content">
@@ -46,30 +47,29 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.error-icon i {
-    font-size: 3rem;
     color: white;
+    font-size: 48px;
+    box-shadow: var(--shadow-lg);
 }
 
 .error-content h1 {
-    font-size: 6rem;
+    font-size: 5rem;
     font-weight: 800;
+    color: var(--primary);
     line-height: 1;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing);
 }
 
 .error-content h2 {
-    font-size: 1.5rem;
-    margin-bottom: var(--spacing);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-primary);
 }
 
 .error-content p {
     color: var(--text-secondary);
+    font-size: 1.1rem;
     margin-bottom: var(--spacing-lg);
 }
 
@@ -79,4 +79,5 @@
     justify-content: center;
 }
 </style>
+{% endblock %}
 {% endblock %}

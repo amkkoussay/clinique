@@ -8,7 +8,6 @@ from flask import Blueprint, render_template, redirect, url_for, flash, request,
 from flask_login import login_required, current_user
 from datetime import datetime
 import json
-import qrcode
 import io
 import os
 
@@ -18,6 +17,18 @@ from decorators import role_required
 
 patients_bp = Blueprint('patients', __name__)
 
+
+def can_access_patient(patient):
+    if current_user.is_admin() or current_user.is_receptionist():
+        return True
+
+    if current_user.is_doctor():
+        return Appointment.query.filter(
+            Appointment.patient_id == patient.id,
+            Appointment.doctor_id == current_user.id
+        ).first() is not None
+
+    return False
 
 def log_action(action, entity_type=None, entity_id=None, description=None):
     """Log user action to audit log."""
@@ -128,6 +139,9 @@ def create():
 def view(patient_id):
     """View patient details route."""
     patient = Patient.query.get_or_404(patient_id)
+    if not can_access_patient(patient):
+        flash('You do not have permission to view this patient.', 'error')
+        return redirect(url_for('dashboard.index'))
     
     # Get related data
     recent_appointments = Appointment.query.filter_by(
@@ -229,6 +243,9 @@ def delete(patient_id):
 def add_vital_signs(patient_id):
     """Add vital signs route."""
     patient = Patient.query.get_or_404(patient_id)
+    if not (current_user.is_admin() or current_user.is_doctor()):
+        flash('You do not have permission to manage vital signs.', 'error')
+        return redirect(url_for('patients.view', patient_id=patient_id))
     form = VitalSignsForm()
     
     if form.validate_on_submit():
@@ -272,6 +289,9 @@ def upload_document(patient_id):
     import uuid
     
     patient = Patient.query.get_or_404(patient_id)
+    if not (current_user.is_admin() or current_user.is_doctor()):
+        flash('You do not have permission to manage patient documents.', 'error')
+        return redirect(url_for('patients.view', patient_id=patient_id))
     form = DocumentUploadForm()
     
     if form.validate_on_submit():
@@ -336,21 +356,12 @@ def generate_id_card(patient_id):
     """Generate patient ID card with QR code."""
     patient = Patient.query.get_or_404(patient_id)
     
-    # Generate QR code
-    qr = qrcode.QRCode(version=1, box_size=10, border=2)
-    qr.add_data(f"PATIENT:{patient.patient_id}")
-    qr.make(fit=True)
-    
-    img = qr.make_image(fill_color="black", back_color="white")
-    img_io = io.BytesIO()
-    img.save(img_io, 'PNG')
-    img_io.seek(0)
-    
-    qr_code_b64 = img_io.getvalue().hex()
-    
+    # Termux build intentionally has no Pillow/qrcode dependency.
+    # Keep the ID card route available and expose the patient ID as a
+    # machine-readable text value instead of generating a QR image.
     return render_template('patients/id_card.html',
                          patient=patient,
-                         qr_code=qr_code_b64,
+                         qr_code=None,
                          title='Patient ID Card')
 
 

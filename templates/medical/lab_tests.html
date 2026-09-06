@@ -1,10 +1,82 @@
 {% extends "base.html" %}
+
+{% block title %}Lab Tests - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}Lab Tests{% endblock %}
+
+{% block page_actions %}
+<div class="page-actions">
+    <select class="form-control" id="statusFilter" onchange="window.location.href='{{ url_for('medical.list_lab_tests') }}?status=' + this.value">
+        <option value="all" {% if status_filter == 'all' %}selected{% endif %}>All Statuses</option>
+        <option value="ordered" {% if status_filter == 'ordered' %}selected{% endif %}>Ordered</option>
+        <option value="in_progress" {% if status_filter == 'in_progress' %}selected{% endif %}>In Progress</option>
+        <option value="completed" {% if status_filter == 'completed' %}selected{% endif %}>Completed</option>
+        <option value="cancelled" {% if status_filter == 'cancelled' %}selected{% endif %}>Cancelled</option>
+    </select>
+    <a href="{{ url_for('medical.order_lab_test') }}" class="btn btn-primary">
+        <i class="fas fa-flask"></i> Order Test
+    </a>
+</div>
+{% endblock %}
+
 {% block content %}
-<div class="card">
-    <h2>Laboratory Tests</h2>
-    <table class="table">
-        <thead><tr><th>Test</th><th>Patient</th><th>Status</th></tr></thead>
-        <tbody>{% for test in tests %}<tr><td>{{ test.test_name }}</td><td>{{ test.patient.get_full_name() }}</td><td>{{ test.status }}</td></tr>{% endfor %}</tbody>
-    </table>
+<div class="content-card">
+    <div class="card-body">
+        {% if tests.items %}
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Test</th>
+                        <th>Patient</th>
+                        <th>Category</th>
+                        <th>Ordered Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for test in tests.items %}
+                    <tr>
+                        <td>{{ test.test_name }}</td>
+                        <td>{{ test.patient.get_full_name() }}</td>
+                        <td>{{ test.test_category|title if test.test_category else '-' }}</td>
+                        <td>{{ test.ordered_date.strftime('%b %d, %Y') }}</td>
+                        <td><span class="badge badge-{{ test.status }}">{{ test.status|replace('_',' ')|title }}</span></td>
+                        <td>
+                            <a href="{{ url_for('medical.view_lab_test', test_id=test.id) }}" class="btn btn-sm btn-icon" title="View">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if tests.pages > 1 %}
+        <div class="pagination">
+            {% if tests.has_prev %}
+            <a href="{{ url_for('medical.list_lab_tests', page=tests.prev_num, status=status_filter) }}" class="btn btn-outline btn-sm">
+                <i class="fas fa-chevron-left"></i> Previous</a>
+            {% endif %}
+            <span class="page-info">Page {{ tests.page }} of {{ tests.pages }}</span>
+            {% if tests.has_next %}
+            <a href="{{ url_for('medical.list_lab_tests', page=tests.next_num, status=status_filter) }}" class="btn btn-outline btn-sm">
+                Next <i class="fas fa-chevron-right"></i></a>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% else %}
+        <div class="empty-state">
+            <i class="fas fa-flask"></i>
+            <h3>No lab tests found</h3>
+            <a href="{{ url_for('medical.order_lab_test') }}" class="btn btn-primary">
+                <i class="fas fa-flask"></i> Order Test
+            </a>
+        </div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

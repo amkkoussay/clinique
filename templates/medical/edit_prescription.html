@@ -1,9 +1,132 @@
 {% extends "base.html" %}
+
+{% block title %}Edit Prescription - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}Prescription {{ prescription.prescription_number }}{% endblock %}
+
+{% block page_actions %}
+<div class="page-actions">
+    <a href="{{ url_for('medical.view_prescription', prescription_id=prescription.id) }}" class="btn btn-outline">
+        <i class="fas fa-eye"></i> View
+    </a>
+</div>
+{% endblock %}
+
 {% block content %}
-<div class="card">
-    <h2>Edit Prescription</h2>
-    <form method="POST">{{ form.hidden_tag() }}
-        <button type="submit">Update</button>
-    </form>
+<div class="content-card">
+    <div class="card-header">
+        <h3><i class="fas fa-user"></i> {{ prescription.patient.get_full_name() }}</h3>
+    </div>
+    <div class="card-body">
+        <!-- Medications List -->
+        <h4>Medications</h4>
+        {% if prescription.items.count() > 0 %}
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Medication</th>
+                        <th>Dosage</th>
+                        <th>Frequency</th>
+                        <th>Duration</th>
+                        <th>Route</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in prescription.items %}
+                    <tr>
+                        <td>{{ item.medication_name }}</td>
+                        <td>{{ item.dosage }}</td>
+                        <td>{{ item.frequency|replace('_', ' ')|title }}</td>
+                        <td>{{ item.duration }}</td>
+                        <td>{{ item.route|upper if item.route else '-' }}</td>
+                        <td>
+                            <form method="POST" action="{{ url_for('medical.delete_prescription_item', item_id=item.id) }}"
+                                  onsubmit="return confirm('Remove this medication?');">
+                                <button type="submit" class="btn btn-sm btn-icon" title="Remove">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="empty-state-sm"><p>No medications added yet</p></div>
+        {% endif %}
+
+        <!-- Add Medication Form -->
+        <div class="form-section" style="margin-top: 1.5rem;">
+            <h4>Add Medication</h4>
+            <form method="POST">
+                {{ item_form.hidden_tag() }}
+                <input type="hidden" name="add_item" value="1">
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="medication_name">Medication *</label>
+                        {{ item_form.medication_name(class="form-control", placeholder="Medication name", list="medicineList") }}
+                        <datalist id="medicineList">
+                            {% for med in medicines %}
+                            <option value="{{ med.name }}">
+                            {% endfor %}
+                        </datalist>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="generic_name">Generic Name</label>
+                        {{ item_form.generic_name(class="form-control") }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="dosage">Dosage *</label>
+                        {{ item_form.dosage(class="form-control", placeholder="e.g. 500mg") }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="frequency">Frequency *</label>
+                        {{ item_form.frequency(class="form-control") }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="duration">Duration *</label>
+                        {{ item_form.duration(class="form-control", placeholder="e.g. 7 days") }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="route">Route</label>
+                        {{ item_form.route(class="form-control") }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="instructions">Special Instructions</label>
+                        {{ item_form.instructions(class="form-control") }}
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-outline">
+                    <i class="fas fa-plus"></i> Add Medication
+                </button>
+            </form>
+        </div>
+
+        <!-- General Instructions -->
+        <div class="form-section" style="margin-top: 1.5rem;">
+            <h4>General Instructions</h4>
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                <input type="hidden" name="save_prescription" value="1">
+                <div class="form-group">
+                    {{ form.instructions(class="form-control", rows="3") }}
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Save Prescription
+                </button>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}

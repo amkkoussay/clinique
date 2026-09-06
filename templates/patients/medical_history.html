@@ -1,7 +1,47 @@
 {% extends "base.html" %}
+
+{% block title %}Medical History - {{ patient.get_full_name() }}{% endblock %}
+
+{% block page_title %}Medical History - {{ patient.get_full_name() }}{% endblock %}
+
+{% block page_actions %}
+<a href="{{ url_for('patients.view', patient_id=patient.id) }}" class="btn btn-outline">
+    <i class="fas fa-arrow-left"></i> Back to Patient
+</a>
+{% endblock %}
+
 {% block content %}
-<div class="card">
-    <h2>Medical History</h2>
-    <p>Patient: {{ patient.get_full_name() }}</p>
+<div class="content-card">
+    <div class="card-body">
+        {% if records %}
+        <div class="timeline">
+            {% for record in records %}
+            <div class="timeline-item">
+                <div class="timeline-date">{{ record.visit_date.strftime('%B %d, %Y') }}</div>
+                <div class="timeline-content">
+                    <h4>Dr. {{ record.doctor.get_full_name() }}</h4>
+                    {% if record.primary_diagnosis %}
+                    <p><strong>Diagnosis:</strong> {{ record.primary_diagnosis }}</p>
+                    {% endif %}
+                    {% if record.assessment %}
+                    <p><strong>Assessment:</strong> {{ record.assessment }}</p>
+                    {% endif %}
+                    {% if record.plan %}
+                    <p><strong>Plan:</strong> {{ record.plan }}</p>
+                    {% endif %}
+                    <a href="{{ url_for('medical.view_record', record_id=record.id) }}" class="btn btn-sm btn-outline">
+                        View Full Record
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <i class="fas fa-file-medical"></i>
+            <h3>No medical history available</h3>
+        </div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

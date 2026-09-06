@@ -1,6 +1,87 @@
 {% extends "base.html" %}
+
+{% block title %}Medical Report - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}Medical Report{% endblock %}
+
+{% block page_actions %}
+<form method="GET" class="page-actions">
+    <input type="date" name="start_date" value="{{ start_date }}" class="form-control">
+    <input type="date" name="end_date" value="{{ end_date }}" class="form-control">
+    <button type="submit" class="btn btn-outline">Filter</button>
+    <a href="{{ url_for('reports.index') }}" class="btn btn-outline">
+        <i class="fas fa-arrow-left"></i> Back
+    </a>
+</form>
+{% endblock %}
+
 {% block content %}
-<div class="card">
-    <h2>Medical Reports</h2>
+<div class="content-card">
+    <div class="card-header">
+        <h3>Top 10 Diagnoses</h3>
+    </div>
+    <div class="card-body">
+        {% if diagnoses %}
+        <table class="table">
+            <thead><tr><th>Diagnosis</th><th>Count</th></tr></thead>
+            <tbody>
+                {% for row in diagnoses %}
+                <tr>
+                    <td>{{ row.primary_diagnosis }}</td>
+                    <td>{{ row.count }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state-sm"><p>No diagnosis data for this period</p></div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="content-card" style="margin-top: 1.5rem;">
+    <div class="card-header">
+        <h3>Lab Tests by Category</h3>
+    </div>
+    <div class="card-body">
+        {% if lab_categories %}
+        <table class="table">
+            <thead><tr><th>Category</th><th>Count</th></tr></thead>
+            <tbody>
+                {% for row in lab_categories %}
+                <tr>
+                    <td>{{ row.test_category|title if row.test_category else 'Unspecified' }}</td>
+                    <td>{{ row.count }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state-sm"><p>No lab test data for this period</p></div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="content-card" style="margin-top: 1.5rem;">
+    <div class="card-header">
+        <h3>Lab Tests by Status</h3>
+    </div>
+    <div class="card-body">
+        {% if lab_status %}
+        <table class="table">
+            <thead><tr><th>Status</th><th>Count</th></tr></thead>
+            <tbody>
+                {% for row in lab_status %}
+                <tr>
+                    <td><span class="badge badge-{{ row.status }}">{{ row.status|replace('_',' ')|title }}</span></td>
+                    <td>{{ row.count }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state-sm"><p>No lab test data for this period</p></div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

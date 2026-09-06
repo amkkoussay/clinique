@@ -1,0 +1,30 @@
+# Clinic Management Platform - Termux runtime dependencies
+# =========================================================
+# Core web application only. Optional PostgreSQL migration,
+# production server, email extension, QR/image libraries, and Pillow
+# are intentionally excluded.
+
+# Flask Framework
+Flask==2.3.3
+Werkzeug==2.3.7
+
+# Flask Extensions used by the application
+Flask-SQLAlchemy>=3.1.1
+Flask-Login==0.6.2
+Flask-WTF==1.1.1
+
+# Database used by the Termux demo (SQLite via Python stdlib)
+SQLAlchemy>=2.0.36
+
+# Forms
+WTForms==3.0.1
+email-validator==2.0.0
+
+# PDF generation
+reportlab==4.0.4
+
+# Environment/configuration
+python-dotenv==1.0.0
+
+# CLI used by the application's admin command
+click==8.1.7

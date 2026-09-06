@@ -1,10 +1,84 @@
 {% extends "base.html" %}
+
+{% block title %}Services - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}Services Catalog{% endblock %}
+
+{% block page_actions %}
+<div class="page-actions">
+    {% if current_user.is_admin() %}
+    <a href="{{ url_for('billing.create_service') }}" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Add Service
+    </a>
+    {% endif %}
+</div>
+{% endblock %}
+
 {% block content %}
-<div class="card">
-    <h2>Medical Services</h2>
-    <table class="table">
-        <thead><tr><th>Service</th><th>Price</th></tr></thead>
-        <tbody>{% for service in services %}<tr><td>{{ service.name }}</td><td>{{ service.price }}</td></tr>{% endfor %}</tbody>
-    </table>
+<div class="content-card">
+    <div class="card-body">
+        {% if services.items %}
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Service</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                        {% if current_user.is_admin() %}
+                        <th>Actions</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for service in services.items %}
+                    <tr>
+                        <td>{{ service.service_code }}</td>
+                        <td>{{ service.service_name }}</td>
+                        <td>{{ service.category|title if service.category else '-' }}</td>
+                        <td>${{ "%.2f"|format(service.default_price) }}</td>
+                        <td>
+                            {% if service.is_active %}
+                            <span class="badge badge-success">Active</span>
+                            {% else %}
+                            <span class="badge badge-secondary">Inactive</span>
+                            {% endif %}
+                        </td>
+                        {% if current_user.is_admin() %}
+                        <td>
+                            <a href="{{ url_for('billing.edit_service', service_id=service.id) }}" class="btn btn-sm btn-icon" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if services.pages > 1 %}
+        <div class="pagination">
+            {% if services.has_prev %}
+            <a href="{{ url_for('billing.list_services', page=services.prev_num) }}" class="btn btn-outline btn-sm">
+                <i class="fas fa-chevron-left"></i> Previous</a>
+            {% endif %}
+            <span class="page-info">Page {{ services.page }} of {{ services.pages }}</span>
+            {% if services.has_next %}
+            <a href="{{ url_for('billing.list_services', page=services.next_num) }}" class="btn btn-outline btn-sm">
+                Next <i class="fas fa-chevron-right"></i></a>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% else %}
+        <div class="empty-state">
+            <i class="fas fa-list"></i>
+            <h3>No services found</h3>
+        </div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

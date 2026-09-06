@@ -1,9 +1,93 @@
 {% extends "base.html" %}
+
+{% block title %}Edit Appointment - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}Edit Appointment{% endblock %}
+
+{% block page_actions %}
+<a href="{{ url_for('appointments.view', appointment_id=appointment.id) }}" class="btn btn-outline">
+    <i class="fas fa-arrow-left"></i> Back to Appointment
+</a>
+{% endblock %}
+
 {% block content %}
-<div class="card">
-    <h2>Edit Appointment</h2>
-    <form method="POST"> {{ form.hidden_tag() if form.hidden_tag else "" }}
-        <button type="submit" class="btn btn-primary">Update</button>
-    </form>
+<div class="content-card" style="max-width: 700px;">
+    <div class="card-header">
+        <h3><i class="fas fa-edit"></i> Edit Appointment</h3>
+    </div>
+    <div class="card-body">
+        <form method="POST" class="appointment-form">
+            {{ form.hidden_tag() }}
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="patient_id">Patient *</label>
+                    {{ form.patient_id(class="form-control") }}
+                    {% if form.patient_id.errors %}
+                        <span class="error-message">{{ form.patient_id.errors[0] }}</span>
+                    {% endif %}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="doctor_id">Doctor *</label>
+                    {{ form.doctor_id(class="form-control") }}
+                    {% if form.doctor_id.errors %}
+                        <span class="error-message">{{ form.doctor_id.errors[0] }}</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="appointment_date">Date *</label>
+                    {{ form.appointment_date(class="form-control", type="date") }}
+                    {% if form.appointment_date.errors %}
+                        <span class="error-message">{{ form.appointment_date.errors[0] }}</span>
+                    {% endif %}
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="start_time">Start Time *</label>
+                    {{ form.start_time(class="form-control", type="time") }}
+                    {% if form.start_time.errors %}
+                        <span class="error-message">{{ form.start_time.errors[0] }}</span>
+                    {% endif %}
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="end_time">End Time *</label>
+                    {{ form.end_time(class="form-control", type="time") }}
+                    {% if form.end_time.errors %}
+                        <span class="error-message">{{ form.end_time.errors[0] }}</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="appointment_type">Appointment Type *</label>
+                    {{ form.appointment_type(class="form-control") }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="status">Status</label>
+                    {{ form.status(class="form-control") }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="reason">Reason for Visit</label>
+                {{ form.reason(class="form-control", rows="3") }}
+            </div>
+
+            <div class="form-group">
+                <label for="notes">Notes</label>
+                {{ form.notes(class="form-control", rows="2") }}
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
+                <a href="{{ url_for('appointments.view', appointment_id=appointment.id) }}" class="btn btn-outline btn-lg">Cancel</a>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}

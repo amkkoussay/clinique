@@ -1,0 +1,186 @@
+{
+  "name": "Clinic - 24h Email Reminders",
+  "nodes": [
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "mode": "everyHour"
+            }
+          ]
+        }
+      },
+      "id": "1",
+      "name": "Every Hour",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        -520,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{$env.CLINIC_BASE_URL}}/api/integration/reminders/due",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-N8N-API-Key",
+              "value": "={{$env.N8N_API_KEY}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2",
+      "name": "Get Due Reminders",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -280,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return ($json.appointments||[]).map(a=>({json:a}));"
+      },
+      "id": "3",
+      "name": "One Item Per Reminder",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -40,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.patient_email}}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      },
+      "id": "4",
+      "name": "Has Email",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        180,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "={{$env.MAIL_DEFAULT_SENDER}}",
+        "toEmail": "={{$json.patient_email}}",
+        "subject": "Appointment reminder - 24 hours",
+        "text": "=Hello {{$json.patient_name || 'Patient'}},\\n\\nThis is a reminder for your appointment.\\nDoctor: {{$json.doctor_name}}\\nDate: {{$json.date}}\\nTime: {{$json.start_time}}\\n\\nPlease sign in to the clinic website if you need to manage your appointment.",
+        "options": {}
+      },
+      "id": "5",
+      "name": "Send Reminder Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        420,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$env.CLINIC_BASE_URL}}/api/integration/reminders/{{$json.id}}/sent",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-N8N-API-Key",
+              "value": "={{$env.N8N_API_KEY}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6",
+      "name": "Mark Reminder Sent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        660,
+        -80
+      ]
+    }
+  ],
+  "connections": {
+    "Every Hour": {
+      "main": [
+        [
+          {
+            "node": "Get Due Reminders",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Due Reminders": {
+      "main": [
+        [
+          {
+            "node": "One Item Per Reminder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "One Item Per Reminder": {
+      "main": [
+        [
+          {
+            "node": "Has Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Email": {
+      "main": [
+        [
+          {
+            "node": "Send Reminder Email",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Send Reminder Email": {
+      "main": [
+        [
+          {
+            "node": "Mark Reminder Sent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "versionId": "c5d13def-a030-486c-a6c0-c3acadc979f5",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

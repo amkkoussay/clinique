@@ -1,0 +1,114 @@
+{
+  "name": "Clinic - Appointment Events",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "clinic-appointment-events",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "1",
+      "name": "Appointment Event Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -500,
+        0
+      ],
+      "webhookId": "clinic-appointment-events"
+    },
+    {
+      "parameters": {
+        "jsCode": "const a=$json.appointment||{}; const event=$json.event||'appointment.updated'; const action=event==='appointment.cancelled'?'Cancelled':event==='appointment.rescheduled'?'Rescheduled':'Confirmed'; return [{json:{event,appointmentId:a.id,patientEmail:a.patient_email,patientName:a.patient_name,doctorName:a.doctor_name,date:a.date,start:a.start_time,status:a.status,subject:`Appointment ${action} - Clinic`,text:`Hello ${a.patient_name||'Patient'},\\n\\nYour appointment is ${action.toLowerCase()}.\\nDoctor: ${a.doctor_name||'-'}\\nDate: ${a.date||'-'}\\nTime: ${a.start_time||'-'}\\nStatus: ${a.status||'-'}\\n\\nClinic Team`}}];"
+      },
+      "id": "2",
+      "name": "Format Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -260,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.patientEmail}}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      },
+      "id": "3",
+      "name": "Has Email",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -40,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "={{$env.MAIL_DEFAULT_SENDER}}",
+        "toEmail": "={{$json.patientEmail}}",
+        "subject": "={{$json.subject}}",
+        "text": "={{$json.text}}",
+        "options": {}
+      },
+      "id": "4",
+      "name": "Send Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        200,
+        -80
+      ]
+    }
+  ],
+  "connections": {
+    "Appointment Event Webhook": {
+      "main": [
+        [
+          {
+            "node": "Format Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Email": {
+      "main": [
+        [
+          {
+            "node": "Has Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Email": {
+      "main": [
+        [
+          {
+            "node": "Send Email",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "versionId": "f067fd3b-e50b-4392-af39-22a276db5490",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

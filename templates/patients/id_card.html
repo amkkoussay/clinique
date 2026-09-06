@@ -1,8 +1,77 @@
 {% extends "base.html" %}
-{% block content %}
-<div class="id-card">
-    <h2>Patient ID Card</h2>
-    <p>Name: {{ patient.get_full_name() }}</p>
-    <p>ID: {{ patient.patient_id }}</p>
+
+{% block title %}ID Card - {{ patient.get_full_name() }}{% endblock %}
+
+{% block page_title %}Patient ID Card{% endblock %}
+
+{% block page_actions %}
+<div class="page-actions">
+    <button onclick="window.print()" class="btn btn-outline">
+        <i class="fas fa-print"></i> Print
+    </button>
+    <a href="{{ url_for('patients.view', patient_id=patient.id) }}" class="btn btn-outline">
+        <i class="fas fa-arrow-left"></i> Back
+    </a>
 </div>
+{% endblock %}
+
+{% block content %}
+<div class="id-card-wrapper">
+    <div class="id-card">
+        <div class="id-card-header">
+            <span class="clinic-name">{{ config.CLINIC_NAME }}</span>
+            <span class="id-card-label">Patient ID Card</span>
+        </div>
+        <div class="id-card-body">
+            <div class="id-card-info">
+                <h3>{{ patient.get_full_name() }}</h3>
+                <p><strong>ID:</strong> {{ patient.patient_id }}</p>
+                <p><strong>DOB:</strong> {{ patient.date_of_birth.strftime('%b %d, %Y') }}</p>
+                <p><strong>Gender:</strong> {{ patient.gender|title if patient.gender else '-' }}</p>
+                <p><strong>Blood Type:</strong> {{ patient.blood_type or '-' }}</p>
+                <p><strong>Phone:</strong> {{ patient.phone }}</p>
+            </div>
+            <div class="id-card-qr">
+                {% if qr_code %}
+                <img src="data:image/svg+xml;base64,{{ qr_code }}" alt="QR Code" width="120" height="120">
+                {% else %}
+                <div class="patient-code">
+                    <strong>Patient ID</strong>
+                    <span>{{ patient.patient_id }}</span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+@media print {
+    .page-header, .sidebar, .page-actions { display: none !important; }
+}
+.id-card-wrapper { display: flex; justify-content: center; padding: 2rem; }
+.id-card {
+    width: 400px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.id-card-header {
+    background: var(--primary-color, #2563eb);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+.id-card-header .clinic-name { display: block; font-weight: bold; font-size: 1.1rem; }
+.id-card-header .id-card-label { font-size: 0.85rem; opacity: 0.9; }
+.id-card-body {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem;
+    background: white;
+}
+.id-card-info p { margin: 0.25rem 0; font-size: 0.9rem; }
+.id-card-qr { display: flex; align-items: center; }
+</style>
 {% endblock %}

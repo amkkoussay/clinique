@@ -1,9 +1,39 @@
 {% extends "base.html" %}
+
+{% block title %}New Prescription - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}New Prescription{% endblock %}
+
+{% block page_actions %}
+<a href="{{ url_for('medical.list_prescriptions') }}" class="btn btn-outline">
+    <i class="fas fa-arrow-left"></i> Back to Prescriptions
+</a>
+{% endblock %}
+
 {% block content %}
-<div class="card">
-    <h2>New Prescription</h2>
-    <form method="POST">{{ form.hidden_tag() }}
-        <button type="submit">Save</button>
-    </form>
+<div class="content-card" style="max-width: 700px;">
+    <div class="card-header">
+        <h3><i class="fas fa-prescription"></i> New Prescription</h3>
+    </div>
+    <div class="card-body">
+        <p class="form-hint">Save the prescription first, then add medications on the next screen.</p>
+        <form method="POST" class="prescription-form">
+            {{ form.hidden_tag() }}
+            {{ form.patient_id() }}
+            {{ form.medical_record_id() }}
+
+            <div class="form-group">
+                <label for="instructions">General Instructions</label>
+                {{ form.instructions(class="form-control", rows="4", placeholder="General instructions for the patient") }}
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="fas fa-save"></i> Save & Add Medications
+                </button>
+                <a href="{{ url_for('medical.list_prescriptions') }}" class="btn btn-outline btn-lg">Cancel</a>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}

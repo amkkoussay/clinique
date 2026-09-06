@@ -1,9 +1,59 @@
 {% extends "base.html" %}
+
+{% block title %}New Invoice - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}New Invoice{% endblock %}
+
+{% block page_actions %}
+<a href="{{ url_for('billing.list_invoices') }}" class="btn btn-outline">
+    <i class="fas fa-arrow-left"></i> Back to Invoices
+</a>
+{% endblock %}
+
 {% block content %}
-<div class="card">
-    <h2>Create Invoice</h2>
-    <form method="POST"> {{ form.hidden_tag() }}
-        <button type="submit">Create</button>
-    </form>
+<div class="content-card" style="max-width: 600px;">
+    <div class="card-header">
+        <h3><i class="fas fa-file-invoice-dollar"></i> New Invoice</h3>
+    </div>
+    <div class="card-body">
+        <p class="form-hint">Save the invoice first, then add service items on the next screen.</p>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+
+            <div class="form-group">
+                <label for="patient_id">Patient *</label>
+                {{ form.patient_id(class="form-control") }}
+                {% if form.patient_id.errors %}
+                    <span class="error-message">{{ form.patient_id.errors[0] }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="invoice_date">Invoice Date *</label>
+                    {{ form.invoice_date(class="form-control", type="date") }}
+                    {% if form.invoice_date.errors %}
+                        <span class="error-message">{{ form.invoice_date.errors[0] }}</span>
+                    {% endif %}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="due_date">Due Date</label>
+                    {{ form.due_date(class="form-control", type="date") }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="notes">Notes</label>
+                {{ form.notes(class="form-control", rows="3") }}
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="fas fa-save"></i> Create Invoice
+                </button>
+                <a href="{{ url_for('billing.list_invoices') }}" class="btn btn-outline btn-lg">Cancel</a>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}

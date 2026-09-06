@@ -1,9 +1,74 @@
 {% extends "base.html" %}
+
+{% block title %}Record Payment - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}Record Payment{% endblock %}
+
+{% block page_actions %}
+<a href="{{ url_for('billing.view_invoice', invoice_id=invoice.id) }}" class="btn btn-outline">
+    <i class="fas fa-arrow-left"></i> Back to Invoice
+</a>
+{% endblock %}
+
 {% block content %}
-<div class="card">
-    <h2>Record Payment</h2>
-    <form method="POST">{{ form.hidden_tag() }}
-        <button type="submit">Save Payment</button>
-    </form>
+<div class="content-card" style="max-width: 500px;">
+    <div class="card-header">
+        <h3><i class="fas fa-dollar-sign"></i> Record Payment - {{ invoice.invoice_number }}</h3>
+    </div>
+    <div class="card-body">
+        <div class="info-grid" style="margin-bottom: 1.5rem;">
+            <div class="info-item">
+                <span class="info-label">Patient</span>
+                <span class="info-value">{{ invoice.patient.get_full_name() }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Balance Due</span>
+                <span class="info-value"><strong>${{ "%.2f"|format(invoice.balance_due) }}</strong></span>
+            </div>
+        </div>
+
+        <form method="POST">
+            {{ form.hidden_tag() }}
+
+            <div class="form-group">
+                <label for="amount">Amount *</label>
+                {{ form.amount(class="form-control") }}
+                {% if form.amount.errors %}
+                    <span class="error-message">{{ form.amount.errors[0] }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="payment_method">Payment Method *</label>
+                {{ form.payment_method(class="form-control") }}
+                {% if form.payment_method.errors %}
+                    <span class="error-message">{{ form.payment_method.errors[0] }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="transaction_id">Transaction ID</label>
+                    {{ form.transaction_id(class="form-control") }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="reference_number">Reference Number</label>
+                    {{ form.reference_number(class="form-control") }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="notes">Notes</label>
+                {{ form.notes(class="form-control", rows="2") }}
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="fas fa-save"></i> Record Payment
+                </button>
+                <a href="{{ url_for('billing.view_invoice', invoice_id=invoice.id) }}" class="btn btn-outline btn-lg">Cancel</a>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}

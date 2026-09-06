@@ -1,0 +1,9 @@
+# Test dependencies for the Clinic Management Platform
+# ======================================================
+# Install with: pip install -r requirements-test.txt
+# (this installs requirements.txt too)
+
+-r requirements.txt
+
+pytest==7.4.3
+pytest-flask==1.3.0

@@ -229,6 +229,21 @@
     {% else %}
     <!-- Public Layout -->
     <main class="public-content">
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages" style="max-width: 600px; margin: 20px auto; padding: 0 20px;">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible" style="padding: 12px 20px; margin-bottom: 10px; border-radius: 8px; background: {% if category == 'error' or category == 'danger' %}#f8d7da{% elif category == 'success' %}#d4edda{% else %}#d1ecf1{% endif %}; color: {% if category == 'error' or category == 'danger' %}#721c24{% elif category == 'success' %}#155724{% else %}#0c5460{% endif %}; display: flex; justify-content: space-between; align-items: center;">
+                            <span>{{ message }}</span>
+                            <button type="button" class="close" onclick="this.parentElement.remove()" style="background: none; border: none; cursor: pointer; font-size: 16px;">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
         {% block public_content %}{% endblock %}
     </main>
     {% endif %}

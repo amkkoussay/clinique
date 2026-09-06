@@ -1,4 +1,21 @@
 {% extends "base.html" %}
-{% block content %}
-<p>Setting language to {{ lang }}...</p>
+
+{% block title %}{{ config.CLINIC_NAME }}{% endblock %}
+
+{% block public_content %}
+<div class="public-page">
+    <div class="public-section" style="text-align: center; padding: 3rem 1rem;">
+        <i class="fas fa-check-circle" style="font-size: 2.5rem; color: var(--success-color, #16a34a);"></i>
+        <h2>Language set to {{ lang|upper }}</h2>
+        <a href="{{ url_for('main.index') }}" class="btn btn-primary" style="margin-top: 1rem;">
+            Continue
+        </a>
+    </div>
+</div>
+
+<script>
+setTimeout(function() {
+    window.location.href = "{{ url_for('main.index') }}";
+}, 1500);
+</script>
 {% endblock %}

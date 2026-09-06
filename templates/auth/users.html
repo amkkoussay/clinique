@@ -1,10 +1,92 @@
 {% extends "base.html" %}
+
+{% block title %}Manage Users - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}Manage Users{% endblock %}
+
+{% block page_actions %}
+<div class="page-actions">
+    <a href="{{ url_for('auth.register') }}" class="btn btn-primary">
+        <i class="fas fa-user-plus"></i> Add User
+    </a>
+</div>
+{% endblock %}
+
 {% block content %}
-<div class="card">
-    <h2>Manage Users</h2>
-    <table class="table">
-        <thead><tr><th>Name</th><th>Role</th></tr></thead>
-        <tbody>{% for user in users %}<tr><td>{{ user.get_full_name() }}</td><td>{{ user.role }}</td></tr>{% endfor %}</tbody>
-    </table>
+<div class="content-card">
+    <div class="card-body">
+        {% if users.items %}
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Phone</th>
+                        <th>Status</th>
+                        <th>Last Login</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users.items %}
+                    <tr>
+                        <td>{{ user.get_full_name() }}</td>
+                        <td>{{ user.email }}</td>
+                        <td><span class="badge badge-{{ user.role }}">{{ user.role|title }}</span></td>
+                        <td>{{ user.phone or '-' }}</td>
+                        <td>
+                            {% if user.is_active %}
+                            <span class="badge badge-success">Active</span>
+                            {% else %}
+                            <span class="badge badge-danger">Inactive</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ user.last_login.strftime('%b %d, %Y') if user.last_login else 'Never' }}</td>
+                        <td>
+                            {% if user.id != current_user.id %}
+                            <form method="POST" action="{{ url_for('auth.toggle_user_status', user_id=user.id) }}" style="display:inline;">
+                                {% if user.is_active %}
+                                <button type="submit" class="btn btn-sm btn-outline btn-danger" title="Deactivate">
+                                    <i class="fas fa-user-slash"></i>
+                                </button>
+                                {% else %}
+                                <button type="submit" class="btn btn-sm btn-outline btn-success" title="Activate">
+                                    <i class="fas fa-user-check"></i>
+                                </button>
+                                {% endif %}
+                            </form>
+                            {% else %}
+                            <span class="text-muted">You</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if users.pages > 1 %}
+        <div class="pagination">
+            {% if users.has_prev %}
+            <a href="{{ url_for('auth.list_users', page=users.prev_num) }}" class="btn btn-outline btn-sm">
+                <i class="fas fa-chevron-left"></i> Previous</a>
+            {% endif %}
+            <span class="page-info">Page {{ users.page }} of {{ users.pages }}</span>
+            {% if users.has_next %}
+            <a href="{{ url_for('auth.list_users', page=users.next_num) }}" class="btn btn-outline btn-sm">
+                Next <i class="fas fa-chevron-right"></i></a>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% else %}
+        <div class="empty-state">
+            <i class="fas fa-users"></i>
+            <h3>No users found</h3>
+        </div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

@@ -1,10 +1,64 @@
 {% extends "base.html" %}
+
+{% block title %}Waiting Room - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}Waiting Room - {{ today.strftime('%B %d, %Y') }}{% endblock %}
+
 {% block content %}
-<div class="card">
-    <h2>Waiting Room</h2>
-    <table class="table">
-        <thead><tr><th>Patient</th><th>Status</th></tr></thead>
-        <tbody>{% for apt in appointments %}<tr><td>{{ apt.patient.get_full_name() }}</td><td>{{ apt.status }}</td></tr>{% endfor %}</tbody>
-    </table>
+<div class="waiting-room-grid">
+    <div class="waiting-column">
+        <h3><i class="fas fa-clock"></i> Waiting ({{ waiting|length }})</h3>
+        {% if waiting %}
+        {% for apt in waiting %}
+        <div class="waiting-card">
+            <span class="waiting-time">{{ apt.start_time.strftime('%H:%M') }}</span>
+            <span class="waiting-patient">{{ apt.patient.get_full_name() }}</span>
+            <span class="waiting-doctor">Dr. {{ apt.doctor.get_full_name() }}</span>
+            <a href="{{ url_for('appointments.view', appointment_id=apt.id) }}" class="btn btn-sm btn-outline">View</a>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="empty-state-sm"><p>No patients waiting</p></div>
+        {% endif %}
+    </div>
+
+    <div class="waiting-column">
+        <h3><i class="fas fa-user-md"></i> In Progress ({{ in_progress|length }})</h3>
+        {% if in_progress %}
+        {% for apt in in_progress %}
+        <div class="waiting-card">
+            <span class="waiting-time">{{ apt.start_time.strftime('%H:%M') }}</span>
+            <span class="waiting-patient">{{ apt.patient.get_full_name() }}</span>
+            <span class="waiting-doctor">Dr. {{ apt.doctor.get_full_name() }}</span>
+            <a href="{{ url_for('appointments.view', appointment_id=apt.id) }}" class="btn btn-sm btn-outline">View</a>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="empty-state-sm"><p>No patients in progress</p></div>
+        {% endif %}
+    </div>
+
+    <div class="waiting-column">
+        <h3><i class="fas fa-check-circle"></i> Completed ({{ completed|length }})</h3>
+        {% if completed %}
+        {% for apt in completed %}
+        <div class="waiting-card">
+            <span class="waiting-time">{{ apt.start_time.strftime('%H:%M') }}</span>
+            <span class="waiting-patient">{{ apt.patient.get_full_name() }}</span>
+            <span class="waiting-doctor">Dr. {{ apt.doctor.get_full_name() }}</span>
+            <a href="{{ url_for('appointments.view', appointment_id=apt.id) }}" class="btn btn-sm btn-outline">View</a>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="empty-state-sm"><p>No completed visits yet</p></div>
+        {% endif %}
+    </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Auto-refresh waiting room every 30 seconds
+setTimeout(function() { window.location.reload(); }, 30000);
+</script>
 {% endblock %}

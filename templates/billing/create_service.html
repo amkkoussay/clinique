@@ -1,9 +1,67 @@
 {% extends "base.html" %}
+
+{% block title %}Add Service - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}Add Service{% endblock %}
+
+{% block page_actions %}
+<a href="{{ url_for('billing.list_services') }}" class="btn btn-outline">
+    <i class="fas fa-arrow-left"></i> Back to Services
+</a>
+{% endblock %}
+
 {% block content %}
-<div class="card">
-    <h2>Add Service</h2>
-    <form method="POST">{{ form.hidden_tag() }}
-        <button type="submit">Save</button>
-    </form>
+<div class="content-card" style="max-width: 600px;">
+    <div class="card-header">
+        <h3><i class="fas fa-plus-circle"></i> Add Service</h3>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            {{ form.hidden_tag() }}
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="service_code">Service Code *</label>
+                    {{ form.service_code(class="form-control", placeholder="e.g. CONS001") }}
+                    {% if form.service_code.errors %}
+                        <span class="error-message">{{ form.service_code.errors[0] }}</span>
+                    {% endif %}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="service_name">Service Name *</label>
+                    {{ form.service_name(class="form-control") }}
+                    {% if form.service_name.errors %}
+                        <span class="error-message">{{ form.service_name.errors[0] }}</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                {{ form.description(class="form-control", rows="3") }}
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="category">Category</label>
+                    {{ form.category(class="form-control") }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="default_price">Default Price *</label>
+                    {{ form.default_price(class="form-control") }}
+                    {% if form.default_price.errors %}
+                        <span class="error-message">{{ form.default_price.errors[0] }}</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="fas fa-save"></i> Save Service
+                </button>
+                <a href="{{ url_for('billing.list_services') }}" class="btn btn-outline btn-lg">Cancel</a>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}

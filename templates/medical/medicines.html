@@ -1,10 +1,89 @@
 {% extends "base.html" %}
-{% block content %}
-<div class="card">
-    <h2>Medicines Inventory</h2>
-    <table class="table">
-        <thead><tr><th>Name</th><th>Stock</th></tr></thead>
-        <tbody>{% for med in medicines %}<tr><td>{{ med.name }}</td><td>{{ med.stock_quantity }}</td></tr>{% endfor %}</tbody>
-    </table>
+
+{% block title %}Medicines Database - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}Medicines Database{% endblock %}
+
+{% block page_actions %}
+<div class="page-actions">
+    <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="medicineSearch" placeholder="Search medicines..." value="{{ search }}" autocomplete="off">
+    </div>
+    {% if current_user.is_admin() %}
+    <a href="{{ url_for('medical.create_medicine') }}" class="btn btn-primary">
+        <i class="fas fa-pills"></i> Add Medicine
+    </a>
+    {% endif %}
 </div>
+{% endblock %}
+
+{% block content %}
+<div class="content-card">
+    <div class="card-body">
+        {% if medicines.items %}
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Generic Name</th>
+                        <th>Category</th>
+                        <th>Default Dosage</th>
+                        <th>Forms</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for med in medicines.items %}
+                    <tr>
+                        <td>{{ med.name }}</td>
+                        <td>{{ med.generic_name or '-' }}</td>
+                        <td>{{ med.category or '-' }}</td>
+                        <td>{{ med.default_dosage or '-' }}</td>
+                        <td>
+                            {% for form in med.get_dosage_forms_list() %}
+                            <span class="tag">{{ form }}</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if medicines.pages > 1 %}
+        <div class="pagination">
+            {% if medicines.has_prev %}
+            <a href="{{ url_for('medical.list_medicines', page=medicines.prev_num, search=search) }}" class="btn btn-outline btn-sm">
+                <i class="fas fa-chevron-left"></i> Previous</a>
+            {% endif %}
+            <span class="page-info">Page {{ medicines.page }} of {{ medicines.pages }}</span>
+            {% if medicines.has_next %}
+            <a href="{{ url_for('medical.list_medicines', page=medicines.next_num, search=search) }}" class="btn btn-outline btn-sm">
+                Next <i class="fas fa-chevron-right"></i></a>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% else %}
+        <div class="empty-state">
+            <i class="fas fa-pills"></i>
+            <h3>No medicines found</h3>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+let searchTimeout;
+document.getElementById('medicineSearch').addEventListener('input', function() {
+    clearTimeout(searchTimeout);
+    const value = this.value;
+    searchTimeout = setTimeout(() => {
+        window.location.href = `{{ url_for('medical.list_medicines') }}?search=${encodeURIComponent(value)}`;
+    }, 500);
+});
+</script>
 {% endblock %}

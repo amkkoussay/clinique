@@ -1,7 +1,138 @@
 {% extends "base.html" %}
+
+{% block title %}Invoice {{ invoice.invoice_number }} - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}Invoice {{ invoice.invoice_number }}{% endblock %}
+
+{% block page_actions %}
+<div class="page-actions">
+    {% if current_user.is_admin() or current_user.is_accountant() %}
+    <a href="{{ url_for('billing.edit_invoice', invoice_id=invoice.id) }}" class="btn btn-outline">
+        <i class="fas fa-edit"></i> Edit
+    </a>
+    {% if invoice.balance_due > 0 %}
+    <a href="{{ url_for('billing.record_payment', invoice_id=invoice.id) }}" class="btn btn-primary">
+        <i class="fas fa-dollar-sign"></i> Record Payment
+    </a>
+    {% endif %}
+    {% endif %}
+    <a href="{{ url_for('billing.invoice_pdf', invoice_id=invoice.id) }}" class="btn btn-outline" target="_blank">
+        <i class="fas fa-download"></i> Download PDF
+    </a>
+</div>
+{% endblock %}
+
 {% block content %}
-<div class="card">
-    <h2>Invoice Details</h2>
-    <p>Invoice #: {{ invoice.invoice_number }}</p>
+<div class="content-card" style="max-width: 800px;">
+    <div class="card-body">
+        <div class="info-grid">
+            <div class="info-item">
+                <span class="info-label">Patient</span>
+                <span class="info-value">{{ invoice.patient.get_full_name() }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Status</span>
+                <span class="badge badge-{{ invoice.status }}">{{ invoice.status|title }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Invoice Date</span>
+                <span class="info-value">{{ invoice.invoice_date.strftime('%B %d, %Y') }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Due Date</span>
+                <span class="info-value">{{ invoice.due_date.strftime('%B %d, %Y') if invoice.due_date else 'N/A' }}</span>
+            </div>
+        </div>
+
+        <h4 style="margin-top: 1.5rem;">Items</h4>
+        {% if invoice.items.count() > 0 %}
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Description</th>
+                        <th>Qty</th>
+                        <th>Unit Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in invoice.items %}
+                    <tr>
+                        <td>{{ item.service_name }}</td>
+                        <td>{{ item.description or '-' }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>${{ "%.2f"|format(item.unit_price) }}</td>
+                        <td>${{ "%.2f"|format(item.total_price) }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="empty-state-sm"><p>No items on this invoice</p></div>
+        {% endif %}
+
+        <div class="info-grid" style="margin-top: 1rem;">
+            <div class="info-item">
+                <span class="info-label">Subtotal</span>
+                <span class="info-value">${{ "%.2f"|format(invoice.subtotal) }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Tax</span>
+                <span class="info-value">${{ "%.2f"|format(invoice.tax_amount) }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Discount</span>
+                <span class="info-value">${{ "%.2f"|format(invoice.discount_amount) }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Total</span>
+                <span class="info-value"><strong>${{ "%.2f"|format(invoice.total_amount) }}</strong></span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Paid</span>
+                <span class="info-value">${{ "%.2f"|format(invoice.paid_amount) }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Balance Due</span>
+                <span class="info-value"><strong>${{ "%.2f"|format(invoice.balance_due) }}</strong></span>
+            </div>
+        </div>
+
+        {% if invoice.payments.count() > 0 %}
+        <h4 style="margin-top: 1.5rem;">Payment History</h4>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Method</th>
+                        <th>Reference</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for payment in invoice.payments %}
+                    <tr>
+                        <td>{{ payment.payment_date.strftime('%b %d, %Y') }}</td>
+                        <td>${{ "%.2f"|format(payment.amount) }}</td>
+                        <td>{{ payment.payment_method|replace('_', ' ')|title }}</td>
+                        <td>{{ payment.reference_number or '-' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+
+        {% if invoice.notes %}
+        <div class="medical-section" style="margin-top: 1.5rem;">
+            <h4>Notes</h4>
+            <p>{{ invoice.notes }}</p>
+        </div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

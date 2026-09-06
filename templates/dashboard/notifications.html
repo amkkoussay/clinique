@@ -1,7 +1,61 @@
 {% extends "base.html" %}
+
+{% block title %}Notifications - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}Notifications{% endblock %}
+
+{% block page_actions %}
+<form method="POST" action="{{ url_for('dashboard.mark_all_notifications_read') }}">
+    <button type="submit" class="btn btn-outline">
+        <i class="fas fa-check-double"></i> Mark All as Read
+    </button>
+</form>
+{% endblock %}
+
 {% block content %}
-<div class="card">
-    <h2>Notifications</h2>
-    <ul>{% for n in notifications %}<li>{{ n.message }}</li>{% endfor %}</ul>
+<div class="content-card">
+    <div class="card-body">
+        {% if notifications.items %}
+        <div class="notification-list">
+            {% for notif in notifications.items %}
+            <div class="notification-item {% if not notif.is_read %}unread{% endif %}">
+                <div class="notification-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <div class="notification-content">
+                    <h4>{{ notif.title }}</h4>
+                    <p>{{ notif.message }}</p>
+                    <span class="notification-time">{{ notif.created_at.strftime('%b %d, %Y %H:%M') }}</span>
+                </div>
+                {% if not notif.is_read %}
+                <form method="POST" action="{{ url_for('dashboard.mark_notification_read', notification_id=notif.id) }}">
+                    <button type="submit" class="btn btn-sm btn-outline">Mark Read</button>
+                </form>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if notifications.pages > 1 %}
+        <div class="pagination">
+            {% if notifications.has_prev %}
+            <a href="{{ url_for('dashboard.notifications', page=notifications.prev_num) }}" class="btn btn-outline btn-sm">
+                <i class="fas fa-chevron-left"></i> Previous</a>
+            {% endif %}
+            <span class="page-info">Page {{ notifications.page }} of {{ notifications.pages }}</span>
+            {% if notifications.has_next %}
+            <a href="{{ url_for('dashboard.notifications', page=notifications.next_num) }}" class="btn btn-outline btn-sm">
+                Next <i class="fas fa-chevron-right"></i></a>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% else %}
+        <div class="empty-state">
+            <i class="fas fa-bell-slash"></i>
+            <h3>No notifications</h3>
+        </div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

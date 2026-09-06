@@ -1,9 +1,59 @@
 {% extends "base.html" %}
+
+{% block title %}My Profile - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}My Profile{% endblock %}
+
+{% block page_actions %}
+<div class="page-actions">
+    <a href="{{ url_for('auth.edit_profile') }}" class="btn btn-outline">
+        <i class="fas fa-edit"></i> Edit Profile
+    </a>
+    <a href="{{ url_for('auth.change_password') }}" class="btn btn-outline">
+        <i class="fas fa-lock"></i> Change Password
+    </a>
+</div>
+{% endblock %}
+
 {% block content %}
-<div class="card">
-    <h2>User Profile</h2>
-    <p>Name: {{ current_user.get_full_name() }}</p>
-    <p>Email: {{ current_user.email }}</p>
-    <a href="{{ url_for('auth.edit_profile') }}" class="btn">Edit Profile</a>
+<div class="content-card" style="max-width: 600px;">
+    <div class="card-body">
+        <div class="profile-summary">
+            <div class="patient-avatar-lg">
+                {{ current_user.first_name[0] }}{{ current_user.last_name[0] }}
+            </div>
+            <h2>{{ current_user.get_full_name() }}</h2>
+            <span class="badge badge-{{ current_user.role }}">{{ current_user.role|title }}</span>
+        </div>
+
+        <div class="info-grid" style="margin-top: 2rem;">
+            <div class="info-item">
+                <span class="info-label">Email</span>
+                <span class="info-value">{{ current_user.email }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Phone</span>
+                <span class="info-value">{{ current_user.phone or 'Not provided' }}</span>
+            </div>
+            {% if current_user.is_doctor() %}
+            <div class="info-item">
+                <span class="info-label">Specialization</span>
+                <span class="info-value">{{ current_user.specialization or 'Not specified' }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">License Number</span>
+                <span class="info-value">{{ current_user.license_number or 'Not specified' }}</span>
+            </div>
+            {% endif %}
+            <div class="info-item">
+                <span class="info-label">Member Since</span>
+                <span class="info-value">{{ current_user.created_at.strftime('%B %d, %Y') if current_user.created_at else 'N/A' }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Last Login</span>
+                <span class="info-value">{{ current_user.last_login.strftime('%b %d, %Y %H:%M') if current_user.last_login else 'N/A' }}</span>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

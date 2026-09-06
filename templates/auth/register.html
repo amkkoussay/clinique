@@ -85,6 +85,17 @@
                     {% endif %}
                 </div>
                 
+                <div class="form-row patient-fields" style="display: none;">
+                    <div class="form-group">
+                        <label for="date_of_birth">Date of Birth</label>
+                        {{ form.date_of_birth(class="form-control") }}
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        {{ form.gender(class="form-control") }}
+                    </div>
+                </div>
+
                 <div class="form-row doctor-fields" style="display: none;">
                     <div class="form-group">
                         <label for="specialization">Specialization</label>
@@ -171,11 +182,9 @@ function togglePassword(btn) {
 // Show/hide doctor fields based on role selection
 document.getElementById('role').addEventListener('change', function() {
     const doctorFields = document.querySelector('.doctor-fields');
-    if (this.value === 'doctor') {
-        doctorFields.style.display = 'flex';
-    } else {
-        doctorFields.style.display = 'none';
-    }
+    const patientFields = document.querySelector('.patient-fields');
+    doctorFields.style.display = this.value === 'doctor' ? 'flex' : 'none';
+    patientFields.style.display = this.value === 'patient' ? 'flex' : 'none';
 });
 </script>
 {% endblock %}

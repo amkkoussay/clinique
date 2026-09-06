@@ -1,7 +1,83 @@
 {% extends "base.html" %}
+
+{% block title %}{{ test.test_name }} - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}{{ test.test_name }}{% endblock %}
+
+{% block page_actions %}
+<div class="page-actions">
+    {% if test.status != 'completed' %}
+    <a href="{{ url_for('medical.enter_lab_results', test_id=test.id) }}" class="btn btn-primary">
+        <i class="fas fa-vial"></i> Enter Results
+    </a>
+    {% endif %}
+</div>
+{% endblock %}
+
 {% block content %}
-<div class="card">
-    <h2>Lab Test Details</h2>
-    <p>Test: {{ test.test_name }}</p>
+<div class="content-card" style="max-width: 700px;">
+    <div class="card-body">
+        <div class="info-grid">
+            <div class="info-item">
+                <span class="info-label">Patient</span>
+                <span class="info-value">{{ test.patient.get_full_name() }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Ordered By</span>
+                <span class="info-value">Dr. {{ test.ordered_by_doctor.get_full_name() }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Category</span>
+                <span class="info-value">{{ test.test_category|title if test.test_category else '-' }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Status</span>
+                <span class="badge badge-{{ test.status }}">{{ test.status|replace('_',' ')|title }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Ordered Date</span>
+                <span class="info-value">{{ test.ordered_date.strftime('%b %d, %Y %H:%M') }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Completed Date</span>
+                <span class="info-value">{{ test.completed_date.strftime('%b %d, %Y %H:%M') if test.completed_date else 'Not completed' }}</span>
+            </div>
+            {% if test.clinical_notes %}
+            <div class="info-item full-width">
+                <span class="info-label">Clinical Notes</span>
+                <span class="info-value">{{ test.clinical_notes }}</span>
+            </div>
+            {% endif %}
+        </div>
+
+        {% if test.results or test.result_values %}
+        <div class="medical-section" style="margin-top: 1.5rem;">
+            <h4>Results</h4>
+            {% if test.results %}
+            <p>{{ test.results }}</p>
+            {% endif %}
+            {% if test.reference_range %}
+            <p><strong>Reference Range:</strong> {{ test.reference_range }}</p>
+            {% endif %}
+            {% if test.abnormal_flags %}
+            <p><strong>Abnormal Flags:</strong> <span class="badge badge-danger">{{ test.abnormal_flags }}</span></p>
+            {% endif %}
+            {% if test.result_notes %}
+            <p><strong>Notes:</strong> {{ test.result_notes }}</p>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% if test.status not in ['completed', 'cancelled'] %}
+        <div class="form-actions" style="margin-top: 1.5rem;">
+            <form method="POST" action="{{ url_for('medical.update_lab_test_status', test_id=test.id, status='in_progress') }}" style="display:inline;">
+                <button type="submit" class="btn btn-outline btn-sm">Mark In Progress</button>
+            </form>
+            <form method="POST" action="{{ url_for('medical.update_lab_test_status', test_id=test.id, status='cancelled') }}" style="display:inline;">
+                <button type="submit" class="btn btn-outline btn-danger btn-sm">Cancel Test</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

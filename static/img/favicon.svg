@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="MediCare Clinic">
+  <rect width="64" height="64" rx="16" fill="#3478e5"/>
+  <path d="M32 49S13 38.4 13 24.6C13 17.5 18.1 13 24.1 13c3.6 0 6.3 1.8 7.9 4.5 1.6-2.7 4.3-4.5 7.9-4.5C45.9 13 51 17.5 51 24.6 51 38.4 32 49 32 49Z" fill="#fff"/>
+  <path d="M31 22h2v6h6v2h-6v6h-2v-6h-6v-2h6v-6Z" fill="#3478e5"/>
+</svg>

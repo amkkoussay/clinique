@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}FHIR API Documentation - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block content %}
+{% block public_content %}
+<div class="container-fluid py-4" style="padding: 30px; max-width: 1200px; margin: 0 auto;">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="h3 mb-2" style="font-size: 2rem; font-weight: 700; margin-bottom: 10px;"><i class="fas fa-book-medical text-primary me-2"></i>FHIR R4 API Documentation</h1>
+            <p class="text-muted" style="color: var(--text-secondary); margin-bottom: 20px;">Interactive Swagger documentation for healthcare interoperability standards (Patient, Appointment, Observation endpoints).</p>
+        </div>
+    </div>
+    
+    <div class="card shadow-sm" style="background: var(--bg-card); border-radius: 12px; box-shadow: var(--shadow); padding: 20px;">
+        <div class="card-body p-0">
+            <div id="swagger-ui"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Swagger UI CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.18.3/swagger-ui.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.18.3/swagger-ui-bundle.js"></script>
+<script>
+window.onload = function() {
+    const ui = SwaggerUIBundle({
+        url: "{{ url_for('fhir.fhir_swagger') }}",
+        dom_id: '#swagger-ui',
+        presets: [
+            SwaggerUIBundle.presets.apis,
+            SwaggerUIBundle.SwaggerUIStandalonePreset
+        ],
+        layout: "StandaloneLayout"
+    });
+};
+</script>
+{% endblock %}
+{% endblock %}

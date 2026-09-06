@@ -1,10 +1,121 @@
 {% extends "base.html" %}
+
+{% block title %}New Appointment - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}New Appointment{% endblock %}
+
+{% block page_actions %}
+<a href="{{ url_for('appointments.index') }}" class="btn btn-outline">
+    <i class="fas fa-arrow-left"></i> Back to Appointments
+</a>
+{% endblock %}
+
 {% block content %}
-<div class="card">
-    <h2>Create Appointment</h2>
-    <form method="POST"> {{ form.hidden_tag() if form.hidden_tag else "" }}
-        {{ form.as_p() if form.as_p else "Form Content Here" }}
-        <button type="submit" class="btn btn-primary">Save</button>
-    </form>
+<div class="content-card" style="max-width: 700px;">
+    <div class="card-header">
+        <h3><i class="fas fa-calendar-plus"></i> Schedule Appointment</h3>
+    </div>
+    <div class="card-body">
+        <form method="POST" class="appointment-form">
+            {{ form.hidden_tag() }}
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="patient_id">Patient *</label>
+                    {{ form.patient_id(class="form-control") }}
+                    {% if form.patient_id.errors %}
+                        <span class="error-message">{{ form.patient_id.errors[0] }}</span>
+                    {% endif %}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="doctor_id">Doctor *</label>
+                    {{ form.doctor_id(class="form-control") }}
+                    {% if form.doctor_id.errors %}
+                        <span class="error-message">{{ form.doctor_id.errors[0] }}</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="appointment_date">Date *</label>
+                    {{ form.appointment_date(class="form-control", type="date") }}
+                    {% if form.appointment_date.errors %}
+                        <span class="error-message">{{ form.appointment_date.errors[0] }}</span>
+                    {% endif %}
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="start_time">Start Time *</label>
+                    {{ form.start_time(class="form-control", type="time") }}
+                    {% if form.start_time.errors %}
+                        <span class="error-message">{{ form.start_time.errors[0] }}</span>
+                    {% endif %}
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="end_time">End Time *</label>
+                    {{ form.end_time(class="form-control", type="time") }}
+                    {% if form.end_time.errors %}
+                        <span class="error-message">{{ form.end_time.errors[0] }}</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="appointment_type">Appointment Type *</label>
+                    {{ form.appointment_type(class="form-control") }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="status">Status</label>
+                    {{ form.status(class="form-control") }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="reason">Reason for Visit</label>
+                {{ form.reason(class="form-control", rows="3", placeholder="Describe the reason for this visit") }}
+            </div>
+
+            <div class="form-group">
+                <label for="notes">Notes</label>
+                {{ form.notes(class="form-control", rows="2", placeholder="Additional notes") }}
+            </div>
+
+            <div class="form-group form-check">
+                {{ form.is_recurring(class="form-check-input", id="isRecurring") }}
+                <label for="isRecurring">Recurring Appointment</label>
+            </div>
+
+            <div class="form-group" id="recurringPatternGroup">
+                <label for="recurring_pattern">Recurring Pattern</label>
+                {{ form.recurring_pattern(class="form-control") }}
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="fas fa-save"></i> Save Appointment
+                </button>
+                <a href="{{ url_for('appointments.index') }}" class="btn btn-outline btn-lg">Cancel</a>
+            </div>
+        </form>
+    </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const startTime = document.getElementById('start_time');
+    const endTime = document.getElementById('end_time');
+    if (startTime && endTime) {
+        startTime.addEventListener('change', function() {
+            if (!endTime.value && startTime.value) {
+                const [h, m] = startTime.value.split(':').map(Number);
+                const endH = (h + 1) % 24;
+                endTime.value = `${String(endH).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+            }
+        });
+    }
+});
+</script>
 {% endblock %}

@@ -1,9 +1,146 @@
 {% extends "base.html" %}
+
+{% block title %}Edit Patient - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}Edit Patient - {{ patient.get_full_name() }}{% endblock %}
+
+{% block page_actions %}
+<a href="{{ url_for('patients.view', patient_id=patient.id) }}" class="btn btn-outline">
+    <i class="fas fa-arrow-left"></i> Back to Patient
+</a>
+{% endblock %}
+
 {% block content %}
-<div class="card">
-    <h2>Edit Patient</h2>
-    <form method="POST">{{ form.hidden_tag() }}
-        <button type="submit">Update</button>
-    </form>
+<div class="content-card">
+    <div class="card-body">
+        <form method="POST" class="patient-form">
+            {{ form.hidden_tag() }}
+
+            <div class="form-section">
+                <h4>Personal Information</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="first_name">First Name *</label>
+                        {{ form.first_name(class="form-control") }}
+                        {% if form.first_name.errors %}
+                            <span class="error-message">{{ form.first_name.errors[0] }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="last_name">Last Name *</label>
+                        {{ form.last_name(class="form-control") }}
+                        {% if form.last_name.errors %}
+                            <span class="error-message">{{ form.last_name.errors[0] }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="date_of_birth">Date of Birth *</label>
+                        {{ form.date_of_birth(class="form-control", type="date") }}
+                        {% if form.date_of_birth.errors %}
+                            <span class="error-message">{{ form.date_of_birth.errors[0] }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="gender">Gender *</label>
+                        {{ form.gender(class="form-control") }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="blood_type">Blood Type</label>
+                        {{ form.blood_type(class="form-control") }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="marital_status">Marital Status</label>
+                        {{ form.marital_status(class="form-control") }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="occupation">Occupation</label>
+                        {{ form.occupation(class="form-control") }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h4>Contact Information</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="phone">Phone Number *</label>
+                        {{ form.phone(class="form-control") }}
+                        {% if form.phone.errors %}
+                            <span class="error-message">{{ form.phone.errors[0] }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="email">Email</label>
+                        {{ form.email(class="form-control") }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    {{ form.address(class="form-control", rows="2") }}
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h4>Emergency Contact</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="emergency_contact_name">Contact Name</label>
+                        {{ form.emergency_contact_name(class="form-control") }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="emergency_contact_phone">Contact Phone</label>
+                        {{ form.emergency_contact_phone(class="form-control") }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h4>Insurance Information</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="insurance_provider">Provider</label>
+                        {{ form.insurance_provider(class="form-control") }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="insurance_policy_number">Policy Number</label>
+                        {{ form.insurance_policy_number(class="form-control") }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="insurance_group_number">Group Number</label>
+                        {{ form.insurance_group_number(class="form-control") }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h4>Medical Information</h4>
+                <div class="form-group">
+                    <label for="allergies">Allergies (one per line)</label>
+                    {{ form.allergies(class="form-control", rows="3") }}
+                </div>
+                <div class="form-group">
+                    <label for="chronic_conditions">Chronic Conditions (one per line)</label>
+                    {{ form.chronic_conditions(class="form-control", rows="3") }}
+                </div>
+                <div class="form-group">
+                    <label for="current_medications">Current Medications (one per line)</label>
+                    {{ form.current_medications(class="form-control", rows="3") }}
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
+                <a href="{{ url_for('patients.view', patient_id=patient.id) }}" class="btn btn-outline btn-lg">Cancel</a>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}

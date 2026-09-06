@@ -1,6 +1,71 @@
 {% extends "base.html" %}
+
+{% block title %}Financial Reports - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}Financial Reports{% endblock %}
+
+{% block page_actions %}
+<form method="GET" class="page-actions">
+    <input type="date" name="start_date" value="{{ start_date }}" class="form-control">
+    <input type="date" name="end_date" value="{{ end_date }}" class="form-control">
+    <button type="submit" class="btn btn-outline">Filter</button>
+</form>
+{% endblock %}
+
 {% block content %}
-<div class="card">
-    <h2>Financial Reports</h2>
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-dollar-sign"></i></div>
+        <div class="stat-info">
+            <span class="stat-value">${{ "%.2f"|format(total_revenue) }}</span>
+            <span class="stat-label">Total Revenue</span>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-file-invoice"></i></div>
+        <div class="stat-info">
+            <span class="stat-value">{{ total_invoices }}</span>
+            <span class="stat-label">Total Invoices</span>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-exclamation-circle"></i></div>
+        <div class="stat-info">
+            <span class="stat-value">${{ "%.2f"|format(outstanding) }}</span>
+            <span class="stat-label">Outstanding Balance</span>
+        </div>
+    </div>
+</div>
+
+<div class="content-card" style="margin-top: 1.5rem;">
+    <div class="card-header">
+        <h3>Revenue by Day</h3>
+    </div>
+    <div class="card-body">
+        {% if revenue_data %}
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Invoices</th>
+                        <th>Revenue</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in revenue_data %}
+                    <tr>
+                        <td>{{ row.date }}</td>
+                        <td>{{ row.count }}</td>
+                        <td>${{ "%.2f"|format(row.revenue or 0) }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="empty-state-sm"><p>No revenue data for this period</p></div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

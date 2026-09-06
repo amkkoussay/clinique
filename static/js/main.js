@@ -124,24 +124,31 @@ function initializeNotifications() {
 }
 
 function fetchUnreadCount() {
+    const badge = document.getElementById('notificationCount');
+    if (!badge) {
+        return;
+    }
+
     fetch('/api/notifications/unread-count')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Notification request failed (${response.status})`);
+            }
+            return response.json();
+        })
         .then(data => {
-            const badge = document.getElementById('notificationCount');
-            if (badge) {
-                if (data.count > 0) {
-                    badge.textContent = data.count > 99 ? '99+' : data.count;
-                    badge.style.display = 'block';
-                } else {
-                    badge.style.display = 'none';
-                }
+            if (data.count > 0) {
+                badge.textContent = data.count > 99 ? '99+' : data.count;
+                badge.style.display = 'block';
+            } else {
+                badge.style.display = 'none';
             }
         })
         .catch(error => console.error('Error fetching notifications:', error));
 }
 
 function markAllRead() {
-    fetch('/notifications/mark-all-read', {
+    fetch('/dashboard/notifications/mark-all-read', {
         method: 'POST',
         headers: {
             'X-CSRFToken': getCsrfToken()

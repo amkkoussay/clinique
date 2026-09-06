@@ -17,6 +17,18 @@ from models import (
 api_bp = Blueprint('api', __name__)
 
 
+def api_can_access_patient(patient):
+    """Enforce object-level access for patient data APIs.
+
+    Doctors are intentionally allowed to view any patient, per clinic policy.
+    Patients may only access their own linked profile. Admins/receptionists may access clinic records.
+    """
+    if current_user.is_admin() or current_user.is_doctor() or current_user.is_receptionist():
+        return True
+    return current_user.is_patient() and patient.email and patient.email.lower() == current_user.email.lower()
+
+
+
 @api_bp.route('/stats/dashboard')
 @login_required
 def dashboard_stats():
@@ -28,7 +40,11 @@ def dashboard_stats():
         'patients': {
             'total': Patient.query.filter_by(is_active=True).count(),
             'new_this_month': Patient.query.filter(
-                func.strftime('%Y-%m', Patient.created_at) == today.strftime('%Y-%m')
+                Patient.created_at >= datetime.combine(start_of_month, datetime.min.time()),
+                Patient.created_at < datetime.combine(
+                    (start_of_month + timedelta(days=32)).replace(day=1),
+                    datetime.min.time(),
+                )
             ).count()
         },
         'appointments': {
@@ -67,7 +83,7 @@ def search_patients():
     if len(query) < 2:
         return jsonify([])
     
-    patients = Patient.query.filter(
+    patients_query = Patient.query.filter(
         and_(
             db.or_(
                 Patient.first_name.ilike(f'%{query}%'),
@@ -77,7 +93,12 @@ def search_patients():
             ),
             Patient.is_active == True
         )
-    ).limit(limit).all()
+    )
+    if current_user.is_patient():
+        patients_query = patients_query.filter(
+            db.func.lower(Patient.email) == current_user.email.lower()
+        )
+    patients = patients_query.limit(limit).all()
     
     return jsonify([{
         'id': p.id,
@@ -95,6 +116,8 @@ def search_patients():
 def get_patient(patient_id):
     """Get patient details API."""
     patient = Patient.query.get_or_404(patient_id)
+    if not api_can_access_patient(patient):
+        return jsonify({'error': 'Forbidden'}), 403
     
     return jsonify({
         'id': patient.id,
@@ -119,6 +142,10 @@ def get_patient(patient_id):
 @login_required
 def get_patient_vital_signs(patient_id):
     """Get patient vital signs history."""
+    patient = Patient.query.get_or_404(patient_id)
+    if not api_can_access_patient(patient):
+        return jsonify({'error': 'Forbidden'}), 403
+
     vital_signs = VitalSigns.query.filter_by(
         patient_id=patient_id
     ).order_by(VitalSigns.recorded_at.desc()).limit(20).all()

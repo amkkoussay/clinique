@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620">
+<rect width="1200" height="620" rx="32" fill="#f8fafc"/>
+<text x="60" y="70" font-family="Arial,sans-serif" font-size="38" font-weight="700" fill="#0f172a">Clinique Enhanced — AI Characters</text>
+<text x="60" y="108" font-family="Arial,sans-serif" font-size="20" fill="#64748b">The same AI engine changes its tools based on the logged-in role.</text>
+<!-- patient -->
+<g transform="translate(90 160)">
+ <rect width="470" height="370" rx="28" fill="#ffffff" stroke="#60a5fa" stroke-width="4"/>
+ <circle cx="105" cy="105" r="65" fill="#dbeafe"/>
+ <circle cx="105" cy="92" r="25" fill="#2563eb"/>
+ <path d="M55 150c8-40 92-40 100 0" fill="#2563eb"/>
+ <text x="190" y="92" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#1d4ed8">PATIENT AI</text>
+ <text x="190" y="125" font-family="Arial,sans-serif" font-size="18" fill="#64748b">Private patient tools</text>
+ <g font-family="Arial,sans-serif" font-size="19" fill="#0f172a">
+  <text x="55" y="220">✓ My next appointment</text>
+  <text x="55" y="260">✓ Available time slots</text>
+  <text x="55" y="300">✓ Book / cancel / reschedule</text>
+  <text x="55" y="340">✓ My profile and clinic services</text>
+ </g>
+</g>
+<!-- doctor -->
+<g transform="translate(640 160)">
+ <rect width="470" height="370" rx="28" fill="#ffffff" stroke="#34d399" stroke-width="4"/>
+ <circle cx="105" cy="105" r="65" fill="#d1fae5"/>
+ <circle cx="105" cy="92" r="25" fill="#059669"/>
+ <path d="M55 150c8-40 92-40 100 0" fill="#059669"/>
+ <text x="190" y="92" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#047857">DOCTOR AI</text>
+ <text x="190" y="125" font-family="Arial,sans-serif" font-size="18" fill="#64748b">Private clinical tools</text>
+ <g font-family="Arial,sans-serif" font-size="19" fill="#0f172a">
+  <text x="55" y="220">✓ My schedule and appointments</text>
+  <text x="55" y="260">✓ Search my patients</text>
+  <text x="55" y="300">✓ Symptoms and medical history</text>
+  <text x="55" y="340">✓ Save a medical note when asked</text>
+ </g>
+</g>
+</svg>

@@ -1,6 +1,110 @@
 {% extends "base.html" %}
+
+{% block title %}Appointment Report - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}Appointment Report{% endblock %}
+
+{% block page_actions %}
+<form method="GET" class="page-actions">
+    <input type="date" name="start_date" value="{{ start_date }}" class="form-control">
+    <input type="date" name="end_date" value="{{ end_date }}" class="form-control">
+    <button type="submit" class="btn btn-outline">Filter</button>
+    <a href="{{ url_for('reports.index') }}" class="btn btn-outline">
+        <i class="fas fa-arrow-left"></i> Back
+    </a>
+</form>
+{% endblock %}
+
 {% block content %}
-<div class="card">
-    <h2>Appointment Reports</h2>
+<div class="content-card">
+    <div class="card-header">
+        <h3>By Status</h3>
+    </div>
+    <div class="card-body">
+        {% if status_stats %}
+        <table class="table">
+            <thead><tr><th>Status</th><th>Count</th></tr></thead>
+            <tbody>
+                {% for row in status_stats %}
+                <tr>
+                    <td><span class="badge badge-{{ row.status }}">{{ row.status|replace('_',' ')|title }}</span></td>
+                    <td>{{ row.count }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state-sm"><p>No data available</p></div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="content-card" style="margin-top: 1.5rem;">
+    <div class="card-header">
+        <h3>By Type</h3>
+    </div>
+    <div class="card-body">
+        {% if type_stats %}
+        <table class="table">
+            <thead><tr><th>Type</th><th>Count</th></tr></thead>
+            <tbody>
+                {% for row in type_stats %}
+                <tr>
+                    <td>{{ row.appointment_type|replace('_',' ')|title if row.appointment_type else 'Unspecified' }}</td>
+                    <td>{{ row.count }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state-sm"><p>No data available</p></div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="content-card" style="margin-top: 1.5rem;">
+    <div class="card-header">
+        <h3>By Doctor</h3>
+    </div>
+    <div class="card-body">
+        {% if doctor_stats %}
+        <table class="table">
+            <thead><tr><th>Doctor</th><th>Appointments</th></tr></thead>
+            <tbody>
+                {% for row in doctor_stats %}
+                <tr>
+                    <td>Dr. {{ row.doctor_name }}</td>
+                    <td>{{ row.count }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state-sm"><p>No data available</p></div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="content-card" style="margin-top: 1.5rem;">
+    <div class="card-header">
+        <h3>Daily Volume</h3>
+    </div>
+    <div class="card-body">
+        {% if daily_counts %}
+        <table class="table">
+            <thead><tr><th>Date</th><th>Appointments</th></tr></thead>
+            <tbody>
+                {% for row in daily_counts %}
+                <tr>
+                    <td>{{ row.date }}</td>
+                    <td>{{ row.count }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state-sm"><p>No data available</p></div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

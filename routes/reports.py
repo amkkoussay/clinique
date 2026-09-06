@@ -11,7 +11,7 @@ from sqlalchemy import func, and_
 import io
 import csv
 
-from models import db, User, Patient, Appointment, MedicalRecord, Invoice, Payment, LabTest
+from models import db, Patient, Appointment, MedicalRecord, Invoice, Payment, LabTest, User
 
 reports_bp = Blueprint('reports', __name__)
 
@@ -333,6 +333,5 @@ def export_appointments():
         as_attachment=True,
         download_name=f'appointments_export_{date.today().isoformat()}.csv'
     )
-
 
 

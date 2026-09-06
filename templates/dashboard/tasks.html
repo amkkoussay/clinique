@@ -1,7 +1,79 @@
 {% extends "base.html" %}
+
+{% block title %}Tasks - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}Tasks{% endblock %}
+
+{% block page_actions %}
+<select class="form-control" onchange="window.location.href='{{ url_for('dashboard.tasks') }}?status=' + this.value">
+    <option value="all" {% if status_filter == 'all' %}selected{% endif %}>All Statuses</option>
+    <option value="pending" {% if status_filter == 'pending' %}selected{% endif %}>Pending</option>
+    <option value="in_progress" {% if status_filter == 'in_progress' %}selected{% endif %}>In Progress</option>
+    <option value="completed" {% if status_filter == 'completed' %}selected{% endif %}>Completed</option>
+    <option value="cancelled" {% if status_filter == 'cancelled' %}selected{% endif %}>Cancelled</option>
+</select>
+{% endblock %}
+
 {% block content %}
-<div class="card">
-    <h2>Tasks</h2>
-    <ul>{% for t in tasks %}<li>{{ t.title }} - {{ t.status }}</li>{% endfor %}</ul>
+<div class="content-card">
+    <div class="card-body">
+        {% if tasks.items %}
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Priority</th>
+                        <th>Due Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in tasks.items %}
+                    <tr>
+                        <td>
+                            <strong>{{ task.title }}</strong>
+                            {% if task.description %}<br><small class="text-muted">{{ task.description }}</small>{% endif %}
+                        </td>
+                        <td><span class="badge badge-{{ task.priority }}">{{ task.priority|title }}</span></td>
+                        <td>{{ task.due_date.strftime('%b %d, %Y') if task.due_date else '-' }}</td>
+                        <td><span class="badge badge-{{ task.status }}">{{ task.status|replace('_',' ')|title }}</span></td>
+                        <td>
+                            {% if task.status not in ['completed', 'cancelled'] %}
+                            <form method="POST" action="{{ url_for('dashboard.complete_task', task_id=task.id) }}">
+                                <button type="submit" class="btn btn-sm btn-outline">
+                                    <i class="fas fa-check"></i> Complete
+                                </button>
+                            </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if tasks.pages > 1 %}
+        <div class="pagination">
+            {% if tasks.has_prev %}
+            <a href="{{ url_for('dashboard.tasks', page=tasks.prev_num, status=status_filter) }}" class="btn btn-outline btn-sm">
+                <i class="fas fa-chevron-left"></i> Previous</a>
+            {% endif %}
+            <span class="page-info">Page {{ tasks.page }} of {{ tasks.pages }}</span>
+            {% if tasks.has_next %}
+            <a href="{{ url_for('dashboard.tasks', page=tasks.next_num, status=status_filter) }}" class="btn btn-outline btn-sm">
+                Next <i class="fas fa-chevron-right"></i></a>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% else %}
+        <div class="empty-state">
+            <i class="fas fa-tasks"></i>
+            <h3>No tasks found</h3>
+        </div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

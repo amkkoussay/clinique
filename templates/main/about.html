@@ -1,7 +1,54 @@
 {% extends "base.html" %}
+
+{% block title %}About Us - {{ config.CLINIC_NAME }}{% endblock %}
+
 {% block public_content %}
-<div class="container">
-    <h2>About Our Clinic</h2>
-    <p>Professional medical services for everyone.</p>
+<div class="public-page">
+    <div class="public-hero">
+        <h1>About {{ config.CLINIC_NAME }}</h1>
+        <p>Committed to providing quality, compassionate healthcare</p>
+    </div>
+
+    <div class="public-section">
+        <div class="content-card">
+            <div class="card-body">
+                <p>
+                    {{ config.CLINIC_NAME }} is dedicated to delivering accessible, high-quality
+                    medical care to our community. Our team of experienced doctors, nurses, and
+                    staff work together to ensure every patient receives personalized attention
+                    and the best possible outcomes.
+                </p>
+                <p>
+                    We combine modern medical technology with a compassionate, patient-first
+                    approach — because we believe healthcare should be both effective and human.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="public-section">
+        <h2>Our Values</h2>
+        <div class="values-grid">
+            <div class="value-card">
+                <i class="fas fa-heart-pulse"></i>
+                <h3>Compassionate Care</h3>
+                <p>Every patient is treated with dignity, empathy, and respect.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Trust & Safety</h3>
+                <p>Your health and privacy are always our top priority.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-user-md"></i>
+                <h3>Expert Team</h3>
+                <p>Skilled professionals dedicated to continuous learning and excellence.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="public-cta">
+        <a href="{{ url_for('main.contact') }}" class="btn btn-primary btn-lg">Get in Touch</a>
+    </div>
 </div>
 {% endblock %}

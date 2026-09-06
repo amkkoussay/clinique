@@ -1,10 +1,80 @@
 {% extends "base.html" %}
+
+{% block title %}Medical Records - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}Medical Records{% endblock %}
+
+{% block page_actions %}
+<div class="page-actions">
+    <a href="{{ url_for('medical.create_record') }}" class="btn btn-primary">
+        <i class="fas fa-file-medical"></i> New Record
+    </a>
+</div>
+{% endblock %}
+
 {% block content %}
-<div class="card">
-    <h2>Medical Records</h2>
-    <table class="table">
-        <thead><tr><th>Date</th><th>Patient</th><th>Diagnosis</th></tr></thead>
-        <tbody>{% for record in records %}<tr><td>{{ record.visit_date }}</td><td>{{ record.patient.get_full_name() }}</td><td>{{ record.primary_diagnosis }}</td></tr>{% endfor %}</tbody>
-    </table>
+<div class="content-card">
+    <div class="card-body">
+        {% if records.items %}
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Patient</th>
+                        <th>Doctor</th>
+                        <th>Diagnosis</th>
+                        <th>Follow-up</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in records.items %}
+                    <tr>
+                        <td>{{ record.visit_date.strftime('%b %d, %Y') }}</td>
+                        <td>{{ record.patient.get_full_name() }}</td>
+                        <td>Dr. {{ record.doctor.get_full_name() }}</td>
+                        <td>{{ record.primary_diagnosis or '-' }}</td>
+                        <td>{{ record.follow_up_date.strftime('%b %d, %Y') if record.follow_up_date else '-' }}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="{{ url_for('medical.view_record', record_id=record.id) }}" class="btn btn-sm btn-icon" title="View">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="{{ url_for('medical.edit_record', record_id=record.id) }}" class="btn btn-sm btn-icon" title="Edit">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if records.pages > 1 %}
+        <div class="pagination">
+            {% if records.has_prev %}
+            <a href="{{ url_for('medical.list_records', page=records.prev_num) }}" class="btn btn-outline btn-sm">
+                <i class="fas fa-chevron-left"></i> Previous</a>
+            {% endif %}
+            <span class="page-info">Page {{ records.page }} of {{ records.pages }}</span>
+            {% if records.has_next %}
+            <a href="{{ url_for('medical.list_records', page=records.next_num) }}" class="btn btn-outline btn-sm">
+                Next <i class="fas fa-chevron-right"></i></a>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% else %}
+        <div class="empty-state">
+            <i class="fas fa-file-medical"></i>
+            <h3>No medical records found</h3>
+            <a href="{{ url_for('medical.create_record') }}" class="btn btn-primary">
+                <i class="fas fa-file-medical"></i> New Record
+            </a>
+        </div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

@@ -26,7 +26,7 @@ class User(UserMixin, db.Model):
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
     phone = db.Column(db.String(20))
-    role = db.Column(db.String(20), nullable=False, default='doctor')  # admin, doctor, receptionist, accountant
+    role = db.Column(db.String(20), nullable=False, default='doctor')  # admin, doctor, patient, receptionist, accountant
     specialization = db.Column(db.String(100))  # For doctors
     license_number = db.Column(db.String(50))  # Medical license
     is_active = db.Column(db.Boolean, default=True)
@@ -134,6 +134,9 @@ class User(UserMixin, db.Model):
         """Check if user is doctor."""
         return self.role == 'doctor'
     
+    def is_patient(self):
+        return self.role == 'patient'
+
     def is_receptionist(self):
         """Check if user is receptionist."""
         return self.role == 'receptionist'
@@ -218,6 +221,23 @@ class Patient(db.Model):
             return json.loads(self.chronic_conditions)
         return []
     
+    def to_fhir(self):
+        """Return FHIR R4 Patient resource representation."""
+        return {
+            "resourceType": "Patient",
+            "id": str(self.id),
+            "identifier": [{"system": "http://clinic.example/patient", "value": self.patient_id}],
+            "active": self.is_active,
+            "name": [{"use": "official", "family": self.last_name, "given": [self.first_name]}],
+            "telecom": [
+                {"system": "phone", "value": self.phone},
+                {"system": "email", "value": self.email}
+            ] if self.phone or self.email else [],
+            "gender": self.gender,
+            "birthDate": self.date_of_birth.isoformat() if self.date_of_birth else None,
+            "address": [{"text": self.address}] if self.address else []
+        }
+
     def __repr__(self):
         return f'<Patient {self.patient_id}: {self.get_full_name()}>'
 
@@ -229,6 +249,8 @@ class Appointment(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     uuid = db.Column(db.String(36), unique=True, default=lambda: str(uuid.uuid4()))
+    # Unique key for active 30-minute AI bookings. Nullable so cancelled bookings can free the slot.
+    booking_key = db.Column(db.String(120), unique=True, nullable=True, index=True)
     
     # Foreign Keys
     patient_id = db.Column(db.Integer, db.ForeignKey('patients.id'), nullable=False, index=True)
@@ -268,6 +290,24 @@ class Appointment(db.Model):
         }
         return colors.get(self.status, 'primary')
     
+    def to_fhir(self):
+        """Return FHIR R4 Appointment resource representation."""
+        start_iso = f"{self.appointment_date.isoformat()}T{self.start_time.isoformat()}Z" if self.appointment_date and self.start_time else None
+        end_iso = f"{self.appointment_date.isoformat()}T{self.end_time.isoformat()}Z" if self.appointment_date and self.end_time else None
+        return {
+            "resourceType": "Appointment",
+            "id": str(self.id),
+            "status": self.status,
+            "description": self.reason,
+            "comment": self.notes,
+            "start": start_iso,
+            "end": end_iso,
+            "participant": [
+                {"actor": {"reference": f"Patient/{self.patient_id}"}},
+                {"actor": {"reference": f"Practitioner/{self.doctor_id}"}}
+            ]
+        }
+
     def __repr__(self):
         return f'<Appointment {self.uuid}: {self.appointment_date} {self.start_time}>'
 
@@ -314,6 +354,21 @@ class MedicalRecord(db.Model):
             return json.loads(self.icd10_codes)
         return []
     
+    def to_fhir(self):
+        """Return FHIR R4 Observation resource representation."""
+        return {
+            "resourceType": "Observation",
+            "id": str(self.id),
+            "status": "final",
+            "code": {
+                "coding": [{"system": "http://loinc.org", "code": "8302-2", "display": self.primary_diagnosis or "Clinical Observation"}],
+                "text": self.primary_diagnosis or "Clinical Observation"
+            },
+            "subject": {"reference": f"Patient/{self.patient_id}"},
+            "effectiveDateTime": self.visit_date.isoformat() + "Z" if self.visit_date else None,
+            "valueString": self.plan or self.assessment
+        }
+
     def __repr__(self):
         return f'<MedicalRecord {self.uuid}>'
 

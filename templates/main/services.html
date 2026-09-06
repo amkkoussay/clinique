@@ -1,7 +1,51 @@
 {% extends "base.html" %}
+
+{% block title %}Our Services - {{ config.CLINIC_NAME }}{% endblock %}
+
 {% block public_content %}
-<div class="container">
-    <h2>Our Services</h2>
-    <ul><li>General Consultation</li><li>Laboratory Tests</li><li>Pharmacy</li></ul>
+<div class="public-page">
+    <div class="public-hero">
+        <h1>Our Services</h1>
+        <p>Comprehensive healthcare services for you and your family</p>
+    </div>
+
+    <div class="public-section">
+        <div class="values-grid">
+            <div class="value-card">
+                <i class="fas fa-stethoscope"></i>
+                <h3>General Consultation</h3>
+                <p>Routine check-ups and general health consultations with our experienced doctors.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-heartbeat"></i>
+                <h3>Cardiology</h3>
+                <p>Heart health screenings, diagnostics, and specialized cardiac care.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-baby"></i>
+                <h3>Pediatrics</h3>
+                <p>Comprehensive care for infants, children, and adolescents.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-flask"></i>
+                <h3>Laboratory Testing</h3>
+                <p>On-site lab services for fast, accurate diagnostic results.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-prescription-bottle-alt"></i>
+                <h3>Pharmacy Services</h3>
+                <p>Prescription management and medication guidance.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-calendar-check"></i>
+                <h3>Appointment Scheduling</h3>
+                <p>Easy online booking for consultations and follow-up visits.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="public-cta">
+        <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg">Get Started</a>
+    </div>
 </div>
 {% endblock %}

@@ -9,7 +9,7 @@ from flask_login import login_user, logout_user, current_user, login_required
 from urllib.parse import urlparse
 from datetime import datetime
 
-from models import db, User, AuditLog
+from models import db, User, AuditLog, Patient
 from forms import (
     LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm
 )
@@ -105,6 +105,24 @@ def register():
         user.set_password(form.password.data)
         
         db.session.add(user)
+        db.session.flush()
+
+        # Patient accounts also create their patient profile so the AI can
+        # safely link the account to the clinic record by email.
+        if form.role.data == 'patient':
+            if not form.date_of_birth.data or not form.gender.data:
+                db.session.rollback()
+                flash('Patients must provide date of birth and gender.', 'error')
+                return render_template('auth/register.html', form=form)
+            from routes.patients import generate_patient_id
+            patient = Patient(
+                patient_id=generate_patient_id(),
+                first_name=user.first_name, last_name=user.last_name,
+                date_of_birth=form.date_of_birth.data, gender=form.gender.data,
+                phone=user.phone or '', email=user.email, is_active=True,
+                allergies='[]', chronic_conditions='[]', current_medications='[]'
+            )
+            db.session.add(patient)
         db.session.commit()
         
         log_action('register', 'User', user.id, f"New user registered: {user.email}")

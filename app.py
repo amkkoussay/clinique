@@ -6,10 +6,35 @@ Flask application initialization and configuration.
 
 import os
 import logging
+
+try:
+    from dotenv import load_dotenv
+except ModuleNotFoundError:
+    def load_dotenv(dotenv_path=None, *args, **kwargs):
+        """Fallback loader for environments where python-dotenv is not installed."""
+        if not dotenv_path or not os.path.isfile(dotenv_path):
+            return False
+        loaded = False
+        with open(dotenv_path, "r", encoding="utf-8") as fh:
+            for raw in fh:
+                line = raw.strip()
+                if not line or line.startswith("#") or "=" not in line:
+                    continue
+                key, value = line.split("=", 1)
+                key, value = key.strip(), value.strip()
+                if len(value) >= 2 and value[0] == value[-1] and value[0] in ('"', "'"):
+                    value = value[1:-1]
+                if key and key not in os.environ:
+                    os.environ[key] = value
+                    loaded = True
+        return loaded
 from datetime import datetime
 from flask import Flask, request, session, g
 from flask_login import LoginManager, current_user
 from flask_wtf.csrf import CSRFProtect
+
+# Load local environment variables before configuration is read.
+load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
 
 # Initialize extensions
 from models import db
@@ -25,6 +50,24 @@ logger = logging.getLogger(__name__)
 login_manager = LoginManager()
 csrf = CSRFProtect()
 
+
+
+def ensure_appointment_booking_key_column():
+    """Small SQLite migration for the new appointment booking key."""
+    from sqlalchemy import inspect, text
+    engine = db.engine
+    inspector = inspect(engine)
+    if 'appointments' not in inspector.get_table_names():
+        return
+    columns = {c['name'] for c in inspector.get_columns('appointments')}
+    if 'booking_key' in columns:
+        return
+    if engine.dialect.name == 'sqlite':
+        with engine.begin() as conn:
+            conn.execute(text('ALTER TABLE appointments ADD COLUMN booking_key VARCHAR(120)'))
+            conn.execute(text('CREATE UNIQUE INDEX IF NOT EXISTS ix_appointments_booking_key ON appointments (booking_key)'))
+    else:
+        logger.warning('Existing database needs a migration for appointments.booking_key. Run your normal migration tool.')
 
 def create_app(config_name=None):
     """
@@ -74,6 +117,7 @@ def create_app(config_name=None):
     # Create database tables
     with app.app_context():
         db.create_all()
+        ensure_appointment_booking_key_column()
         logger.info("Database tables created successfully")
     
     return app
@@ -92,6 +136,8 @@ def register_blueprints(app):
     from routes.chatbot import chatbot_bp
     from routes.api import api_bp
     from routes.reports import reports_bp
+    from routes.fhir import fhir_bp
+    from routes.integration import integration_bp
     
     app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(main_bp)
@@ -103,6 +149,9 @@ def register_blueprints(app):
     app.register_blueprint(chatbot_bp, url_prefix='/chatbot')
     app.register_blueprint(api_bp, url_prefix='/api')
     app.register_blueprint(reports_bp, url_prefix='/reports')
+    app.register_blueprint(fhir_bp)
+    app.register_blueprint(integration_bp, url_prefix='/api/integration')
+    csrf.exempt(integration_bp)
     
     logger.info("Blueprints registered successfully")
 

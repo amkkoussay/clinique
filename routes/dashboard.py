@@ -17,6 +17,13 @@ from models import (
 dashboard_bp = Blueprint('dashboard', __name__)
 
 
+def month_bounds(value):
+    """Return an inclusive start and exclusive end for a calendar month."""
+    start = value.replace(day=1)
+    end = (start + timedelta(days=32)).replace(day=1)
+    return start, end
+
+
 @dashboard_bp.route('/')
 @login_required
 def index():
@@ -24,13 +31,19 @@ def index():
     today = date.today()
     start_of_day = datetime.combine(today, datetime.min.time())
     end_of_day = datetime.combine(today, datetime.max.time())
+    current_month_start, current_month_end = month_bounds(today)
     
     # Statistics
     stats = {
         'total_patients': Patient.query.filter_by(is_active=True).count(),
-        'today_appointments': Appointment.query.filter(
-            Appointment.appointment_date == today
-        ).count(),
+        'today_appointments': (
+            Appointment.query.filter(
+                Appointment.appointment_date == today,
+                Appointment.doctor_id == current_user.id
+            ).count() if current_user.is_doctor() else Appointment.query.filter(
+                Appointment.appointment_date == today
+            ).count()
+        ),
         'pending_appointments': Appointment.query.filter(
             Appointment.appointment_date >= today,
             Appointment.status.in_(['scheduled', 'confirmed'])
@@ -38,7 +51,8 @@ def index():
         'monthly_revenue': db.session.query(
             func.sum(Invoice.paid_amount)
         ).filter(
-            func.strftime('%Y-%m', Invoice.invoice_date) == today.strftime('%Y-%m')
+            Invoice.invoice_date >= current_month_start,
+            Invoice.invoice_date < current_month_end
         ).scalar() or 0,
         'pending_tasks': Task.query.filter(
             Task.assigned_to == current_user.id,
@@ -48,10 +62,11 @@ def index():
         ).count()
     }
     
-    # Today's appointments
-    today_appointments = Appointment.query.filter(
-        Appointment.appointment_date == today
-    ).order_by(Appointment.start_time).limit(10).all()
+    # Today's appointments: doctors only see their own; admin/reception see the clinic list.
+    appointments_query = Appointment.query.filter(Appointment.appointment_date == today)
+    if current_user.is_doctor():
+        appointments_query = appointments_query.filter(Appointment.doctor_id == current_user.id)
+    today_appointments = appointments_query.order_by(Appointment.start_time).limit(10).all()
     
     # Recent patients
     recent_patients = Patient.query.order_by(
@@ -77,14 +92,15 @@ def index():
         AuditLog.created_at.desc()
     ).limit(10).all()
     
-    # Weekly appointment data for chart
+    # Weekly appointment data: doctors only see their own appointments; clinic staff see all.
     week_start = today - timedelta(days=today.weekday())
     weekly_data = []
     for i in range(7):
         day = week_start + timedelta(days=i)
-        count = Appointment.query.filter(
-            Appointment.appointment_date == day
-        ).count()
+        weekly_query = Appointment.query.filter(Appointment.appointment_date == day)
+        if current_user.is_doctor():
+            weekly_query = weekly_query.filter(Appointment.doctor_id == current_user.id)
+        count = weekly_query.count()
         weekly_data.append({
             'day': day.strftime('%a'),
             'count': count
@@ -94,8 +110,10 @@ def index():
     revenue_data = []
     for i in range(5, -1, -1):
         month_date = today.replace(day=1) - timedelta(days=i*30)
+        month_start, month_end = month_bounds(month_date)
         revenue = db.session.query(func.sum(Invoice.paid_amount)).filter(
-            func.strftime('%Y-%m', Invoice.invoice_date) == month_date.strftime('%Y-%m')
+            Invoice.invoice_date >= month_start,
+            Invoice.invoice_date < month_end
         ).scalar() or 0
         revenue_data.append({
             'month': month_date.strftime('%b'),
@@ -125,9 +143,14 @@ def api_stats():
     
     stats = {
         'total_patients': Patient.query.filter_by(is_active=True).count(),
-        'today_appointments': Appointment.query.filter(
-            Appointment.appointment_date == today
-        ).count(),
+        'today_appointments': (
+            Appointment.query.filter(
+                Appointment.appointment_date == today,
+                Appointment.doctor_id == current_user.id
+            ).count() if current_user.is_doctor() else Appointment.query.filter(
+                Appointment.appointment_date == today
+            ).count()
+        ),
         'pending_tasks': Task.query.filter(
             Task.assigned_to == current_user.id,
             Task.status.in_(['pending', 'in_progress'])
@@ -137,7 +160,8 @@ def api_stats():
         'monthly_revenue': float(db.session.query(
             func.sum(Invoice.paid_amount)
         ).filter(
-            func.strftime('%Y-%m', Invoice.invoice_date) == today.strftime('%Y-%m')
+            Invoice.invoice_date >= month_bounds(today)[0],
+            Invoice.invoice_date < month_bounds(today)[1]
         ).scalar() or 0)
     }
     
@@ -150,9 +174,10 @@ def api_today_appointments():
     """API endpoint for today's appointments."""
     today = date.today()
     
-    appointments = Appointment.query.filter(
-        Appointment.appointment_date == today
-    ).order_by(Appointment.start_time).all()
+    appointments_query = Appointment.query.filter(Appointment.appointment_date == today)
+    if current_user.is_doctor():
+        appointments_query = appointments_query.filter(Appointment.doctor_id == current_user.id)
+    appointments = appointments_query.order_by(Appointment.start_time).all()
     
     return jsonify([{
         'id': apt.id,

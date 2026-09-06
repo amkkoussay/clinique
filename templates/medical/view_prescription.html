@@ -1,7 +1,80 @@
 {% extends "base.html" %}
+
+{% block title %}Prescription {{ prescription.prescription_number }} - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}Prescription {{ prescription.prescription_number }}{% endblock %}
+
+{% block page_actions %}
+<div class="page-actions">
+    {% if prescription.doctor_id == current_user.id or current_user.is_admin() %}
+    <a href="{{ url_for('medical.edit_prescription', prescription_id=prescription.id) }}" class="btn btn-outline">
+        <i class="fas fa-edit"></i> Edit
+    </a>
+    {% endif %}
+    <a href="{{ url_for('medical.prescription_pdf', prescription_id=prescription.id) }}" class="btn btn-outline" target="_blank">
+        <i class="fas fa-download"></i> Download PDF
+    </a>
+</div>
+{% endblock %}
+
 {% block content %}
-<div class="card">
-    <h2>Prescription Details</h2>
-    <p>Patient: {{ prescription.patient.get_full_name() }}</p>
+<div class="content-card" style="max-width: 700px;">
+    <div class="card-body">
+        <div class="info-grid">
+            <div class="info-item">
+                <span class="info-label">Patient</span>
+                <span class="info-value">{{ prescription.patient.get_full_name() }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Doctor</span>
+                <span class="info-value">Dr. {{ prescription.doctor.get_full_name() }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Date</span>
+                <span class="info-value">{{ prescription.prescription_date.strftime('%B %d, %Y') }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Status</span>
+                <span class="badge badge-{{ prescription.status }}">{{ prescription.status|title }}</span>
+            </div>
+        </div>
+
+        <h4 style="margin-top: 1.5rem;">Medications</h4>
+        {% if prescription.items.count() > 0 %}
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Medication</th>
+                        <th>Dosage</th>
+                        <th>Frequency</th>
+                        <th>Duration</th>
+                        <th>Instructions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in prescription.items %}
+                    <tr>
+                        <td>{{ item.medication_name }}</td>
+                        <td>{{ item.dosage }}</td>
+                        <td>{{ item.frequency|replace('_', ' ')|title }}</td>
+                        <td>{{ item.duration }}</td>
+                        <td>{{ item.instructions or '-' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="empty-state-sm"><p>No medications on this prescription</p></div>
+        {% endif %}
+
+        {% if prescription.instructions %}
+        <div class="medical-section" style="margin-top: 1.5rem;">
+            <h4>General Instructions</h4>
+            <p>{{ prescription.instructions }}</p>
+        </div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

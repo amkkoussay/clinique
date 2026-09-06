@@ -1,9 +1,162 @@
 {% extends "base.html" %}
-{% block content %}
-<div class="card">
-    <h2>Edit Invoice</h2>
-    <form method="POST">{{ form.hidden_tag() }}
-        <button type="submit">Update</button>
-    </form>
+
+{% block title %}Edit Invoice - {{ config.CLINIC_NAME }}{% endblock %}
+
+{% block page_title %}Invoice {{ invoice.invoice_number }}{% endblock %}
+
+{% block page_actions %}
+<div class="page-actions">
+    <a href="{{ url_for('billing.view_invoice', invoice_id=invoice.id) }}" class="btn btn-outline">
+        <i class="fas fa-eye"></i> View
+    </a>
 </div>
+{% endblock %}
+
+{% block content %}
+<div class="content-card">
+    <div class="card-header">
+        <h3><i class="fas fa-user"></i> {{ invoice.patient.get_full_name() }}</h3>
+    </div>
+    <div class="card-body">
+        <!-- Items List -->
+        <h4>Invoice Items</h4>
+        {% if invoice.items.count() > 0 %}
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Description</th>
+                        <th>Qty</th>
+                        <th>Unit Price</th>
+                        <th>Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in invoice.items %}
+                    <tr>
+                        <td>{{ item.service_name }}</td>
+                        <td>{{ item.description or '-' }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>${{ "%.2f"|format(item.unit_price) }}</td>
+                        <td>${{ "%.2f"|format(item.total_price) }}</td>
+                        <td>
+                            <form method="POST" action="{{ url_for('billing.delete_invoice_item', item_id=item.id) }}"
+                                  onsubmit="return confirm('Remove this item?');">
+                                <button type="submit" class="btn btn-sm btn-icon" title="Remove">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="empty-state-sm"><p>No items added yet</p></div>
+        {% endif %}
+
+        <div class="info-grid" style="margin-top: 1rem;">
+            <div class="info-item">
+                <span class="info-label">Subtotal</span>
+                <span class="info-value">${{ "%.2f"|format(invoice.subtotal) }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Total</span>
+                <span class="info-value">${{ "%.2f"|format(invoice.total_amount) }}</span>
+            </div>
+        </div>
+
+        <!-- Add Item Form -->
+        <div class="form-section" style="margin-top: 1.5rem;">
+            <h4>Add Item</h4>
+            <form method="POST">
+                {{ item_form.hidden_tag() }}
+                <input type="hidden" name="add_item" value="1">
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="service_name">Service *</label>
+                        {{ item_form.service_name(class="form-control", placeholder="Service name", list="serviceList") }}
+                        <datalist id="serviceList">
+                            {% for s in services %}
+                            <option value="{{ s.service_name }}" data-price="{{ s.default_price }}" data-code="{{ s.service_code }}">
+                            {% endfor %}
+                        </datalist>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="service_code">Service Code</label>
+                        {{ item_form.service_code(class="form-control") }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    {{ item_form.description(class="form-control", rows="2") }}
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="quantity">Quantity *</label>
+                        {{ item_form.quantity(class="form-control") }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="unit_price">Unit Price *</label>
+                        {{ item_form.unit_price(class="form-control") }}
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-outline">
+                    <i class="fas fa-plus"></i> Add Item
+                </button>
+            </form>
+        </div>
+
+        <!-- Invoice Details -->
+        <div class="form-section" style="margin-top: 1.5rem;">
+            <h4>Invoice Details</h4>
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                <input type="hidden" name="update_invoice" value="1">
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="invoice_date">Invoice Date</label>
+                        {{ form.invoice_date(class="form-control", type="date") }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="due_date">Due Date</label>
+                        {{ form.due_date(class="form-control", type="date") }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Notes</label>
+                    {{ form.notes(class="form-control", rows="2") }}
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Save Invoice Details
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('service_name').addEventListener('input', function() {
+    const options = document.getElementById('serviceList').options;
+    for (let i = 0; i < options.length; i++) {
+        if (options[i].value === this.value) {
+            document.getElementById('unit_price').value = options[i].dataset.price;
+            document.getElementById('service_code').value = options[i].dataset.code;
+            break;
+        }
+    }
+});
+</script>
 {% endblock %}

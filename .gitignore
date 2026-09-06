@@ -1,46 +1,73 @@
-# Local Python environments
-.venv/
-venv/
-env/
-
-# Python generated files
+# Python
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
 *.py[cod]
 *$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 
-# Local databases and database backups
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Database
+clinic.db
 *.db
 *.sqlite
 *.sqlite3
-*.db-journal
+instance/
 
-# Runtime logs
+# Uploads
+static/uploads/*
+!static/uploads/.gitkeep
+
+# Logs
 *.log
 logs/
 
-# Local configuration and secrets
-.env
-.env.*
-!.env.example
-instance/
+# OS
+.DS_Store
+Thumbs.db
 
-# User-generated uploads and exports
-static/uploads/*
-!static/uploads/.gitkeep
-exports/
+# Flask
+.flaskenv
 
-# Test and tooling caches
-.pytest_cache/
-.mypy_cache/
+# Testing
 .coverage
 htmlcov/
+.pytest_cache/
+.tox/
 
-# OS/editor files
-.DS_Store
-.vscode/
-.idea/
-
-# Build artifacts
-build/
-dist/
-*.egg-info/
+# Documentation
+docs/_build/
