@@ -1,5 +1,6 @@
 """
-HIPAA-compliant data encryption module using Fernet (AES-128-CBC).
+Data encryption helper using Fernet (AES-128-CBC).
+Student demo project: no compliance certification of any kind.
 """
 from cryptography.fernet import Fernet
 import os

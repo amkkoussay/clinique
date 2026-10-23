@@ -1,7 +1,7 @@
 # Clinic Management Platform - Project Summary
 
 ## Overview
-A comprehensive, production-ready Clinic Management Platform built with Flask, SQLAlchemy, and modern web technologies. This platform provides complete healthcare practice management capabilities.
+A student-built clinic management demo web app built with Flask, SQLAlchemy, and modern web technologies, for local learning and testing with synthetic data only.
 
 ## Project Statistics
 - **Total Python Files**: 11
@@ -28,7 +28,7 @@ A comprehensive, production-ready Clinic Management Platform built with Flask, S
 ### Database (SQLite)
 - 15+ interconnected tables
 - Proper indexing for performance
-- Audit logging for compliance
+- Audit logging (request log, not a compliance certification)
 - JSON fields for flexible data storage
 
 ## Features Implemented
@@ -139,7 +139,7 @@ clinic-management-platform/
 - invoices (Billing)
 - services (Medical Services Catalog)
 - medicines (Medicine Database)
-- audit_logs (Compliance Logging)
+- audit_logs (Request Logging)
 
 ## Technology Stack
 - **Backend**: Flask 2.3+, SQLAlchemy 2.0+
@@ -168,4 +168,4 @@ For issues or questions, refer to README.md or create an issue in the repository
 ---
 **Version**: 1.0.0
 **Last Updated**: 2024
-**Status**: Production Ready
+**Status**: Demo / learning project

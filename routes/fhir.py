@@ -15,7 +15,7 @@ fhir_bp = Blueprint('fhir', __name__, url_prefix='/fhir')
 
 
 def log_fhir_action(action, resource_type, resource_id=None, description=None):
-    """Audit log helper for HIPAA compliance on FHIR requests."""
+    """Audit log helper for FHIR requests (request logging, not a compliance certification)."""
     user_email = current_user.email if (current_user and current_user.is_authenticated) else request.headers.get('X-User-Email', 'anonymous-fhir-client')
     user_id = current_user.id if (current_user and current_user.is_authenticated) else None
     
@@ -47,7 +47,7 @@ def fhir_swagger():
         "info": {
             "title": "Clinic FHIR R4 API",
             "version": "1.0.0",
-            "description": "FHIR R4 Compliant REST API for Patient, Appointment, and Observation resources with HIPAA security and audit logging."
+            "description": "FHIR R4-shaped REST API for Patient, Appointment, and Observation resources with request audit logging. Educational demo project — no compliance certification."
         },
         "servers": [
             {"url": "/fhir", "description": "Local FHIR Server"}
