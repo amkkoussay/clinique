@@ -12,8 +12,21 @@ DB = ROOT / 'clinic.db'
 SCHEMA_DB = ROOT / 'clinic_schema.db'
 BACKUP = ROOT / 'clinic.db.before-demo.bak'
 
-# Synthetic demo password hash for: Demo123!
-def password_hash(password='Demo123!'):
+# Seeded demo password: from CLINIQUE_DEMO_PASSWORD, or a DEMO-ONLY
+# default when that variable is unset. Seeded accounts are demo-only and
+# must be changed or removed before any real deployment. An environment
+# value is never printed; the default is printed, labelled DEMO-ONLY,
+# only when it is actually the password in use.
+DEMO_PASSWORD = os.environ.get('CLINIQUE_DEMO_PASSWORD')
+DEMO_PASSWORD_FROM_ENV = DEMO_PASSWORD is not None
+if not DEMO_PASSWORD_FROM_ENV:
+    print('NOTE: CLINIQUE_DEMO_PASSWORD is not set — using a DEMO-ONLY default password.')
+    DEMO_PASSWORD = 'Demo123!'
+
+
+def password_hash(password=None):
+    if password is None:
+        password = DEMO_PASSWORD
     salt = b'clinique-demo-salt-2026'
     key = hashlib.pbkdf2_hmac('sha256', password.encode(), salt, 600000, dklen=32)
     return 'pbkdf2:sha256:600000$clinique-demo-salt-2026$' + key.hex()
@@ -186,8 +199,12 @@ conn.commit()
 print('Demo database created:', DB)
 for table in ['users','patients','appointments','medical_records','prescriptions','lab_tests','vital_signs','invoices','invoice_items','payments','notifications']:
     print(f'{table}:', c.execute(f'select count(*) from {table}').fetchone()[0])
-print('\nDemo password for all accounts: Demo123!')
-print('Patient login examples: patient01@example.com / Demo123!')
-print('Doctor login: dr.amina.benali@clinique-demo.example / Demo123!')
-print('Admin login: admin@clinique-demo.example / Demo123!')
+if DEMO_PASSWORD_FROM_ENV:
+    print('\nDemo password for all accounts: from CLINIQUE_DEMO_PASSWORD (not printed)')
+else:
+    print("\nDemo password for all accounts (DEMO-ONLY default): Demo123!")
+print('WARNING: seeded accounts are demo-only — change or remove them before any real deployment.')
+print('Patient login examples: patient01@example.com')
+print('Doctor login: dr.amina.benali@clinique-demo.example')
+print('Admin login: admin@clinique-demo.example')
 conn.close()

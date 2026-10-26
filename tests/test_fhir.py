@@ -23,14 +23,30 @@ class TestFHIRAPI:
         assert response.status_code == 200
         assert b'FHIR R4 API Documentation' in response.data
 
-    def test_fhir_patient_get(self, client, sample_patient):
+    def test_fhir_patient_data_requires_login(self, client, sample_patient):
+        """Unauthenticated requests to patient-data routes must not succeed."""
+        for method, url in [
+            ('get', '/fhir/Patient'),
+            ('get', f'/fhir/Patient/{sample_patient.id}'),
+            ('post', '/fhir/Patient'),
+            ('get', '/fhir/Appointment'),
+            ('post', '/fhir/Appointment'),
+            ('get', '/fhir/Observation'),
+            ('post', '/fhir/Observation'),
+        ]:
+            response = getattr(client, method)(url, json={} if method == 'post' else None)
+            assert response.status_code in (302, 401), (method, url, response.status_code)
+
+    def test_fhir_patient_get(self, client, sample_patient, admin_user, login_as):
+        login_as(client, admin_user)
         response = client.get(f'/fhir/Patient/{sample_patient.id}')
         assert response.status_code == 200
         data = response.get_json()
         assert data['resourceType'] == 'Patient'
         assert data['id'] == str(sample_patient.id)
 
-    def test_fhir_patient_post_create(self, client):
+    def test_fhir_patient_post_create(self, client, admin_user, login_as):
+        login_as(client, admin_user)
         payload = {
             "resourceType": "Patient",
             "name": [{"family": "Smith", "given": ["Alice"]}],
@@ -45,7 +61,8 @@ class TestFHIRAPI:
         assert data['resourceType'] == 'Patient'
         assert data['name'][0]['family'] == 'Smith'
 
-    def test_fhir_appointment_get_and_post(self, client, sample_patient, admin_user):
+    def test_fhir_appointment_get_and_post(self, client, sample_patient, admin_user, login_as):
+        login_as(client, admin_user)
         # Create appointment via FHIR
         payload = {
             "resourceType": "Appointment",
@@ -69,7 +86,8 @@ class TestFHIRAPI:
         assert get_resp.status_code == 200
         assert get_resp.get_json()['status'] == 'booked'
 
-    def test_fhir_observation_get_and_post(self, client, sample_patient, admin_user):
+    def test_fhir_observation_get_and_post(self, client, sample_patient, admin_user, login_as):
+        login_as(client, admin_user)
         # Create observation (Medical Record) via FHIR
         payload = {
             "resourceType": "Observation",

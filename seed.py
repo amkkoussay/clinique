@@ -20,6 +20,25 @@ from app import create_app
 from models import db, User, Patient, Appointment
 
 
+_DEMO_DEFAULT_USED = set()
+
+
+def _seed_password(env_var, default):
+    """Seed password from the environment, or a clearly DEMO-ONLY default.
+
+    Seeded accounts are demo-only: they must be changed or removed before
+    any real deployment, and must never guard real patient data.
+    Environment values are never printed; a default is printed, labelled
+    DEMO-ONLY, only when it is actually the password in use.
+    """
+    value = os.environ.get(env_var)
+    if value:
+        return value
+    _DEMO_DEFAULT_USED.add(env_var)
+    print(f"  NOTE: {env_var} is not set — using a DEMO-ONLY default password.")
+    return default
+
+
 def seed_admin():
     """Create the default admin user if it doesn't exist."""
     admin = User.query.filter_by(email='admin@clinic.com').first()
@@ -32,10 +51,10 @@ def seed_admin():
             role='admin',
             is_active=True
         )
-        admin.set_password('admin123')
+        admin.set_password(_seed_password('CLINIQUE_SEED_ADMIN_PASSWORD', 'admin123'))
         db.session.add(admin)
         db.session.commit()
-        print("✓ Admin user created: admin@clinic.com / admin123")
+        print("✓ Admin user created: admin@clinic.com (DEMO-ONLY password)")
     else:
         print("✓ Admin user already exists")
 
@@ -82,7 +101,7 @@ def seed_doctors():
                 license_number=data['license_number'],
                 is_active=True
             )
-            doctor.set_password('doctor123')
+            doctor.set_password(_seed_password('CLINIQUE_SEED_DOCTOR_PASSWORD', 'doctor123'))
             db.session.add(doctor)
             db.session.commit()
             print(f"✓ Doctor created: {data['email']}")
@@ -197,9 +216,19 @@ def main():
         print("Seed complete!")
         print("=" * 50)
         print()
-        print("Login credentials:")
-        print("  Admin:  admin@clinic.com / admin123")
-        print("  Doctor: dr.smith@clinic.com / doctor123")
+        print("Login credentials (DEMO-ONLY):")
+        print("  Admin:  admin@clinic.com")
+        print("  Doctor: dr.smith@clinic.com")
+        if 'CLINIQUE_SEED_ADMIN_PASSWORD' in _DEMO_DEFAULT_USED:
+            print("  Admin password: DEMO-ONLY default 'admin123'")
+        else:
+            print("  Admin password: from CLINIQUE_SEED_ADMIN_PASSWORD (not printed)")
+        if 'CLINIQUE_SEED_DOCTOR_PASSWORD' in _DEMO_DEFAULT_USED:
+            print("  Doctor password: DEMO-ONLY default 'doctor123'")
+        else:
+            print("  Doctor password: from CLINIQUE_SEED_DOCTOR_PASSWORD (not printed)")
+        print("  WARNING: seeded accounts are demo-only — change or remove")
+        print("  them before any real deployment.")
         print()
         print("Run the app with: python app.py")
 

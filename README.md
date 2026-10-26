@@ -218,6 +218,13 @@ Example accounts:
 
 Use these accounts for local tests only.
 
+> **WARNING: seeded accounts are demo-only.** Change or remove them before
+> any real deployment, and never use them with real patient data. The demo
+> password can be overridden with the `CLINIQUE_DEMO_PASSWORD` environment
+> variable; `seed.py` likewise reads `CLINIQUE_SEED_ADMIN_PASSWORD` and
+> `CLINIQUE_SEED_DOCTOR_PASSWORD` (its defaults are DEMO-ONLY and are
+> labelled as such when printed).
+
 ## Project folders
 
 ```text

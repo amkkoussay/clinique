@@ -158,6 +158,7 @@ def get_or_create_default_doctor():
 # --- Patient Endpoints ---
 @fhir_bp.route('/Patient', methods=['GET', 'POST'])
 @fhir_bp.route('/Patient/<int:id>', methods=['GET', 'POST'])
+@login_required
 def fhir_patient(id=None):
     """FHIR Patient endpoint (GET/POST)."""
     if request.method == 'GET':
@@ -240,6 +241,7 @@ def fhir_patient(id=None):
 # --- Appointment Endpoints ---
 @fhir_bp.route('/Appointment', methods=['GET', 'POST'])
 @fhir_bp.route('/Appointment/<int:id>', methods=['GET', 'POST'])
+@login_required
 def fhir_appointment(id=None):
     """FHIR Appointment endpoint (GET/POST)."""
     if request.method == 'GET':
@@ -332,6 +334,7 @@ def fhir_appointment(id=None):
 # --- Observation Endpoints ---
 @fhir_bp.route('/Observation', methods=['GET', 'POST'])
 @fhir_bp.route('/Observation/<int:id>', methods=['GET', 'POST'])
+@login_required
 def fhir_observation(id=None):
     """FHIR Observation endpoint (GET/POST) mapping to MedicalRecord."""
     if request.method == 'GET':
