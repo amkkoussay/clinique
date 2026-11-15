@@ -24,7 +24,9 @@ def database_url():
 class Config:
     """Base configuration class."""
     
-    # Secret key for session management and CSRF protection
+    # Secret key for session management and CSRF protection.
+    # The hardcoded last resort is a DEVELOPMENT-ONLY convenience —
+    # ProductionConfig deliberately does not inherit it (see below).
     SECRET_KEY = (
         os.environ.get('SECRET_KEY')
         or os.environ.get('SESSION_SECRET')
@@ -103,11 +105,14 @@ class ProductionConfig(Config):
     """Production configuration."""
     DEBUG = False
     
-    # Use environment variable for secret key in production
+    # Use environment variable for secret key in production.
+    # NO fallback to the base config here: Config.SECRET_KEY ends in a
+    # hardcoded development default, and inheriting it would run
+    # production with a public, known key (forgeable sessions).
+    # create_app() refuses to start in production when this is unset.
     SECRET_KEY = (
         os.environ.get('SECRET_KEY')
         or os.environ.get('SESSION_SECRET')
-        or Config.SECRET_KEY
     )
     
     # Production database

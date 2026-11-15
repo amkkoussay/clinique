@@ -88,7 +88,16 @@ def create_app(config_name=None):
     # Load configuration
     from config import config
     app.config.from_object(config.get(config_name, config['default']))
-    
+
+    # Fail fast in production without a real secret key: the previous
+    # fallback chain ended in a hardcoded development default, which
+    # would let anyone forge sessions with a public, known key.
+    if config_name == 'production' and not app.config.get('SECRET_KEY'):
+        raise RuntimeError(
+            "SECRET_KEY (or SESSION_SECRET) environment variable is "
+            "required when running with the production config"
+        )
+
     # Ensure upload folder exists
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
     
