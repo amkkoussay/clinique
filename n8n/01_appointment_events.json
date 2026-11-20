@@ -20,7 +20,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const a=$json.appointment||{}; const event=$json.event||'appointment.updated'; const action=event==='appointment.cancelled'?'Cancelled':event==='appointment.rescheduled'?'Rescheduled':'Confirmed'; return [{json:{event,appointmentId:a.id,patientEmail:a.patient_email,patientName:a.patient_name,doctorName:a.doctor_name,date:a.date,start:a.start_time,status:a.status,subject:`Appointment ${action} - Clinic`,text:`Hello ${a.patient_name||'Patient'},\\n\\nYour appointment is ${action.toLowerCase()}.\\nDoctor: ${a.doctor_name||'-'}\\nDate: ${a.date||'-'}\\nTime: ${a.start_time||'-'}\\nStatus: ${a.status||'-'}\\n\\nClinic Team`}}];"
+        "jsCode": "const body=$json.body||$json; const a=body.appointment||{}; const event=body.event||'appointment.updated'; const action=event==='appointment.cancelled'?'Cancelled':event==='appointment.rescheduled'?'Rescheduled':'Confirmed'; return [{json:{event,appointmentId:a.id,patientEmail:a.patient_email,patientName:a.patient_name,doctorName:a.doctor_name,date:a.date,start:a.start_time,status:a.status,subject:`Appointment ${action} - Clinic`,text:`Hello ${a.patient_name||'Patient'},\\n\\nYour appointment is ${action.toLowerCase()}.\\nDoctor: ${a.doctor_name||'-'}\\nDate: ${a.date||'-'}\\nTime: ${a.start_time||'-'}\\nStatus: ${a.status||'-'}\\n\\nClinic Team`}}];"
       },
       "id": "2",
       "name": "Format Email",

@@ -475,7 +475,8 @@ def serialize_appointment(a, include_patient=True):
         'type': a.appointment_type, 'reason': a.reason,
     }
     if include_patient:
-        data.update({'patient_id': a.patient_id, 'patient_name': a.patient.get_full_name() if a.patient else None})
+        data.update({'patient_id': a.patient_id, 'patient_name': a.patient.get_full_name() if a.patient else None,
+                     'patient_email': a.patient.email if a.patient else None})
     return data
 
 

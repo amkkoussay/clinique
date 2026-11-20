@@ -44,11 +44,12 @@ def reminders_due():
     except Exception:
         tz = ZoneInfo('UTC')
     now = datetime.now(tz).replace(tzinfo=None)
+    today_local = datetime.now(tz).date()
     start = now + timedelta(hours=23, minutes=30)
     end = now + timedelta(hours=24, minutes=30)
     candidates = Appointment.query.filter(
         Appointment.status.in_(['scheduled', 'confirmed']),
-        Appointment.appointment_date >= date.today(),
+        Appointment.appointment_date >= today_local,
         Appointment.reminder_sent.is_(False),
     ).all()
     due = []

@@ -12,6 +12,7 @@ from sqlalchemy import and_
 from models import db, Appointment, Patient, User, AuditLog, Notification
 from forms import AppointmentForm
 from decorators import role_required
+from routes.chatbot import notify_n8n
 
 appointments_bp = Blueprint('appointments', __name__)
 
@@ -133,6 +134,8 @@ def create():
         
         db.session.add(appointment)
         db.session.commit()
+
+        notify_n8n('appointment.created', appointment)
         
         # Create notification for doctor
         create_notification(
@@ -267,6 +270,8 @@ def edit(appointment_id):
                                  appointment=appointment, 
                                  title='Edit Appointment')
         
+        _old_schedule = (appointment.appointment_date, appointment.start_time, appointment.end_time)
+        _old_status = appointment.status
         appointment.patient_id = form.patient_id.data
         appointment.doctor_id = form.doctor_id.data
         appointment.appointment_date = form.appointment_date.data
@@ -283,6 +288,11 @@ def edit(appointment_id):
         log_action('update', 'Appointment', appointment.id, 
                   f"Updated appointment for {appointment.patient.get_full_name()}")
         
+        if form.status.data == 'cancelled' and _old_status != 'cancelled':
+            notify_n8n('appointment.cancelled', appointment)
+        elif (appointment.appointment_date, appointment.start_time, appointment.end_time) != _old_schedule:
+            notify_n8n('appointment.rescheduled', appointment)
+
         flash('Appointment updated successfully.', 'success')
         return redirect(url_for('appointments.view', appointment_id=appointment_id))
     
@@ -304,6 +314,8 @@ def cancel(appointment_id):
     appointment.status = 'cancelled'
     appointment.updated_at = datetime.utcnow()
     db.session.commit()
+
+    notify_n8n('appointment.cancelled', appointment)
     
     log_action('cancel', 'Appointment', appointment.id, 
               f"Cancelled appointment for {appointment.patient.get_full_name()}")
@@ -348,6 +360,9 @@ def update_status(appointment_id, status):
             'status': appointment.status,
             'message': f"Appointment status updated to {status.replace('_', ' ').title()}."
         })
+
+    if status == 'cancelled':
+        notify_n8n('appointment.cancelled', appointment)
 
     flash(f"Appointment status updated to {status.replace('_', ' ').title()}.", 'success')
     return redirect(url_for('appointments.view', appointment_id=appointment_id))
