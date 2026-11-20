@@ -135,47 +135,27 @@ def register():
 
 @auth_bp.route('/reset-password-request', methods=['GET', 'POST'])
 def reset_password_request():
-    """Password reset request route."""
+    """Password reset request route.
+
+    Email-based password reset is NOT implemented in this build: no mail
+    is sent and no reset token exists. The page says so plainly instead
+    of pretending instructions were emailed. An administrator resets
+    passwords manually.
+    """
     if current_user.is_authenticated:
         return redirect(url_for('dashboard.index'))
-    
-    form = ResetPasswordRequestForm()
-    
-    if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data.lower()).first()
-        
-        if user:
-            # In a production environment, send email with reset link
-            # For now, we'll just show a message
-            log_action('password_reset_requested', 'User', user.id, 
-                      f"Password reset requested for {user.email}")
-            flash('Check your email for instructions to reset your password.', 'info')
-        else:
-            # Don't reveal if email exists
-            flash('Check your email for instructions to reset your password.', 'info')
-        
-        return redirect(url_for('auth.login'))
-    
-    return render_template('auth/reset_password_request.html', form=form, title='Reset Password')
+
+    return render_template('auth/reset_password_request.html', title='Reset Password')
 
 
 @auth_bp.route('/reset-password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
-    """Password reset route."""
-    if current_user.is_authenticated:
-        return redirect(url_for('dashboard.index'))
-    
-    # In production, verify token validity
-    # For now, we'll just show the form
-    form = ResetPasswordForm()
-    
-    if form.validate_on_submit():
-        # In production, get user from token
-        # For now, this is a placeholder
-        flash('Your password has been reset.', 'success')
-        return redirect(url_for('auth.login'))
-    
-    return render_template('auth/reset_password.html', form=form, title='Reset Password')
+    """Legacy reset link target.
+
+    This build issues no reset tokens, so every reset link lands on the
+    notice page instead of a form that cannot verify anything.
+    """
+    return redirect(url_for('auth.reset_password_request'))
 
 
 @auth_bp.route('/profile')

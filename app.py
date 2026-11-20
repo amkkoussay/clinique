@@ -396,4 +396,11 @@ def create_admin():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # Same settings as run.py: the debugger stays OFF unless FLASK_DEBUG=1
+    # is set on purpose. Never run with debug=True on a shared host — the
+    # Werkzeug debugger allows code execution from the browser.
+    app.run(
+        debug=os.environ.get('FLASK_DEBUG', '0') == '1',
+        host='0.0.0.0',
+        port=int(os.environ.get('PORT', '5000')),
+    )

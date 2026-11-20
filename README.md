@@ -254,6 +254,11 @@ __pycache__/
 
 The `.gitignore` file already ignores these common private files. The local demo data file is for local tests only.
 
+## Known limitations
+
+- **Password reset by email is not implemented.** No reset email is sent and no reset token exists. The "Forgot password" page says this plainly; a clinic administrator resets passwords manually.
+- Run the app with `python run.py` (or `python app.py`). The Flask debugger stays off unless you set `FLASK_DEBUG=1` on purpose.
+
 ## License and safety
 
 Keep patient data, passwords, and keys private. Use fake data for tests. Do not use this app as an automatic diagnosis system.
